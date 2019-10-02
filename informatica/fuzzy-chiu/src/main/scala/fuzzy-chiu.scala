@@ -49,6 +49,7 @@ object SparkFuzzyChiu {
     (xs zip ys).map{ case (x,y) => math.pow(y - x, 2) }.sum
   }
 
+  // TODO: cache() ?
   def main(args: Array[String]) = {
     // Configure spark
     val conf = new SparkConf().setAppName("FuzzyChiu")
@@ -64,7 +65,7 @@ object SparkFuzzyChiu {
 
     // Load input file into RDD
     val input = sc.textFile(inputFile)
-    val points = input.map(line => line.split(',').map(_.toDouble).toList).cache()
+    val points = input.map(line => line.split(',').map(_.toDouble).toList)
 
     var centers = List[List[Double]]()
     val pairs = points.cartesian(points)
