@@ -41,7 +41,7 @@ object SparkFuzzyChiu {
       result += ")\n"
     }
 
-    result += ("Longitud: " + centers.length)
+    result += ("Longitud: " + centers.length + "\n")
     result
   }
 
@@ -142,10 +142,10 @@ object SparkFuzzyChiu {
 
 
     if (saveFile) {
-      writeToFile("output/out.txt",resultToString(centers))
+      writeToFile("output/out.txt", resultToString(centers))
     }
     else {
-      println(resultToString(centers))
+      print(resultToString(centers))
     }
 
     // Stop spark
