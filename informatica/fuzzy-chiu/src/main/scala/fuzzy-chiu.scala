@@ -8,12 +8,13 @@ import java.io.File
 import java.io.PrintWriter
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkConf
+import org.apache.spark.HashPartitioner
 
 object SparkFuzzyChiu {
 
   /********** Constants *************/
 
-  val ra = 1
+  val ra = 0.3
   val rb = 1.5 * ra
   val alpha = 4 / (ra * ra)
   val beta = 4 / (rb * rb)
@@ -33,15 +34,17 @@ object SparkFuzzyChiu {
   }
 
   def resultToString(centers : List[List[Double]]) = {
-    var result = "Centros:\n"
+    var result = ""
     for (center <- centers) {
-      result += "("
-      for (elem <- center)
-        result += (elem + ", ")
-      result += ")\n"
-    }
+      for (i <- 0 to center.length - 1) {
+        result += center(i)
 
-    result += ("Longitud: " + centers.length + "\n")
+        if (i != center.length - 1)
+          result += ","
+        else
+          result += "\n"
+      }
+    }
     result
   }
 
@@ -49,8 +52,8 @@ object SparkFuzzyChiu {
     (xs zip ys).map{ case (x,y) => math.pow(y - x, 2) }.sum
   }
 
-  // TODO: cache() ?
   def main(args: Array[String]) = {
+
     // Configure spark
     val conf = new SparkConf().setAppName("FuzzyChiu")
     val sc = new SparkContext(conf)
@@ -60,6 +63,7 @@ object SparkFuzzyChiu {
       Console.err.println("error: se necesita un fichero de entrada\n")
       sys.exit(1)
     }
+
     if (fs_hdfs)
       inputFile = "file://" + inputFile
 
@@ -67,24 +71,41 @@ object SparkFuzzyChiu {
     val input = sc.textFile(inputFile)
     val points = input.map(line => line.split(',').map(_.toDouble).toList)
 
+    println("----> LEÍDOS " + points.count + " PUNTOS\n")
+
     var centers = List[List[Double]]()
     val pairs = points.cartesian(points)
 
     // Compute initial potential
     var potential = pairs.map{ case (a,b) => (a,
                     math.exp(-alpha * distanceSquared(a, b)))}
+                    .partitionBy(new HashPartitioner(101))
                     .reduceByKey(_ + _)
+                    .cache()
 
     var chosenTuple = potential.max()(Ordering[Double].on(x => x._2))
-    var firstCenterPotential = chosenTuple._2
+    var chosenCenter = chosenTuple._1
+    var firstCenterPotential, chosenPotential = chosenTuple._2
     var numPoints = points.count()
 
-    var stop = false
-    var test = false // don't test first center
-    while (!stop) {
+    println("POTENCIAL ELEGIDO: " + chosenPotential)
 
-      var chosenCenter = chosenTuple._1
-      var chosenPotential = chosenTuple._2
+    // First center
+    centers = chosenCenter :: centers
+
+    var stop = false
+    var test = true
+    while (!stop) {
+      // Revise potential of points
+      potential = potential.map{case (a,b) => (a,
+                    b - chosenPotential * math.exp(-beta * distanceSquared(a, chosenCenter)))}.cache()
+
+      // Find new center
+      chosenTuple = potential.max()(Ordering[Double].on(x => x._2))
+      chosenCenter = chosenTuple._1
+      chosenPotential = chosenTuple._2
+      test = true
+      println("POTENCIAL ELEGIDO: " + chosenPotential)
 
       // Check stopping condition
       while (test) {
@@ -108,7 +129,7 @@ object SparkFuzzyChiu {
                      .reduceLeft(_ min _)
 
           // Accept and continue
-          if (dmin / ra + chosenPotential / firstCenterPotential >= 1) {
+          if ((dmin / ra) + (chosenPotential / firstCenterPotential) >= 1) {
             centers = chosenCenter :: centers
             test = false
             if (centers.length >= numPoints)
@@ -118,7 +139,7 @@ object SparkFuzzyChiu {
           // Reject and re-test
           else {
             potential = potential.map{case (a,b) => (a,
-                               {if (a == chosenCenter) 0.0 else b})}
+                              {if (a == chosenCenter) 0.0 else b})}.cache()
 
             // Find new center
             chosenTuple = potential.max()(Ordering[Double].on(x => x._2))
@@ -127,23 +148,12 @@ object SparkFuzzyChiu {
           }
         }
       }
-
-      // Revise potential of points
-      potential = potential.map{case (a,b) => (a,
-                          b - chosenPotential * math.exp(-beta * distanceSquared(a, chosenCenter)))}
-
-      if (!stop) {
-        // Find new center
-        chosenTuple = potential.max()(Ordering[Double].on(x => x._2))
-        chosenCenter = chosenTuple._1
-        chosenPotential = chosenTuple._2
-        test = true
-      }
     }
 
+    println("\n----> NÚMERO DE CENTROS ENCONTRADOS: " + centers.length)
 
     if (saveFile) {
-      writeToFile("output/out.txt", resultToString(centers))
+      writeToFile("output/out_denorm.txt", resultToString(centers))
     }
     else {
       print(resultToString(centers))
