@@ -1,6 +1,6 @@
 /*
 Distributed fuzzy cluster estimation method.
-Antonio Coín.
+Antonio Coín Castro.
 */
 
 import scala.io.Source
@@ -70,11 +70,40 @@ object SparkFuzzyChiu {
     // Load input file into RDD
     val input = sc.textFile(inputFile)
     val points = input.map(line => line.split(',').map(_.toDouble).toList)
+    val indexed = points.zipWithIndex()
+    val indexedPoints = indexed.map{case (k, v) => (v, k)}
+
+    val numPoints = points.count()
+    var centers = List[List[Double]]()
 
     println("----> LEÍDOS " + points.count + " PUNTOS\n")
 
-    var centers = List[List[Double]]()
+    println("----> PAREJAS HECHAS\n")
+
     val pairs = points.cartesian(points)
+
+    val indices = sc.parallelize(
+                    for(i <- 0L until numPoints; j <- 0L until numPoints; if i > j) yield (i, j))
+    val joined = indices.join(indexedPoints).map {case (i, (j, v)) => (j, (i, v))}
+    val d1 = joined.join(indexedPoints).map {case (j, ((i, v1), v2)) => (i, (v1, v2))}
+    val d2 = joined.join(indexedPoints).map {case (j, ((i, v1), v2)) => (j, (v1, v2))}
+    val dist1 = d1.mapValues{case (v1, v2) => math.exp(-alpha * distanceSquared(v1, v2))}.
+                reduceByKey(_ + _)
+    val dist2 = d2.mapValues{case (v1, v2) => math.exp(-alpha * distanceSquared(v1, v2))}.
+                            reduceByKey(_ + _)
+    val pot = dist1.join(dist2).mapValues{x => x.productIterator.toList.map{y => y.asInstanceOf[Double]}.sum + 1}
+
+
+    println("-----> COSAS\n")
+
+    var b = dist1.collect()
+    for(p <- b) {
+      println(p)
+    }
+    var c = dist2.collect()
+    for(p <- b) {
+      println(p)
+    }
 
     // Compute initial potential
     var potential = pairs.map{ case (a,b) => (a,
@@ -83,12 +112,16 @@ object SparkFuzzyChiu {
                     .reduceByKey(_ + _)
                     .cache()
 
+    /**println("POTENCIALES INICIALES:")
+    var h = potential.collect()
+    for (i <- h)
+      println(i._2)*/
+
     var chosenTuple = potential.max()(Ordering[Double].on(x => x._2))
     var chosenCenter = chosenTuple._1
     var firstCenterPotential, chosenPotential = chosenTuple._2
-    var numPoints = points.count()
 
-    println("POTENCIAL ELEGIDO: " + chosenPotential)
+    println("\nPOTENCIAL ELEGIDO: " + chosenPotential)
 
     // First center
     centers = chosenCenter :: centers

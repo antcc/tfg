@@ -54,6 +54,7 @@ def main():
     if (sys.argv[1] == "--norm"):
         if (len(sys.argv) < 4):
             print("error: para normalizar debe proporcionarse un archivo con el rango de los datos en cada columna.")
+            sys.exit(1)
 
         range_cols = np.genfromtxt(sys.argv[3], delimiter=',')
         norm(data, nrows, ncols, range_cols)
@@ -62,6 +63,7 @@ def main():
     elif (sys.argv[1] == "--denorm"):
         if (len(sys.argv) < 4):
             print("error: para normalizar debe proporcionarse un archivo con el rango de los datos en cada columna.")
+            sys.exit(1)
 
         range_cols = np.genfromtxt(sys.argv[3], delimiter=',')
         denorm(data, nrows, ncols, range_cols)
