@@ -1,0 +1,38 @@
+# PDF output
+*.pdf
+
+# Latexmk
+*.fdb_latexmk
+*.aux
+*.glo
+*.bcf
+*.code
+*.idx
+*.fls
+*.log
+*.toc
+*.ist
+*.acn
+*.acr
+*.alg
+*.dvi
+*.glg
+*.gls
+*.ilg
+*.ind
+*.lof
+*.wrt
+*.lot
+*.maf
+*.thm
+*.mtc
+*.wrt
+*.run.xml
+*.mtc1
+*.out
+*.synctex.gz
+*.synctex
+
+# BibTeX
+*.bbl
+*.blg
