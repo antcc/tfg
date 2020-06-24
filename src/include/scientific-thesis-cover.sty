@@ -46,7 +46,7 @@
 \DeclareStringOption[author not set]{author}
 \DeclareStringOption[bachelor]{type}
 \DeclareStringOption[fac]{institute}
-\DeclareStringOption[dep]{department}
+\DeclareStringOption[dep]{faculty}
 \DeclareStringOption[]{number} % running number
 \DeclareStringOption[cs]{course}
 \DeclareStringOption[supervisor not set]{supervisor}
@@ -71,7 +71,7 @@
 \def\labelsenglish{
     %\gdef\@labelprueferin{Examiner}%
     \gdef\@labelSupvervisor{Supervisors}%
-    \gdef\@labelDepartment{Departments}%
+    \gdef\@labelfaculty{Faculties}%
     %\gdef\@labelbetreuerin{Supervisor}%
     \gdef\@labelCourse{Course of study}%
     \gdef\@labelStartdate{Commenced}%
@@ -192,8 +192,8 @@
 }
 
 \newcommand{\USCCover@setDpt} {
-  \gdef\@labelDepartment{\MCS@department}
-  \def\1{\MCS@department}
+  \gdef\@labelfaculty{\MCS@faculty}
+  \def\1{\MCS@faculty}
 }
 
 % ------------------------------
@@ -357,7 +357,7 @@
                         \vfill}%
                 \vbox to 35mm{%
                         \begin{USCCover@TBlist}%
-                            \item[\@labelDepartment:]\MCS@department
+                            \item[\@labelfaculty:]\MCS@faculty
                         \end{USCCover@TBlist}%
                         \vfill}%
 
