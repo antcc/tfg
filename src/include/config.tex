@@ -66,10 +66,10 @@
 %
 % EN: Options must be passed this way, otherwise it does not work with glossaries
 % DE: fleqn (=Gleichungen linksbündig platzieren) funktioniert nicht direkt. Es muss noch ein Patch gemacht werden:
-\PassOptionsToPackage{fleqn,leqno}{amsmath}
+%\PassOptionsToPackage{fleqn,leqno}{amsmath}
 %
 % DE: amsmath Muss nicht mehr geladen werden, da es von newtxmath automatisch geladen wird
-% \usepackage{amsmath}
+%usepackage{amsmath}
 
 
 %% EN: Fonts
@@ -236,11 +236,9 @@
 
 
 % EN: For theorems, replacement for amsthm
-\usepackage[amsmath,hyperref]{ntheorem}
+\usepackage[amsmath,hyperref,thmmarks]{ntheorem}
 \theorempreskipamount 2ex plus1ex minus0.5ex
 \theorempostskipamount 2ex plus1ex minus0.5ex
-\theoremstyle{break}
-\newtheorem{definition}{Definition}[section]
 
 
 % CTAN: https://ctan.org/pkg/lccaps
