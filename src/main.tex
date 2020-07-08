@@ -6,6 +6,7 @@
   a4paper,  % Standard format - only KOMAScript uses paper=a4 - https://tex.stackexchange.com/a/61044/9075
   twoside,  % we are optimizing for both screen and two-side printing. So the page numbers will jump, but the content is configured to stay in the middle (by using the geometry package)
   bibliography=totoc,
+  %listof=totoc, %to add list of figures to toc
   %               idxtotoc,   %Index ins Inhaltsverzeichnis
   %               liststotoc, %List of X ins Inhaltsverzeichnis, mit liststotocnumbered werden die Abbildungsverzeichnisse nummeriert
   headsepline,
@@ -27,6 +28,13 @@
   language=english
 ]{\string"include/scientific-thesis-cover"}
 
+% Licensing
+\usepackage[
+    type={CC},
+    modifier={by-sa},
+    version={4.0},
+]{doclicense}
+
 \input{acronyms}
 
 %% Math environments
@@ -39,19 +47,33 @@
 \theorembodyfont{\normalfont}
 \newtheorem{definition}[theorem]{Definition}
 
-\theoremheaderfont{\normalfont\itshape}
+\theoremheaderfont{\scshape}
 \newtheorem{example}[theorem]{Example}
 
 \theoremstyle{nonumberplain}
+%\theoremheaderfont{\hspace*{\parindent}\normalfont\itshape}
+\theoremheaderfont{\normalfont\itshape}
 \newtheorem{remark}[theorem]{Remark}
 
-\renewcommand{\qed}{\blacksquare}
+\renewcommand{\qed}{\ensuremath{\blacksquare}}
 \theoremsymbol{\qed}
 \newtheorem{proof}{Proof}
 
+% Lists
+\usepackage[shortlabels]{enumitem}
+%\setlist{itemsep=0.05em}
+\setlist{noitemsep}
+\setlist[1]{labelindent=\parindent} % < Usually a good idea
+\setlist[enumerate,1]{label=\emph(\roman*)}
+
 \makeindex
 
+\usepackage{bookmark}
+
+\renewcommand*{\glstextformat}[1]{\textcolor{black}{#1}}
+
 \begin{document}
+%\setlength{\belowdisplayshortskip}{.5em}
 
 \frontmatter
 %tex4ht-Konvertierung verschönern
@@ -71,7 +93,6 @@
   }
 \fi
 
-
 \input{include/commands}
 \pagenumbering{roman}
 \Coverpage
@@ -81,8 +102,25 @@
 
 \pagestyle{empty}
 \renewcommand*{\chapterpagestyle}{empty}
-\Versicherung
+\pagebreak
+\hspace{0pt}
+%\vspace{17cm}
+\vfill
+\begin{center}
+    \begin{minipage}[t]{12.5cm}
+        \doclicenseThis
+    \end{minipage}
+\end{center}
+\vfill
+\hspace{0pt}
+\pagebreak
 \cleardoublepage
+
+%%% Declaration
+%\pagestyle{empty}
+%\renewcommand*{\chapterpagestyle}{empty}
+%\Versicherung
+%\cleardoublepage
 
 %Eigener Seitenstil fuer die Kurzfassung und das Inhaltsverzeichnis
 \deftripstyle{preamble}{}{}{}{}{}{\pagemark}
@@ -104,9 +142,9 @@
 
 \cleardoublepage
 
-\section*{Resumen extendido en español}
+\section*{Resumen extendido}
 
-<Resumen de unas 1500 palabras del trabajo>
+<Resumen de unas 1500 palabras del trabajo (en español)>
 
 \cleardoublepage
 
@@ -135,13 +173,16 @@
 %\renewcommand{\@pnumwidth}{2em}
 %\makeatother
 %
+{\hypersetup{linkcolor=black}
+% or \hypersetup{linkcolor=black}, if the colorlinks=true option of hyperref is used
 \tableofcontents
-
+}
 % Bei einem ungünstigen Seitenumbruch im Inhaltsverzeichnis, kann dieser mit
 % \addtocontents{toc}{\protect\newpage}
 % an der passenden Stelle im Fließtext erzwungen werden.
 
-\listoffigures
+%\listoffigures
+%\addcontentsline{toc}{chapter}{List of Figures}
 %\listoftables
 
 %Wird nur bei Verwendung von der lstlisting-Umgebung mit dem "caption"-Parameter benoetigt
@@ -161,9 +202,6 @@
 %  \listof{Algorithmus}{List of Algorithms}
 %\fi
 %\listofalgorithms %Ist nur für Algorithmen, die mittels \begin{algorithm} umschlossen werden, nötig
-
-% Abkürzungsverzeichnis
-\printnoidxglossaries
 
 \iftex4ht
 \else
@@ -215,9 +253,6 @@
 
 
 
-
-
-par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % Main content starts here
@@ -225,20 +260,38 @@ par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \mainmatter
 
+\setpartpreamble[u][\textwidth]{\vspace*{2em}\centering \large \emph{Computer Science}}
+\part{Fuzzy systems for Big Data computing}
+
 \chapter{Introduction}
 \label{chap:k1}
-\input{\TPath/intro}
-
-\part{Fuzzy systems for Big Data computing}
+\input{\TPath/intro1}
 
 \chapter{Fuzzy set theory}
 \input{\TPath/ch2}
 
+\setpartpreamble[u][\textwidth]{\vspace*{2em}\centering \large \emph{Mathematics}}
 \part{Ordinary differential equations not solved for the derivative}
+
+\chapter{Introduction}
+\label{chap:k1}
+\input{\TPath/intro2}
 
 \chapter{Basic concepts}
 \input{\TPath/ch3}
 
+
+
+
+%%%% End part
+\bookmarksetup{startatroot}% this is it
+\addtocontents{toc}{\bigskip}% perhaps as well
+
+%%% Acronyms
+% Abkürzungsverzeichnis
+\printnoidxglossaries
+\addcontentsline{toc}{chapter}{Acronyms}
+\cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -246,11 +299,11 @@ par
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\nocite{*}
-%\printbibliography
 
-%All links were last followed on September 7, 2020.
+\nocite{*}
+\printbibliography
 
-%\cleardoublepage
+\noindent All links were last followed on September 7, 2020.
+
 
 \end{document}

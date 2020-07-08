@@ -1,8 +1,15 @@
-# tfg
 Trabajo de Fin de Grado del Doble Grado de Ingeniería Informática y Matemáticas de la Universidad de Granada. Curso 2019/20.
+----
 
-## Informática: Sistemas difusos para computación en Big Data.
+# Bachelor's Thesis
 
-El código desarrollado se encuentra en un [repositorio separado](https://github.com/antcc/fuzzyspark).
+Bachelor's Thesis in Computer Science and Mathematics at the University of Granada.
 
-## Matemáticas: Ecuaciones diferenciales no resolubles respecto de la derivada.
+This work is licensed under a [Creative Commons
+"Attribution-ShareAlike 4.0 International"](http://creativecommons.org/licenses/by-sa/4.0/) license.
+
+## Computer Science: Fuzzy systems for Big Data computing.
+
+The code developed is available on a [separate repository](https://github.com/antcc/fuzzyspark).
+
+## Mathematics: ordinary differential equations not solved for the derivative.

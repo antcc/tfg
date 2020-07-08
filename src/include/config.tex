@@ -79,7 +79,6 @@
 %% !!! still be copied from the PDF. If this is not the case, you have
 %% !!! to use glyphtounicode. See comment at cmap package
 
-
 % EN: Times Roman for all text
 \ifluatex
   % source: Second proposed fix from the following answer: https://tex.stackexchange.com/a/394137
@@ -767,7 +766,6 @@
 \definecolor{darkblue}{rgb}{0,0,.5}
 \definecolor{black}{rgb}{0,0,0}
 
-
 % EN: Define color of links and more
 \hypersetup{
   bookmarksnumbered=true,
@@ -780,8 +778,8 @@
   %pdfencoding=utf8, % EN: This is probably the same as passing the option "unicode" at \usepackage{hyperref}
   filecolor=darkblue,
   urlcolor=darkblue,
-  linkcolor=black,
-  citecolor=black
+  linkcolor=teal,
+  citecolor=Maroon
 }
 
 
@@ -1087,7 +1085,7 @@
 \usepackage[
   left=3cm,right=3cm,top=2.5cm,bottom=2.5cm,
   headsep=18pt,
-  footskip=30pt,
+  footskip=35pt,
   includehead,
   includefoot
 ]{geometry}

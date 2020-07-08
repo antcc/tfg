@@ -1,0 +1,20 @@
+\documentclass[tikz]{standalone}
+\usetikzlibrary{calc}
+\begin{document}
+
+\begin{tikzpicture}
+\def\xmax{3} \def\xmin{-3}
+\def\ymax{3} \def\ymin{-3}
+\def\r{3.5}
+
+\def\n{30}
+\def\h{360 / \n}
+
+\foreach \a in {0,...,\n}
+        \draw[teal, dashed, thin] 
+        (0,0) -- ({\r * cos(\h * \a)}, {\r * sin(\h * \a)}); 
+
+\draw[->] (\xmin-.5,0)--(\xmax+.5,0) node[right] {$x$};
+\draw[->] (0,\ymin-.5)--(0,\ymax+.5) node[above] {$y$};
+\end{tikzpicture}
+\end{document}

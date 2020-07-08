@@ -1,6 +1,171 @@
+%
+% Copyright (c) 2020 Antonio Coín Castro
+%
+% This work is licensed under a
+% Creative Commons Attribution-ShareAlike 4.0 International License.
+%
+% You should have received a copy of the license along with this
+% work. If not, see <http://creativecommons.org/licenses/by-sa/4.0/>.
+
+In this chapter we will introduce the basic terminology needed to understand the theory that will subsequently be developed. We will present ordinary differential equations and their solutions in a rigorous manner, as well as some concepts intimately related to them, such as integral curves and initial value problems, and analyze how these equations fit into the general theory of differentiable functions. At the same time, we will set the notation that will be used throughout the exposition. The main reference for this chapter is \cite{petrovski1966ordinary}.
+
+\section{Ordinary differential equations}
+
 By an \textit{ordinary differential equation of order $n$} we mean a relation of the form
 \begin{equation}
 \label{eq:ode}
-F(x, y, y', \dots, y^{(n)}),
+F(x, y, y', \dots, y^{(n)}) = 0,
 \end{equation}
-where $F$ is a real-valued function of $n+1$ real variables, $x$ is an independent variable, $y=y(x)$ is an unknown function and $y', \dots, y^{(n)}$ are the first $n$ derivatives of this function with respect to $x$. When the value of $n$ is understood or simply not relevant, we will refer to \eqref{eq:ode} only as an \gls{ode}.
+where $F$ is a real-valued function of $n+1$ real variables, $x$ is an independent variable, $y=y(x)$ is an unknown function and $y', \dots, y^{(n)}$ are the first $n$ derivatives of this function with respect to $x$. When the value of $n$ is understood or simply not relevant, we will refer to \eqref{eq:ode} only as an \gls{ode}, with the word \textit{ordinary} meaning that the unknown function depends solely on one independent variable. A central concept in our study will be that of a solution of such a differential equation, which is rigorously defined below.
+
+\begin{definition}
+  \label{def:solution}
+  A \textit{solution} of the differential equation \eqref{eq:ode} is a function $\phi: I \to \R$, where $I=(a,b)$, $-\infty \leq a < b \leq \infty$, is some open interval of the real line, satisfying the following conditions:
+
+  \begin{enumerate}
+    \item The function $\phi$ has derivatives up to order $n$.
+    \item The identity $F(x, \phi(x), \phi'(x), \dots, \phi^{(n)}(x)) = 0$ holds for all $x \in I$.
+  \end{enumerate}
+  The process of finding solutions of a differential equation is also known as \textit{integrating} the equation.
+\end{definition}
+
+From now on, unless otherwise stated we will restrict ourserlves to \textit{first order} ODEs, which take the general form
+\begin{equation}\label{eq:fode}
+  F(x,y,y') = 0,
+\end{equation}
+and thus their solutions are differentiable functions of $x$ that reduce the equation to an identity when substituted for $y$. Furthermore, we will initially consider differential equations in \textit{explicit} form, that is,
+\begin{equation}
+  \label{eq:fode-explicit}
+  y' = f(x, y),
+\end{equation}
+and we will assume that the function $f(x,y)$ is defined on some domain (open and connected subset) $G$ of the $xy$-plane.
+
+\begin{remark}
+  Sometimes we will find it more useful to use Leibniz's notation and express the above equation as
+  \begin{equation*}
+    \der = f(x,y).
+  \end{equation*}
+
+\end{remark}
+
+\section{Geometric interpretation of ODEs}
+
+Continuing our description of differential equations, we shall now present a natural interpretation of equations such as \eqref{eq:fode-explicit} and a way to visualize them in the plane. To begin with, suppose that we draw a short line segment through every point $(x,y)$ of $G$ with slope equal to $f(x,y)$, obtaining a set of directions in $G$ that is called the \textit{direction field} of equation \eqref{eq:fode-explicit}. In other words, we transform our (known) function $f$ in a vector field on its domain. At this point we can restate the problem of solving \eqref{eq:fode-explicit} from a geometric perspective:
+\begin{quotation}
+  \itshape
+  Find all differentiable curves $y=\phi(x)$ in $G$ whose tangents have directions belonging to the direction field of \eqref{eq:fode-explicit}.
+\end{quotation}
+To see how this is equivalent to solving \eqref{eq:fode-explicit}, one need only recall that the slope of the tangent of a (differentiable) curve at any point coincides with its derivative at that point, and then look at Definition \ref{def:solution}. However, this formulation of the problem has two noticeable caveats from a geometric point of view:
+
+\begin{enumerate}[1.]
+  \item By considering only \textit{graphs} over the $x$-axis we are excluding curves that are intersected more than once by vertical lines.
+  \item The imposition that the slope of the direction field generated in $G$ be given by $f$ automatically excludes directions parallel to the $y$-axis, because $f$ would need to be infinite at those points.
+\end{enumerate}
+
+We are interested in looking at solutions of differential equations in a more general setting. This is why, based on the previous reformulation, we will develop a broader concept of solution with a strong geometrical meaning, one that will address both difficulties outlined above. In the first place, we allow general curves in parametric form, that is, $x=\lambda(t)$, $y=\mu(t)$, for $-\infty \leq \alpha < t < \beta \leq \infty$. This solves the first problem. To overcome the second limitation, in addition to equation \eqref{eq:fode-explicit} we consider the associated differential equation
+\begin{equation}
+  \tag{\ref*{eq:fode-explicit}'}
+  \label{eq:fode-explicit1}
+  \frac{dx}{dy} = f_1(x,y),
+\end{equation}
+where
+\begin{equation*}
+  f_1(x,y) = \frac{1}{f(x,y)}.
+\end{equation*}
+The rationale behind this decision is to allow the function $f$ to become infinite at some points (representing a vertical slope), and shift our perspective from the $x$-axis to the $y$-axis at those points. In this way, at points where both $f$ and $f_1$ are defined we can use either \eqref{eq:fode-explicit} or \eqref{eq:fode-explicit1} to construct the direction field, but we use \eqref{eq:fode-explicit1} at points where $f$ becomes infinite\footnote{At each point of $G$, at least one of $f$ or $f_1$ are defined, for $f=0$ if and only if $f_1$ is infinite, and $f_1=0$ if and only if $f$ is infinite.}.
+
+We are now ready to define our new, more general concept of solution, which will necessarily be related not only to the original equation, but also to the newly defined associated equation. We will restrict ourserlves to the class of \textit{smooth} \textit{regular} curves, that is, continuously differentiable curves with nonvanishing derivative everywhere. From now on, all curves will implicitly be assumed to belong to this class.
+
+\begin{definition}\label{def:integral-curves}
+  An \textit{integral curve} of equations \eqref{eq:fode-explicit} and \eqref{eq:fode-explicit1} is a \textit{smooth} \textit{regular} curve whose tangent at each point has a direction specified by the direction field of said equations.
+\end{definition}
+
+Given that equations \eqref{eq:fode-explicit} and \eqref{eq:fode-explicit1} are closely related, sometimes we will use the singular form to encompass both of them as a single equation. As we are looking at curves in parametric form, to obtain an explicit formula in this case we may first apply the chain rule,
+\begin{equation*}
+  \frac{dy}{dt} = \der \frac{dx}{dt},
+\end{equation*}
+and then we solve for $dy/dx$, getting
+\begin{equation}
+  \label{eq:fode-mn}
+  \der = \frac{dy/dt}{dx/dt} = \frac{M(x, y)}{N(x, y)}.
+\end{equation}
+If the chosen curve does indeed satisfy the equation, then $f = M/N$ will hold. For simplicity we will seldom write down explicitly the associated equation,
+\begin{equation}
+  \tag{\ref*{eq:fode-mn}'}
+  \frac{dx}{dy} = \frac{N(x,y)}{M(x,y)} = f_1(x,y),
+\end{equation}
+but we shall sometimes write \eqref{eq:fode-mn} as
+\begin{equation*}
+  M\,dx - N\, dy = 0,
+\end{equation*}
+to stress the symmetry in $x$ and $y$. This equation specifies a direction field at every point where both $M$ and $N$ are defined and at least one of them is nonzero.
+
+Even though we are allowing general curves in parametric form, they are not (the graph of) a true solution of our equation unless we restrict them to some interval in which they can be expressed as a graph. We can think of the family of all solutions to equation \eqref{eq:fode-explicit} as a subset of the family of integral curves of \eqref{eq:fode-explicit} and \eqref{eq:fode-explicit1}, restricted to a suitable interval if need be. An example visualization of direction fields and integral curves is shown in Figure \ref{fig:integral-curves-ex}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=.5\textwidth]{integral-curves-1}
+  \caption{Direction field of the equation $y'=x^2+y$ near the origin and a particular integral curve.}
+  \label{fig:integral-curves-ex}
+\end{figure}
+
+The requirement that integral curves be regular guarantees that we can always shrink their domain so that they become a graph, and hence a solution to our differential equation. The following result delves into that question.
+
+\begin{prop}
+  Every point in a smooth regular curve belongs to an arc which is a smooth graph.
+\end{prop}
+
+\begin{proof}
+  Let $x=\lambda(t)$, $y=\mu(t)$, $\alpha < t < \beta$ be a smooth regular curve, and pick $t_0 \in (\alpha, \beta)$. The regularity of the curve guarantees that either $\lambda'(t_0)$ or $\mu'(t_0)$ is nonzero, so suppose without loss of generality that $\lambda'(t_0) \neq 0$. Since $\lambda'(t_0)$ is continuous by assumption, there exists an $\epsilon > 0$ such that $\lambda'(t)\neq 0$ for $t \in (t_0 - \epsilon, t_0 + \epsilon)$, and then the equation $x=\lambda(t)$ has a unique smooth solution in $t$ by virtue of the \textit{implicit function theorem} (see \cite[207]{de2000mathematical}). Then, by eventually shrinking $\epsilon$ we may write $t=\psi(x)$, $\lambda(t_0 - \epsilon) < x < \lambda(t_0 + \epsilon)$. Substituting in $y=\mu(t)$ yields $y=\mu(\psi(x)) = \phi(x)$, $\lambda(t_0 - \epsilon) < x < \lambda(t_0 + \epsilon)$, which is the equation of a smooth graph.
+\end{proof}
+
+\begin{remark} The conditions on integral curves in Definition \ref{def:integral-curves} imply that our solutions are also smooth, that is, continuously differentiable.
+\end{remark}
+
+We can illustrate the previous definitions and properties with a simple example.
+
+\begin{example}
+  Consider the equation
+  \begin{equation*}
+    \der = \frac{y}{x},
+  \end{equation*}
+  which we can also write as
+  \begin{equation*}
+    x\,dy = y\,dx.
+  \end{equation*}
+  Solving it by elementary methods gives the family of solutions
+  \begin{equation*}
+    y =kx, \quad x \in \R - \{0\}, \ k \in \R.
+  \end{equation*}
+  On the other hand, this equation defines a direction field in the whole plane minus the origin. To find its integral curves we consider the associated equation $dx/dy = x/y$ in the subset
+  \begin{equation*}
+    \{(0, y): y \in \R - \{0\}\}
+  \end{equation*}
+  of the plane. Combining both equations we can see that the set of all integral curves is given by the relation
+  \begin{equation*}
+    ax+by=0, \quad (x,y), (a, b) \in \R^2 - \{(0,0)\}.
+  \end{equation*}
+  The direction field is shown schematically in Figure \ref{fig:integral-curves-ex-2}. Notice that we have found two integral curves for this equation that are not the graph of any solution, namely the two vertical rays emanating from the origin.
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=.5\textwidth]{integral-curves-2}
+    \caption{Direction field of the equation $x\,dy = y\, dx$ near the origin.}
+    \label{fig:integral-curves-ex-2}
+  \end{figure}
+\end{example}
+
+As a closing remark, we note that we could have ignored the directions parallel to the $y$-axis altogether, and we still would have ended up with a well defined, reasonable concept of integral curve. This is in fact what V. Arnold does in \cite{cooke1992ordinary}. However, taking these conflicting points into account will allow us to better study and understand \textit{singularities} of the function $f$, which is one of the primary concerns of this work.
+
+\section{Initial value problem. Existence and uniqueness of solution}
+
+
+
+%TODO: Solución general. relación con curvas integrales. We expect the general solution of a first order ode to have 1 degree of freedom (Why?)
+
+%TODO: existence and uniqueness theorem.   integral curves can never be tangent if there's uniqueness?
+
+%We can single out an integral curve from the rest by specifying a point that the curve has to pass through.
+
+%TODO: concepto de solución local: existe solución en un punto si hay una curva integral que pase por él. Si solo hay una, además es única.
+
+%TODO: ivp
