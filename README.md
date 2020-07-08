@@ -1,4 +1,5 @@
 Trabajo de Fin de Grado del Doble Grado de Ingeniería Informática y Matemáticas de la Universidad de Granada. Curso 2019/20.
+
 ----
 
 # Bachelor's Thesis
@@ -12,4 +13,4 @@ This work is licensed under a [Creative Commons
 
 The code developed is available on a [separate repository](https://github.com/antcc/fuzzyspark).
 
-## Mathematics: ordinary differential equations not solved for the derivative.
+## Mathematics: Ordinary differential equations not solved for the derivative.
