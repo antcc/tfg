@@ -1,4 +1,4 @@
-Trabajo de Fin de Grado del Doble Grado de Ingeniería Informática y Matemáticas de la Universidad de Granada. Curso 2019/20.
+Trabajo de Fin de Grado del Doble Grado en Ingeniería Informática y Matemáticas de la Universidad de Granada. Curso 2019/20.
 
 ----
 
