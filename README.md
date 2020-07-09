@@ -9,8 +9,8 @@ Bachelor's Thesis in Computer Science and Mathematics at the University of Grana
 This work is licensed under a [Creative Commons
 "Attribution-ShareAlike 4.0 International"](http://creativecommons.org/licenses/by-sa/4.0/) license.
 
-## Computer Science: Fuzzy systems for Big Data computing.
+## Computer Science: Fuzzy systems for Big Data computing
 
 The code developed is available on a [separate repository](https://github.com/antcc/fuzzyspark).
 
-## Mathematics: Ordinary differential equations not solved for the derivative.
+## Mathematics: Ordinary differential equations not solved for the derivative

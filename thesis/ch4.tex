@@ -16,7 +16,7 @@ By an \textit{ordinary differential equation of order $n$} we mean a relation of
 \label{eq:ode}
 F(x, y, y', \dots, y^{(n)}) = 0,
 \end{equation}
-where $F$ is a real-valued function of $n+1$ real variables, $x$ is an independent variable, $y=y(x)$ is an unknown function and $y', \dots, y^{(n)}$ are the first $n$ derivatives of this function with respect to $x$. When the value of $n$ is understood or simply not relevant, we will refer to \eqref{eq:ode} only as an \gls{ode}, with the word \textit{ordinary} meaning that the unknown function depends solely on one independent variable. A central concept in our study will be that of a solution of such a differential equation, which is rigorously defined below.
+where $F$ is a real-valued function of $n+1$ real variables, $x$ is an independent variable, $y=y(x)$ is an unknown function and $y', \dots, y^{(n)}$ are the first $n$ derivatives of this function with respect to $x$. When the value of $n$ is understood or simply not relevant, we will refer to \eqref{eq:ode} only as an ordinary differential equation (\acrshort{ode}), with the word \textit{ordinary} meaning that the unknown function depends solely on one independent variable. A central concept in our study will be that of a solution of such a differential equation, which is rigorously defined below.
 
 \begin{definition}
   \label{def:solution}
@@ -77,7 +77,7 @@ The rationale behind this decision is to allow the function $f$ to become infini
 We are now ready to define our new, more general concept of solution, which will necessarily be related not only to the original equation, but also to the newly defined associated equation. We will restrict ourserlves to the class of \textit{smooth} \textit{regular} curves, that is, continuously differentiable curves with nonvanishing derivative everywhere. From now on, all curves will implicitly be assumed to belong to this class.
 
 \begin{definition}\label{def:integral-curves}
-  An \textit{integral curve} of equations \eqref{eq:fode-explicit} and \eqref{eq:fode-explicit1} is a \textit{smooth} \textit{regular} curve whose tangent at each point has a direction specified by the direction field of said equations.
+  An \textit{integral curve} of equations \eqref{eq:fode-explicit} and \eqref{eq:fode-explicit1} is a smooth regular curve whose tangent at each point has a direction specified by the direction field of said equations.
 \end{definition}
 
 Given that equations \eqref{eq:fode-explicit} and \eqref{eq:fode-explicit1} are closely related, sometimes we will use the singular form to encompass both of them as a single equation. As we are looking at curves in parametric form, to obtain an explicit formula in this case we may first apply the chain rule,
@@ -156,16 +156,66 @@ We can illustrate the previous definitions and properties with a simple example.
 
 As a closing remark, we note that we could have ignored the directions parallel to the $y$-axis altogether, and we still would have ended up with a well defined, reasonable concept of integral curve. This is in fact what V. Arnold does in \cite{cooke1992ordinary}. However, taking these conflicting points into account will allow us to better study and understand \textit{singularities} of the function $f$, which is one of the primary concerns of this work.
 
-\section{Initial value problem. Existence and uniqueness of solution}
+\section{Existence and uniqueness of solutions}
 
+So far we have been talking about solutions of a differential equation without stopping to think even if such solutions exist in the first place. Could we come up with an equation which has no solutions at all? To answer this question, remember that any possible solution is assumed to be smooth, and thus its derivative verifies the \textit{intermediate value theorem}\footnote{A similar argument for non-smooth solutions may be given using \textit{Darboux's theorem} \cite[112]{apostol1974analysis}, which states that the derivative of any differentiable function that takes two different values on an interval must take every value in between.}. But this derivative must be equal to $f$, so it suffices to choose a function that doesn't have the intermediate value property. For example, if we consider the famous Dirichlet function
+\begin{equation*}
+  g(x) = \begin{cases}
+    1 \quad & \text{if } x \in \mathbb{Q},\\
+    0 \quad  &\text{elsewhere},
+\end{cases}
+\end{equation*}
+then the equation $y'=f(x, y) = g(x)$ has no solutions.
 
+From this example we can speculate that the lack of continuity of $f(x,y)$ is the key property that makes the equation unsolvable. This is indeed the case, as it turns out that existence of solutions is always guaranteed if we impose that $f$ be continuous.
 
-%TODO: Solución general. relación con curvas integrales. We expect the general solution of a first order ode to have 1 degree of freedom (Why?)
+\begin{theorem}[Peano's existence theorem] Let $f(x,y)$ be a continuous function on a domain $G\subset \R^2$. Then the differential equation
+  \begin{equation*}
+    y' = f(x,y)
+  \end{equation*}
+has at least one solution in $G$. Moreover, if $f$ is continuous on a neighbourhood of a point $(x_0, y_0) \in G$, then there exists a solution $\phi$ defined on a neighbourhood of $x_0$ satisfying $\phi(x_0)=y_0$.
+\end{theorem}
 
-%TODO: existence and uniqueness theorem.   integral curves can never be tangent if there's uniqueness?
+\begin{proof}
+  See \cite{peano1890demonstration} for Peano's original 1890 proof, which uses a method known as successive approximations. Shorter proofs have been proposed since, many using topological arguments such as fixed points theorems (see for example \cite[14]{hale1980ode}).
+\end{proof}
 
-%We can single out an integral curve from the rest by specifying a point that the curve has to pass through.
+\begin{remark} If we assume continuity of the function $f$, then the smoothness of any solution comes as a consequence and not as a hypothesis, since $\phi'(x) = f(x, \phi(x))$. In fact, the level of regularity of the function $f$ translates in a similar manner to the solutions: if $f$ has continuous derivatives up to order $m$, then any solution to $y'=f(x,y)$ has continuous derivatives up to order $m+1$.
 
-%TODO: concepto de solución local: existe solución en un punto si hay una curva integral que pase por él. Si solo hay una, además es única.
+\end{remark}
 
-%TODO: ivp
+The concept of a solution passing through a predefined point is not incidental to our study, but it plays a major role in much of the subsequent theory, which is why it merits its own denomination. A differential equation $y'=f(x,y)$ coupled with an \textit{initial condition} $y(x_0)=y_0$ is called an \textit{initial value problem}, often abbreviated as \acrshort{ivp}. With this new definition in mind, Peano's theorem states that every initial value problem defined by a continuous function has at least one solution, or more generally, that there is at least one integral curve of the equation passing through the selected point.
+
+Together with the question of existence comes inevitably the issue of uniqueness. Peano's theorem guarantees that under mild conditions a solution to an initial value problem always exists, but it doesn't say anything about it being unique. It is not hard to think of an example in which uniqueness of solution is violated. For instance, it is inmediate to verify that the IVP
+
+\begin{equation*}
+  \begin{cases} y' = \sqrt{\abs{y}}\quad \text{in } [0,1],\\
+    y(0)=0
+
+  \end{cases}
+\end{equation*}
+has two valid solutions: $y=0$ and $y=x^2/4$. Thus some kind of additional condition is needed to ensure that one and only one integral curve passes through a given point, as the following theorem asserts.
+
+\begin{theorem}[Picard-Lindelöf] \label{th:picard}
+  Let $G \subset \R^2$ be a domain in the plane, and suppose $f:G \to \R$ is a continuous function that locally satisfies a Lipschitz condition in the second variable, that is, for every $p \in G$ there exists a neighbourhood $U$ of $p$ in $G$ and a constant $L>0$ such that
+\begin{equation*}
+  \abs{f(x, y_2) - f(x, y_1)} \leq L\abs{y_2 - y_1}
+\end{equation*}
+whenever $(x,y_1),(x,y_2) \in U$. Then for every point $(x_0, y_0) \in G$ the initial value problem
+  \begin{equation}
+  \begin{cases} y' = f(x, y) \quad \text{in } G,\\
+    y(x_0)= y_0
+  \end{cases}
+\end{equation}
+has exactly one solution.
+\end{theorem}
+
+\begin{proof}
+  A proof in modern terms can be found in \cite[36]{teschl2012ordinary}. The idea is to construct a sequence of approximate solutions, the so-called method of \textit{Picard iterations}, and then leverage the Lipschitz condition to apply the \textit{contraction principle}\footnote{Also known as \textit{Banach fixed point theorem}, after Polish mathematician Stefan Banach who first proved it in 1922 \cite{banach1922operations}.}.
+\end{proof}
+
+\begin{remark}
+  The Lipschitz condition on Theorem \ref{th:picard} can be relaxed to a condition on the partial derivative. The theorem remains true, via a direct application of the \textit{mean value theorem}, if $\partial f / \partial y$ is locally bounded, which in turn holds if said partial derivative is continuous on $G$. This condition is often easier to check.
+\end{remark}
+
+Bringing back the geometric interpretation of differential equations, it is straightforward to see that at points where there is uniqueness of solutions, two integral curves can never be tangent to each other (they can't cross either by definition). However, it is precisely the points in which uniqueness fails that interest us, and we will study them in depth in the following chapter.
