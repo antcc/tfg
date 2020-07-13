@@ -74,7 +74,7 @@ where
 \end{equation*}
 The rationale behind this decision is to allow the function $f$ to become infinite at some points (representing a vertical slope), and shift our perspective from the $x$-axis to the $y$-axis at those points. In this way, at points where both $f$ and $f_1$ are defined we can use either \eqref{eq:fode-explicit} or \eqref{eq:fode-explicit1} to construct the direction field, but we use \eqref{eq:fode-explicit1} at points where $f$ becomes infinite\footnote{At each point of $G$, at least one of $f$ or $f_1$ are defined, for $f=0$ if and only if $f_1$ is infinite, and $f_1=0$ if and only if $f$ is infinite.}.
 
-We are now ready to define our new, more general concept of solution, which will necessarily be related not only to the original equation, but also to the newly defined associated equation. We will restrict ourserlves to the class of \textit{smooth} \textit{regular} curves, that is, continuously differentiable curves with nonvanishing derivative everywhere. From now on, all curves will implicitly be assumed to belong to this class.
+We are now ready to define our new, more general concept of solution, which will necessarily be related not only to the original equation, but also to the newly defined associated equation. We will restrict ourselves to the class of \textit{smooth} \textit{regular} curves, that is, continuously differentiable curves with nonvanishing derivative everywhere. From now on, all curves will implicitly be assumed to belong to this class.
 
 \begin{definition}\label{def:integral-curves}
   An \textit{integral curve} of equations \eqref{eq:fode-explicit} and \eqref{eq:fode-explicit1} is a smooth regular curve whose tangent at each point has a direction specified by the direction field of said equations.
@@ -116,7 +116,7 @@ The requirement that integral curves be regular guarantees that we can always sh
 \end{prop}
 
 \begin{proof}
-  Let $x=\lambda(t)$, $y=\mu(t)$, $\alpha < t < \beta$ be a smooth regular curve, and pick $t_0 \in (\alpha, \beta)$. The regularity of the curve guarantees that either $\lambda'(t_0)$ or $\mu'(t_0)$ is nonzero, so suppose without loss of generality that $\lambda'(t_0) \neq 0$. Since $\lambda'(t_0)$ is continuous by assumption, there exists an $\epsilon > 0$ such that $\lambda'(t)\neq 0$ for $t \in (t_0 - \epsilon, t_0 + \epsilon)$, and then the equation $x=\lambda(t)$ has a unique smooth solution in $t$ by virtue of the \textit{implicit function theorem} (see \cite[207]{de2000mathematical}). Then, by eventually shrinking $\epsilon$ we may write $t=\psi(x)$, $\lambda(t_0 - \epsilon) < x < \lambda(t_0 + \epsilon)$. Substituting in $y=\mu(t)$ yields $y=\mu(\psi(x)) = \phi(x)$, $\lambda(t_0 - \epsilon) < x < \lambda(t_0 + \epsilon)$, which is the equation of a smooth graph.
+  Let $x=\lambda(t)$, $y=\mu(t)$, $\alpha < t < \beta$ be a smooth regular curve, and pick $t_0 \in (\alpha, \beta)$. The regularity of the curve guarantees that either $\lambda'(t_0)$ or $\mu'(t_0)$ is nonzero, so suppose without loss of generality that $\lambda'(t_0) \neq 0$. Since $\lambda'(t_0)$ is continuous by assumption, there exists an $\epsilon > 0$ such that $\lambda'(t)\neq 0$ for $t \in (t_0 - \epsilon, t_0 + \epsilon)$, and then the equation $x=\lambda(t)$ has a unique smooth solution in $t$ by virtue of the \textit{inverse function theorem} (see \cite[372]{apostol1974analysis}). Then, by eventually shrinking $\epsilon$ we may write $t=\psi(x)$, $\lambda(t_0 - \epsilon) < x < \lambda(t_0 + \epsilon)$. Substituting in $y=\mu(t)$ yields $y=\mu(\psi(x)) = \phi(x)$, $\lambda(t_0 - \epsilon) < x < \lambda(t_0 + \epsilon)$, which is the equation of a smooth graph.
 \end{proof}
 
 \begin{remark} The conditions on integral curves in Definition \ref{def:integral-curves} imply that our solutions are also smooth, that is, continuously differentiable.
@@ -189,12 +189,12 @@ The concept of a solution passing through a predefined point is not incidental t
 Together with the question of existence comes inevitably the issue of uniqueness. Peano's theorem guarantees that under mild conditions a solution to an initial value problem always exists, but it doesn't say anything about it being unique. It is not hard to think of an example in which uniqueness of solution is violated. For instance, it is inmediate to verify that the IVP
 
 \begin{equation*}
-  \begin{cases} y' = \sqrt{\abs{y}}\quad \text{in } [0,1],\\
+  \begin{cases} y' = 3y^{2/3},\\
     y(0)=0
 
   \end{cases}
 \end{equation*}
-has two valid solutions: $y=0$ and $y=x^2/4$. Thus some kind of additional condition is needed to ensure that one and only one integral curve passes through a given point, as the following theorem asserts.
+has two valid solutions: $y=0$ and $y=x^3$. Thus some kind of additional condition is needed to ensure that one and only one integral curve passes through a given point, as the following theorem asserts.
 
 \begin{theorem}[Picard-Lindelöf] \label{th:picard}
   Let $G \subset \R^2$ be a domain in the plane, and suppose $f:G \to \R$ is a continuous function that locally satisfies a Lipschitz condition in the second variable, that is, for every $p \in G$ there exists a neighbourhood $U$ of $p$ in $G$ and a constant $L>0$ such that
