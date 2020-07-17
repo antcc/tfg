@@ -62,7 +62,7 @@ To see how this is equivalent to solving \eqref{eq:fode-explicit}, one need only
   \item The imposition that the slope of the direction field generated in $G$ be given by $f$ automatically excludes directions parallel to the $y$-axis, because $f$ would need to be infinite at those points.
 \end{enumerate}
 
-We are interested in looking at solutions of differential equations in a more general setting. This is why, based on the previous reformulation, we will develop a broader concept of solution with a strong geometrical meaning, one that will address both difficulties outlined above. In the first place, we allow general curves in parametric form, that is, $x=\lambda(t)$, $y=\mu(t)$, for $-\infty \leq \alpha < t < \beta \leq \infty$. This solves the first problem. To overcome the second limitation, in addition to equation \eqref{eq:fode-explicit} we consider the associated differential equation
+We are interested in looking at solutions of differential equations in a more general setting. This is why, based on the previous reformulation, we will develop a broader concept of solution with a strong geometrical meaning, one that will address both difficulties outlined above. In the first place, we allow general curves in parametric form, that is, $x=\lambda(t)$, $y=\mu(t)$, $-\infty \leq \alpha < t < \beta \leq \infty$. This solves the first problem. To overcome the second limitation, in addition to equation \eqref{eq:fode-explicit} we consider the associated differential equation
 \begin{equation}
   \tag{\ref*{eq:fode-explicit}'}
   \label{eq:fode-explicit1}
@@ -72,7 +72,7 @@ where
 \begin{equation*}
   f_1(x,y) = \frac{1}{f(x,y)}.
 \end{equation*}
-The rationale behind this decision is to allow the function $f$ to become infinite at some points (representing a vertical slope), and shift our perspective from the $x$-axis to the $y$-axis at those points. In this way, at points where both $f$ and $f_1$ are defined we can use either \eqref{eq:fode-explicit} or \eqref{eq:fode-explicit1} to construct the direction field, but we use \eqref{eq:fode-explicit1} at points where $f$ becomes infinite\footnote{At each point of $G$, at least one of $f$ or $f_1$ are defined, for $f=0$ if and only if $f_1$ is infinite, and $f_1=0$ if and only if $f$ is infinite.}.
+The rationale behind this decision is to allow the function $f$ to become infinite at some points (representing a vertical slope), and shift our perspective from the $x$-axis to the $y$-axis at those points. In this way, at points where both $f$ and $f_1$ are defined we can use either \eqref{eq:fode-explicit} or \eqref{eq:fode-explicit1} to construct the direction field, but we use \eqref{eq:fode-explicit1} at points where $f$ becomes infinite\footnote{At each point of $G$, at least one of $f$ or $f_1$ is always defined, for $f=0$ if and only if $f_1$ is infinite, and $f_1=0$ if and only if $f$ is infinite.}.
 
 We are now ready to define our new, more general concept of solution, which will necessarily be related not only to the original equation, but also to the newly defined associated equation. We will restrict ourselves to the class of \textit{smooth} \textit{regular} curves, that is, continuously differentiable curves with nonvanishing derivative everywhere. From now on, all curves will implicitly be assumed to belong to this class.
 
@@ -218,4 +218,4 @@ has exactly one solution.
   The Lipschitz condition on Theorem \ref{th:picard} can be relaxed to a condition on the partial derivative. The theorem remains true, via a direct application of the \textit{mean value theorem}, if $\partial f / \partial y$ is locally bounded, which in turn holds if said partial derivative is continuous on $G$. This condition is often easier to check.
 \end{remark}
 
-Bringing back the geometric interpretation of differential equations, it is straightforward to see that at points where there is uniqueness of solutions, two integral curves can never be tangent to each other (they can't cross either by definition). However, it is precisely the points in which uniqueness fails that interest us, and we will study them in depth in the following chapter.
+Bringing back the geometric interpretation of differential equations, it is straightforward to see that at points where there is uniqueness of solutions two integral curves can never be tangent to each other (they can't cross either by definition). However, it is precisely the points in which uniqueness fails that interest us, and we will study them in depth in the following chapter.
