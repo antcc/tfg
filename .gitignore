@@ -5,6 +5,7 @@ NOTAS.md
 *.pdf
 
 # Latexmk
+*.tex.swp
 *.fdb_latexmk
 *.aux
 *.glo
@@ -14,6 +15,7 @@ NOTAS.md
 *.fls
 *.log
 *.toc
+*.pytxcode
 *.ist
 *.acn
 *.acr

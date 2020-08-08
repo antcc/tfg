@@ -64,13 +64,14 @@
 %\setlist{itemsep=0.05em}
 \setlist{noitemsep}
 \setlist[1]{labelindent=\parindent} % < Usually a good idea
-\setlist[enumerate,1]{label=\emph(\roman*)}
+\setlist[enumerate,1]{label=$(\roman*)$}
 
 \makeindex
 
 \usepackage{bookmark}
 
 \renewcommand*{\glstextformat}[1]{\textcolor{black}{#1}}
+\allowdisplaybreaks
 
 \begin{document}
 %\setlength{\belowdisplayshortskip}{.5em}
@@ -266,8 +267,8 @@
 %\chapter{Introduction}
 %\input{\TPath/cs-intro}
 
-%\chapter{Fuzzy set theory}
-%\input{\TPath/cs-fuzzy}
+\chapter{Fuzzy logic and fuzzy systems}
+\input{\TPath/cs-fuzzy}
 
 \setpartpreamble[u][\textwidth]{\vspace*{2em}\centering \large \emph{Mathematics}}
 \part{Ordinary differential equations not solved for the derivative}
@@ -279,7 +280,8 @@
 \chapter{Basic concepts}
 \input{\TPath/mat-basic}
 
-
+\chapter{Implicit equations}
+\input{\TPath/mat-implicit}
 
 
 %%%% End part
