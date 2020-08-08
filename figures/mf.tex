@@ -1,0 +1,65 @@
+\documentclass{standalone}
+\usepackage{pgfplots}
+%\pgfplotsset{ytick style={draw=none}}
+\begin{document}
+
+
+\pgfmathdeclarefunction{gauss}{2}{%
+  \pgfmathparse{exp(-((x-#1)^2)/(#2^2))}%
+}
+
+\pgfmathdeclarefunction{fuzzytrapezoid}{4}{%
+\begingroup%
+\pgfmathparse{max(min((x-#1)/(#2-#1),1,(#4-x)/(#4-#3)),0)}%
+\pgfmathfloattofixed{\pgfmathresult}%
+\pgfmathreturn\pgfmathresult pt\relax%
+\endgroup%
+}
+\pgfmathdeclarefunction{fuzzytriangle}{3}{%
+\begingroup%
+\pgfmathparse{max(min((x-#1)/(#2-#1),(#3-x)/(#3-#2)),0)}%
+\pgfmathfloattofixed{\pgfmathresult}%
+\pgfmathreturn\pgfmathresult pt\relax%
+\endgroup%
+}
+\pgfmathdeclarefunction{fuzzygaussian}{2}{%
+\begingroup%
+\pgfmathparse{exp(-0.5*((x-#1)/#2)^2)}%
+\pgfmathfloattofixed{\pgfmathresult}%
+\pgfmathreturn\pgfmathresult pt\relax%
+\endgroup%
+}
+\pgfmathdeclarefunction{fuzzygenbell}{3}{%
+\begingroup%
+\pgfmathparse{1/(1+abs((x-#3)/#1)^(2*#2))}%
+\pgfmathfloattofixed{\pgfmathresult}%
+\pgfmathreturn\pgfmathresult pt\relax%
+\endgroup%
+}
+\pgfmathdeclarefunction{fuzzysigmoid}{2}{%
+\begingroup%
+\pgfmathparse{1/(1+exp(-#1*(x-#2))}%
+\pgfmathfloattofixed{\pgfmathresult}%
+\pgfmathreturn\pgfmathresult pt\relax%
+\endgroup%
+}
+
+\begin{tikzpicture}
+\begin{axis}[xlabel={$x$},
+  ylabel={$\mu(x)$},
+  ytick={0,1},
+  xtick=\empty,
+  every axis plot post/.append style={
+  mark=none,domain=-15:15,smooth},
+  axis x line=bottom, 
+  axis y line=left,
+  x label style={at={(axis description cs:0.5,0.05)}},
+  y label style={at={(axis description cs:0.05,0.5)}},
+  enlargelimits=upper]
+  
+  \addplot[teal, smooth, samples=1000] {fuzzysigmoid(0.5,1)};
+  
+\end{axis}
+%\draw (-0.06,0) node[left] {$0$};
+\end{tikzpicture}
+\end{document}
