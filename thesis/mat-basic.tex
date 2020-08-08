@@ -20,7 +20,7 @@ where $F$ is a real-valued function of $n+1$ real variables, $x$ is an independe
 
 \begin{definition}
   \label{def:solution}
-  A \textit{solution} of the differential equation \eqref{eq:ode} is a function $\phi: I \to \R$, where $I=(a,b)$, $-\infty \leq a < b \leq \infty$, is some open interval of the real line, satisfying the following conditions:
+  A \textit{solution} of the differential equation \eqref{eq:ode} is a function $\phi: I \to \R$, where $I=(a,b)$, $-\infty \leq a < b \leq \infty$ is some open interval of the real line, satisfying the following conditions:
 
   \begin{enumerate}
     \item The function $\phi$ has derivatives up to order $n$.
@@ -161,8 +161,8 @@ As a closing remark, we note that we could have ignored the directions parallel 
 So far we have been talking about solutions of a differential equation without stopping to think even if such solutions exist in the first place. Could we come up with an equation which has no solutions at all? To answer this question, remember that any possible solution is assumed to be smooth, and thus its derivative verifies the \textit{intermediate value theorem}\footnote{A similar argument for non-smooth solutions may be given using \textit{Darboux's theorem} \cite[112]{apostol1974analysis}, which states that the derivative of any differentiable function that takes two different values on an interval must take every value in between.}. But this derivative must be equal to $f$, so it suffices to choose a function that doesn't have the intermediate value property. For example, if we consider the famous Dirichlet function
 \begin{equation*}
   g(x) = \begin{cases}
-    1 \quad & \text{if } x \in \mathbb{Q},\\
-    0 \quad  &\text{elsewhere},
+    1  & \text{if } x \in \mathbb{Q},\\
+    0  &\text{elsewhere},
 \end{cases}
 \end{equation*}
 then the equation $y'=f(x, y) = g(x)$ has no solutions.
@@ -203,7 +203,7 @@ has two valid solutions: $y=0$ and $y=x^3$. Thus some kind of additional conditi
 \end{equation*}
 whenever $(x,y_1),(x,y_2) \in U$. Then for every point $(x_0, y_0) \in G$ the initial value problem
   \begin{equation}
-  \begin{cases} y' = f(x, y) \quad \text{in } G,\\
+  \begin{cases} y' = f(x, y) & \text{in } G,\\
     y(x_0)= y_0
   \end{cases}
 \end{equation}
