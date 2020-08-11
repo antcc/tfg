@@ -1,6 +1,20 @@
 \documentclass{standalone}
 \usepackage{pgfplots}
 %\pgfplotsset{ytick style={draw=none}}
+
+  \usepackage[no-math]{fontspec}
+  \setmainfont{TeXGyreTermes-Regular}[
+       BoldFont       = TeXGyreTermes-Bold ,
+       ItalicFont     = TeXGyreTermes-Italic ,
+       BoldItalicFont = TeXGyreTermes-BoldItalic,
+       NFSSFamily     = ntxtlf]
+  \setsansfont{TeX Gyre Heros Regular}[
+       Scale=.9,
+       BoldFont       = TeX Gyre Heros Bold,
+       ItalicFont     = TeX Gyre Heros Italic,
+       BoldItalicFont = TeX Gyre Heros BoldItalic]
+  \setmonofont[StylisticSet={1,3},Scale=.9]{inconsolata}
+  \usepackage{newtxmath}
 \begin{document}
 
 
@@ -50,14 +64,14 @@
   ytick={0,1},
   xtick=\empty,
   every axis plot post/.append style={
-  mark=none,domain=-15:15,smooth},
+  mark=none,domain=-10:10,smooth},
   axis x line=bottom, 
   axis y line=left,
   x label style={at={(axis description cs:0.5,0.05)}},
   y label style={at={(axis description cs:0.05,0.5)}},
   enlargelimits=upper]
   
-  \addplot[teal, smooth, samples=1000] {fuzzysigmoid(0.5,1)};
+  \addplot[teal, smooth, samples=1000] {fuzzygenbell(-5, 5, 1)};
   
 \end{axis}
 %\draw (-0.06,0) node[left] {$0$};

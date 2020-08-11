@@ -1,5 +1,18 @@
 \documentclass[tikz]{standalone}
 \usetikzlibrary{calc}
+  \usepackage[no-math]{fontspec}
+  \setmainfont{TeXGyreTermes-Regular}[
+       BoldFont       = TeXGyreTermes-Bold ,
+       ItalicFont     = TeXGyreTermes-Italic ,
+       BoldItalicFont = TeXGyreTermes-BoldItalic,
+       NFSSFamily     = ntxtlf]
+  \setsansfont{TeX Gyre Heros Regular}[
+       Scale=.9,
+       BoldFont       = TeX Gyre Heros Bold,
+       ItalicFont     = TeX Gyre Heros Italic,
+       BoldItalicFont = TeX Gyre Heros BoldItalic]
+  \setmonofont[StylisticSet={1,3},Scale=.9]{inconsolata}
+  \usepackage{newtxmath}
 \begin{document}
 
 \begin{tikzpicture}

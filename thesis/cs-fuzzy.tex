@@ -7,7 +7,7 @@
 % You should have received a copy of the license along with this
 % work. If not, see <http://creativecommons.org/licenses/by-sa/4.0/>.
 
-We begin this work by presenting the fundamentals of \textit{fuzzy theory}. This theory was developed by computer scientist and mathematician Lofti A. Zadeh around 1965 (cf. \cite{zadeh1965fuzzy}). He felt the need to introduce a concept that would enable the treatment of systems in an imprecise manner, due to lack of information or simply because of some inherent ambiguity. At the same time, he wanted this notion to be mathematically coherent and tractable, and to have a strong theoretical base from which to expand to practical applications.
+We begin this work by presenting the fundamentals of \textit{fuzzy theory}. This theory was developed by computer scientist and mathematician Lofti A. Zadeh around 1965 (see \cite{zadeh1965fuzzy}). He felt the need to introduce a concept that would enable the treatment of systems in an imprecise manner, due to lack of information or simply because of some inherent ambiguity. At the same time, he wanted this notion to be mathematically coherent and tractable, and to have a strong theoretical base from which to expand to practical applications.
 
 With these ideas in mind he established the concepts of \textit{fuzzy sets} and \textit{fuzzy reasoning}, providing a robust foundation for developing various methods to deal with uncertainty and impreciseness. These methods are widely used nowadays in the construction of control systems and the modelling of situations which involve a certain degree of vagueness, uncertainty or ambivalence.
 
@@ -135,7 +135,7 @@ In most applications it makes sense to work with convex membership functions, si
 %   Set-Theoretic Operations
 %--------------------------------------
 
-\subsection{Set-Theoretic Operations}
+\subsection{Set-theoretic operations}
 
 Most set-theoretic operations in the classical theory translate to fuzzy set theory in a natural way. We present a list of some of the most basic of these operations and their reinterpreted definitions in our setting, while introducing some of the notation that will be used in what follows.
 
@@ -176,7 +176,7 @@ As with any new mathematical structure, one of the first steps after studyng its
 
 Continuing along the same lines, we arrive at an important theorem regarding the creation of new fuzzy sets, stated by Zadeh himself. In short, it says that we can generate a fuzzy set that represents any structure, concept or relation that can be described with a (classical) mapping. A detailed introduction to this result and some insight as to its usefulness is given by E. Kerre in \cite{kerre2011tribute}.
 
-\begin{theorem}[Extension principle] Let $f$ be a mapping from an $n-$dimensional product space $X_1 \times \dots \times X_n$ to a one-dimensional universe $Y$, and suppose $A_1, \dots, A_n$ are $n$ fuzzy sets in $X_1, \dots, X_n$, respectively. Then $f$ induces a fuzzy set $B$ in $Y$ defined by
+\begin{theorem}[Extension principle] Let $f$ be a mapping from an $n$-dimensional product space $X_1 \times \dots \times X_n$ to a one-dimensional universe $Y$, and suppose $A_1, \dots, A_n$ are $n$ fuzzy sets in $X_1, \dots, X_n$, respectively. Then $f$ induces a fuzzy set $B$ in $Y$ defined by
 \[
 \mu_B(y) = \left\{ \begin{array}{cc}
 	\sup\limits_{(x_1, \dots, x_n) = f^{-1}(y)} \, \min\limits_i \, \{ \mu_{A_i}(x_i) \}, & \text{if } f^{-1}(y) \ne \emptyset, \\
@@ -206,13 +206,13 @@ To conclude this brief exposition of operations between fuzzy sets, we now consi
 \[
 \mathcal R = \{ ((x,y), \, \mu_\mathcal R (x,y) ) \ | \ (x,y) \in X \times Y \}
 \]
-represents a \textit{binary fuzzy relation} in $X \times Y$. A generalization to $n-$ary relations is straightforward.
+represents a \textit{binary fuzzy relation} in $X \times Y$. A generalization to $n$-ary relations is straightforward.
 
 \end{definition}
 
 If $X$ and $Y$ are both discrete, we can express a fuzzy relation as a relation matrix $\mathcal R = (r_{ij})$, where $r_{ij}$ is the membership grade between the $ith$ element of $X$ and the $jth$ element of $Y$. As with fuzzy sets, we can operate with relations to produce new fuzzy sets, again using the classical operators previously described.
 
-\begin{definition}[Max-min composition] Let $\mathcal{R}_1$ and $\mathcal{R}_2$ be two fuzzy relations defined on $X \times Y$ and $Y \times Z$, respectively. The max-min composition of $\mathcal R_1$ and $\mathcal R_2$ is a fuzzy set $\mathcal R_1 \circ \mathcal R_2$ in $X \times Z$ defined by
+\begin{definition}[Max-min composition] \label{def:maxmin} Let $\mathcal{R}_1$ and $\mathcal{R}_2$ be two fuzzy relations defined on $X \times Y$ and $Y \times Z$, respectively. The max-min composition of $\mathcal R_1$ and $\mathcal R_2$ is a fuzzy set $\mathcal R_1 \circ \mathcal R_2$ in $X \times Z$ defined by
 \[
 \mu_{\mathcal R_1 \circ \mathcal R_2}(x,z) = \max_{y} \, \{ \mu_{\mathcal R_1}(x,y) \land \mu_{\mathcal R_2}(y,z) \}.
 \]
@@ -251,18 +251,18 @@ As one could expect, there are many possible definitions for a composition opera
 %   One-dimensional MFs
 %--------------------------------------
 
-\subsection{Parametrized One-dimensional MFs}
+\subsection{Parametrized one-dimensional MFs}
 
 In this section, we describe the classes of parametrized functions commonly used to define one-dimensional fuzzy sets.
 
-\begin{definition}[Triangular MF] Three parameters determine the $x-$coordinates of the three corners of a triangle:
+\begin{definition}[Triangular MF] Three parameters determine the $x$-coordinates of the three corners of a triangle:
 \[
 \operatorname{triangle}(x;a,b,c) = \max \left\{ \min \left\{ \frac{x-a}{b-a},\frac{c-x}{c-b}  \right\}, 0\right\}.
 \]
 
 \end{definition}
 
-\begin{definition}[Trapezoidal MF] Four parameters determine the $x-$coordinates of the four corners of a trapezoid:
+\begin{definition}[Trapezoidal MF] Four parameters determine the $x$-coordinates of the four corners of a trapezoid:
 \[
 \operatorname{trapezoid}(x;a,b,c,d) = \max \left\{ \min \left\{ \frac{x-a}{b-a},1, \frac{d-x}{d-c}  \right\}, 0\right\}.
 \]
@@ -355,14 +355,14 @@ R_X = \int_X \max_y \, \mu_R(x,y) \slash x, \quad R_Y = \int_Y \max_x \, \mu_R(x
 
 \end{definition}
 
-The Gaussian MF is arguably the most notable example of a composite MF, since it is a well known result that every $n-$dimensional Gaussian function is the product of $n$ one-dimensional Gaussian functions.
+The Gaussian MF is arguably the most notable example of a composite MF, since it is a well known result that every $n$-dimensional Gaussian function is the product of $n$ one-dimensional Gaussian functions.
 
 
 %----------------------------------------
 %  Fuzzy Complemnt, T-norm and T-conorm
 %----------------------------------------
 
-\subsection{Fuzzy Complement, T-norm and T-conorm} \label{ssec:tnorm}
+\subsection{Fuzzy complement, T-norm and T-conorm} \label{ssec:tnorm}
 
 Lastly, we explore the generalization of the classical fuzzy operators that have been described throughout this section.
 
@@ -389,7 +389,7 @@ Lastly, we explore the generalization of the classical fuzzy operators that have
 
 \end{example}
 
-\begin{definition}[$T-$norm operator] The intersection of two fuzzy sets $A$ and $B$ is specified in general by a function $T:[0,1]\times [0,1] \to [0,1]$, referred to as a $T-$norm operator, which aggregates two membership grades,
+\begin{definition}[$T$-norm operator] The intersection of two fuzzy sets $A$ and $B$ is specified in general by a function $T:[0,1]\times [0,1] \to [0,1]$, referred to as a $T$-norm operator, which aggregates two membership grades,
 \[
 \mu_{A \cap B}(x) = T(\mu_A(x), \mu_B(x)),
 \]
@@ -403,7 +403,7 @@ and verifies several basic properties, namely:
 
 \end{definition}
 
-For the sake of completeness, here are four of the most frequently used $T-$norm operators:
+For the sake of completeness, here are four of the most frequently used $T$-norm operators:
 
 \begin{enumerate}
 	\item \textit{Minimum:} $T_{min}(a,b) = a \land b$.
@@ -416,11 +416,11 @@ For the sake of completeness, here are four of the most frequently used $T-$norm
                                           \end{cases}$
 \end{enumerate}
 
-\begin{definition}[$T-$conorm operator] Similarly, the union of two fuzzy sets $A$ and $B$ is specified in general by a function $S:[0,1]\times [0,1] \to [0,1]$, known as a $T-$conorm operator, which works in the same way as a $T-$norm, except that the boundary condition is now $S(1,1) = 1$ and $S(0,a) = a$.
+\begin{definition}[$T$-conorm operator] Similarly, the union of two fuzzy sets $A$ and $B$ is specified in general by a function $S:[0,1]\times [0,1] \to [0,1]$, known as a $T$-conorm operator, which works in the same way as a $T$-norm, except that the boundary condition is now $S(1,1) = 1$ and $S(0,a) = a$.
 
 \end{definition}
 
-Corresponding to the four $T-$norm operators previously defined, we have the following $T-$conorm operators:
+Corresponding to the four $T$-norm operators previously defined, we have the following $T$-conorm operators:
 
 \begin{enumerate}
 	\item \textit{Maximum:} $S_{max}(a,b) = a \lor b$.
@@ -433,7 +433,7 @@ Corresponding to the four $T-$norm operators previously defined, we have the fol
                                           \end{cases}$
 \end{enumerate}
 
-\begin{theorem}[Generalized De Morgan's Law] $T-$norms and $T-$conorms are duals which support the generalization of De Morgan's law:
+\begin{theorem}[Generalized De Morgan's Law] $T$-norms and $T$-conorms are duals which support the generalization of De Morgan's law:
 \begin{align*}
 	T(a,b) &= N(S(N(a),N(b))),\\
 	S(a,b) &= N(T(N(a), N(b))).
@@ -454,13 +454,13 @@ The whole new range of possible truth values gives something of a gray area in w
 %  Linguistic Variables
 %--------------------------------------
 
-\subsection{Linguistic Variables}
+\subsection{Linguistic variables}
 
 \begin{definition}[Linguistic Variable] A linguistic variable is a quintuple $(x, T(x), X, G, M)$, in which
 
 \begin{enumerate}
 	\item $x$ is the name of the variable,
-	\item $T(x)$ is the \textit{term set} of $x$ -- that is, the set of its \textit{linguistic values},
+	\item $T(x)$ is the \textit{term set} of $x$, that is, the set of its \textit{linguistic values},
 	\item $X$ is, as usual, the universe of discourse,
 	\item $G$ is a \textit{syntactic rule} which generates the terms in $T(x)$, and
 	\item $M$ is a semantic rule which associates with each linguistic value $A$ its \textit{meaning} $M(A)$, which in turn is nothing more than a fuzzy set in $X$.
@@ -489,22 +489,22 @@ We shall come up with a way of treating all these modifiers as operators that ch
 \[
 A^k = \int_X (\mu_A(x))^k \slash x.
 \]
-In particular, the operation of \textit{concentration} is defined as $CON(A)=A^2$, while that of \textit{dilation} is expressed by $DIL(A)=A^{0.5}$.
+In particular, the operation of \textit{concentration} is defined as $\operatorname{CON}(A)=A^2$, while that of \textit{dilation} is expressed by $\operatorname{DIL}(A)=A^{0.5}$.
 
 \end{definition}
 
-Conventionally, we take $CON(A)$ and $DIL(A)$ to be the result of applying the modifiers \textit{very} and \textit{more or less}, respectively, to the linguistic term $A$. Following the definitions in the previous chapter, we can interpret the negation operator \textit{not} and the connectives \textit{and}, \textit{or} as follows:
+Conventionally, we take $\operatorname{CON}(A)$ and $\operatorname{DIL}(A)$ to be the result of applying the modifiers \textit{very} and \textit{more or less}, respectively, to the linguistic term $A$. Following the definitions in the previous chapter, we can interpret the negation operator \textit{not} and the connectives \textit{and}, \textit{or} as follows:
 \begin{align*}
-	NOT(A) &= \neg A = \int_X 1 - \mu_A(x) \slash x,\\
-	A \ AND \ B &= A \cap B = \int_X \mu_A(x) \land \mu_B(x) \slash x,\\
-	A \ OR \ B &= A \cup B = \int_X \mu_A(x) \lor \mu_B(x) \slash x.
+	\operatorname{NOT}(A) &= \neg A = \int_X 1 - \mu_A(x) \slash x,\\
+	A \operatorname{AND} B &= A \cap B = \int_X \mu_A(x) \land \mu_B(x) \slash x,\\
+	A \operatorname{OR} B &= A \cup B = \int_X \mu_A(x) \lor \mu_B(x) \slash x.
 \end{align*}
 
 \begin{definition}[Contrast intensification] The operation of contrast intensification on a linguistic value $A$ is defined by
 \[
-INT(A) = \left\{ \begin{array}{ll}
+\operatorname{INT}(A) = \left\{ \begin{array}{ll}
 	2A^2, & \text{if }  0 \le \mu_A(x) \le 0.5,\\
-	\neg 2(\neg A)^2, & \text{if }  0.5 \le \mu_A(x) \le 1
+	\neg 2(\neg A)^2, & \text{if }  0.5 \le \mu_A(x) \le 1.
 \end{array}\right.
 \]
 This operator has the effect of reducing the fuzziness of a linguistic value. In the extreme case of repeated applications, the fuzzy set becomes a crisp set with boundaries at the crossover points.
@@ -515,7 +515,7 @@ Lastly, when we define MFs of linguistic values in a term set, it is intuitively
 
 \begin{definition}[Orthogonality] A term set $T= \{t_1, \dots, t_n\}$ of a linguistic variable $x$ on the universe $X$ is \textit{orthogonal} if it fulfills the following property:
 \[
-\sum_{i=1}^n \mu_{t_i}(x) = 1, \ \forall x \in X,
+\sum_{i=1}^n \mu_{t_i}(x) = 1, \quad \forall x \in X,
 \]
 where each $t_i$ is a convex and normal fuzzy set defined on $X$.
 \end{definition}
@@ -525,6 +525,120 @@ where each $t_i$ is a convex and normal fuzzy set defined on $X$.
 %  Fuzzy If-Then Rules
 %--------------------------------------
 
-\subsection{Fuzzy If-Then Rules}
+\subsection{Fuzzy if-then rules}
 
-To be continued.
+The core idea behind fuzzy reasoning is that the classical if-then rules of inference used in many systems can be reinterpreted under a fuzzy perspective, taking advantage of all the properties and easiness of interpretation that come with it.
+
+\begin{definition}[Fuzzy if-then rules] If $A$ and $B$ are linguistic values, a fuzzy if-then rule associated with them assumes the form
+\begin{center}
+  if $x$ is $A$ then $y$ is $B$,
+\end{center}
+where ``$x$ is $A$'' is the \textit{antecedent} part and ``$y$ is $B$'' is the \textit{consequent} part. Sometimes we will abbreviate such a rule as $A\to B$.
+\end{definition}
+
+Some examples of fuzzy rules include \textit{if the patient's temperature is high, give them a moderate dosis of medicine}, or \textit{only tall people can ride the roller-coaster}. These rules are most useful, as we have already pointed out, when the concepts we are trying to model are difficult to describe in exact terms: is there a universally accepted height from which a person is considered to be tall? Is a body temperature of 38\textdegree{} indicative of a problem but $37.9$\textdegree{} is not?
+
+Since a fuzzy if-then rule models a relation between two variables $x$ and $y$, it makes sense to interpret $A\to B$ as a fuzzy relation $\mathcal R$ given by a membership function $\mu_{\mathcal R} = f(\mu_A(x), \mu_B(y))$, for an appropiate choice of an implication function $f$ (usually a $T$-norm operator). Now we derive the basic operation of fuzzy reasoning, which consists of an \textit{approximate modus ponens}. Starting from the fuzzy rule \textit{if $x$ is $A$ then $y$ is $B$}, if we have the premise $x$ is $A'$, where $A'$ means an approximation of $A$, we can conclude that $y$ is $B'$, with $B'$ being an approximation of $B$. In other words, if $x$ is $A$ \textit{to a certain degree}, then $y$ is $B$ \textit{to a certain (possibly different) degree}. We give a precise meaning and structure to this process in the following definition.
+
+\begin{definition}[Fuzzy reasoning] Let $X,Y$ be two universes of discourse and let $A, A'$ and $B$ be fuzzy sets in $X$, $X$ and $Y$, respectively. If $A\to B$ is a fuzzy implication, then a fuzzy set $B'$ is induced on $Y$, defined by
+\[
+B' = A' \circ (A \to B),
+\]
+where $\circ$ is the max-min composition (see Definition \ref{def:maxmin}), or equivalently,
+\[
+\mu_{B'}(y) = \lor_x (\mu_{A'}(x) \ \land \mu_{A \to B}(x, y)).
+\]
+
+\end{definition}
+
+It goes without saying that we can have as many fuzzy rules as we want, and our ultimate goal will be to aggregate all of them together and produce a coherent reasoning system. Even though we have only considered the simplest case with one antecedent and one consequent, we can treat rules with multiple antecedents using the cartesian product operator, and rules with multiple consequent as the union of many rules with just one consequent. For example, we can have the following line of reasoning:
+
+	\begin{center}
+	  $x$ is $A'$ and $t$ is $B'$\\
+    if $x$ is $A_1$ and $t$ is $B_1$ then $z$ is $C_1$\\
+    if $x$ is $A_2$ and $t$ is $B_2$ then $z$ is $C_2$\\
+    \rule{7cm}{0.4pt}\\
+    $z$ is $C'$
+  \end{center}
+In this case, we interpret the first rule as a relation $\mathcal R_1 = A_1 \times B_1 \to C_1$ and the second one as $\mathcal R_2 = A_2 \times B_2 \to C_2$. Then, the induced fuzzy set $C'$ is given by
+\[
+C' = (A' \times B') \circ (\mathcal R_1 \circ \mathcal R_2) = C_1' \cup C_2',
+\]
+where $C_1'$ and $C_2'$ are the fuzzy sets inferred from the first and second rule, respectively.
+
+\section{Fuzzy inference systems}
+
+Now that we have gone over all the key elements in the theory of fuzzy reasoning, we are prepared to understand what a \textit{fuzzy inference system} (\acrshort{fis}) is. In summary, it is a system that maps an input space to an output space, using fuzzy techniques along the way as the main reasoning mechanism. Generally speaking it is made of four clearly differentiated parts:
+
+\begin{enumerate}[1.]
+  \item A \textit{fuzzification module}, which converts crisp inputs into fuzzy sets, with some predefined membership functions.
+  \item A \textit{rulebase} that contains a set of fuzzy if-then rules.
+  \item An \textit{inference engine} that takes some input and employs the rules in the rulebase to infer the corresponding output, using the fuzzy reasoning scheme described in the previous section. The membership functions in the output space are also predefined.
+  \item A \textit{defuzzifying method} used to convert the output back to a crisp value, if necessary.
+\end{enumerate}
+
+A positive quality of a FIS is that its rulebase can be easily modified with the addition of new rules or the adjustment of existing ones. The rules in the rulebase can be defined by an expert based on their knowledge of the specific problem we are tackling, but \textbf{they can also be learned from data}. This fact opens the door to the treatment of fuzzy systems with the techniques and learning algorithms that have been emerging over the course of the last decades. This is precisely what we pursue: to build a fuzzy system that can learn and benefit from enormous amounts of data.
+
+One of the most important thing to take into account is that the choice of membership function is subjective, but not arbitrary. It heavily depends on the problem we are trying to solve, and selecting the appropiate MF for a given task usually gives much better results than to choose one either at random or that gave good results on some entirely different problem.
+
+Even though we have described every step of the inferring process in this and the previous sections, we summarize them below for completeness.
+
+\begin{enumerate}[1.]
+  \item In the first place, inputs to the system are \textit{fuzzified} and the membership grade of each input to the predefined fuzzy sets are calculated.
+  \item Then, the \textit{firing strength} of each rule is computed, which usually consists on performing the fuzzy AND operation between the antecedents.
+  \item Now the firing strength of each rule is combined with the consequent part to form an overall degree of satisfaction of the rule, known as the \textit{qualified consequent}. This is done as we described when we talked about implication operators, which in turn are commonly implemented with $T$-norm operators (e.g. the $\land$ operator).
+  \item We aggregate all qualified consequents and choose the one that best represents the input value, for which the OR operator is the standard choice.
+  \item Finally, we employ the aggregated output MF to obtain a crisp value as the output, i.e. a deffuzified value.
+\end{enumerate}
+
+\subsection{Fuzzy system types}
+
+To bring this exposition about fuzzy theory to an end, we present the two most common types of fuzzy systems used in practical applications. These two systems differ mainly in how they treat the output values.
+
+\begin{definition}[Madmani fuzzy inference system] A Madmani fuzzy inference system (see \cite{madmani1975experiment}) is a FIS that takes an input $X=(X_1,\dots,X_n)$ and produces an output $Y = D(Y_1, \dots, Y_m)$, using rules of the form
+\begin{center}
+  if $X_1$ is $A_1$ and $X_2$ is $A_2$ and $\dots$ and $X_n$ is $A_n$\\
+  then $Y_1$ is $B_1$ and $Y_2$ is $B_2$ and $\dots$ and $Y_m$ is $B_m$,
+\end{center}
+together with deffuzification function $D:[0,1]^m \to \R^m$ to compute the final crisp values.
+\end{definition}
+
+The most common deffuzification method is the \textit{centroid of area} method, or \acrshort{coa} for short. It extracts a representative value from a fuzzy set, which can be thought of as the center of gravity of the area under its membership function. For a one-dimensional fuzzy set $A$ in a universe $Z$, it assumes the form
+\[
+z = \frac{\int_Z z\mu_A(z)\, dz}{\int_Z \mu_A(z)\, dz}.
+\]
+Other deffuzification methods are studied in the literature. A non-exhaustive classification of such methods can be found in \cite{leekwijck1999deffuzification}.
+
+\begin{example}
+  A typical single-input single-output Madmani fuzzy model could be expressed as follows:
+  \[
+  \left\{ \begin{array}{l}
+	\text{If $X$ is small then $Y$ is small}.\\
+  \text{If $X$ is medium then $Y$ is large}.\\
+	\text{If $X$ is large then $Y$ is very large}.
+\end{array}\right.
+\]
+\end{example}
+
+The other type of FIS that we will study is one in which the output is not a fuzzy set, but a crisp function of the input values. It is aimed at generating fuzzy rules from a given input-output data set, and is appropiate for solving regression problems.
+
+\begin{definition}[TSK fuzzy inference system] A TSK fuzzy inference system (proposed by Takagi, Sugeno and Kang \cite{takagi1985identification, sugeno1988structure}) is a FIS that takes an input $X=(X_1,\dots,X_n)$ and produces an output $Y = (Y_1, \dots, Y_m)$, using rules of the form
+\begin{center}
+  if $X_1$ is $A_1$ and $X_2$ is $A_2$ and $\dots$ and $X_n$ is $A_n$\\
+  then $Y_1$ is $f_1(X_1, \dots, X_n)$ and $Y_2$ is $f_2(X_1, \dots, X_n)$ and $\dots$ and $Y_m$ is $f_m(X_1, \dots, X_n)$,
+\end{center}
+where each $f_i$ is a crisp function of the input values (usually a polynomial).
+\end{definition}
+
+One thing to take into account is that the overall output is obtained via a \textit{weighted average} of the output of each rule (the weights being their firing strength), since now there are no fuzzy sets in the consequent part. This also eliminates the need for a deffuzification module, and thus improves the speed of the system.
+
+\begin{example}
+  A typical single-input TSK fuzzy model could be expressed as follows:
+  \[
+  \left\{ \begin{array}{l}
+	\text{If $X$ is small then $Y=0.1X + 6$}.\\
+  \text{If $X$ is medium then $Y=-0.5X -3$}.\\
+	\text{If $X$ is large then $Y=X+2$}.
+\end{array}\right.
+\]
+\end{example}
