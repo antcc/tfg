@@ -114,13 +114,14 @@ Alternatively, $A$ is convex if all its $\alpha$-level sets are convex (i.e. com
 
 In most applications it makes sense to work with convex membership functions, since they are easy to visualize and interpret. An example visualization to help us differentiate between convex and nonconvex fuzzy sets can be seen in Figure \ref{fig:convex-fuzzy}.
 \begin{figure}[h!]
-\begin{subfigure}{.5\textwidth}
+\centering
+\begin{subfigure}{.4\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{convex-fuzzy}
   \caption{Convex fuzzy set}
   \label{fig:sub-first}
 \end{subfigure}
-\begin{subfigure}{.5\textwidth}
+\begin{subfigure}{.4\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{nonconvex-fuzzy}
   \caption{Nonconvex fuzzy set}
@@ -226,9 +227,9 @@ If $X$ and $Y$ are both discrete, we can express a fuzzy relation as a relation 
 \begin{prop} Let $\mathcal R, \mathcal S$ and $\mathcal T$ be binary relations on $X \times Y$, $Y \times Z$ and $Z \times W$, respectively, and let $\circ$ denote the max-min composition. Then, the following properties hold:
 
 \begin{enumerate}
-\item (Associativity) \ $\mathcal R \circ (\mathcal S \circ \mathcal T) = (\mathcal R \circ \mathcal S) \circ \mathcal T$.
-\item (Distributivity  over union) \ $\mathcal R \circ (\mathcal S \cup \mathcal T) = (\mathcal R \circ \mathcal S) \cup (\mathcal R \circ \mathcal T)$.
-\item (Weak distributivity over intersection) \ $\mathcal R \circ (\mathcal S \cap \mathcal T) \subseteq (\mathcal R \circ \mathcal S) \cap (\mathcal R \circ \mathcal T)$.
+\item (Associativity) \ $\mathcal R \circ (\mathcal S \circ \mathcal T) = (\mathcal R \circ \mathcal S) \circ \mathcal T$;
+\item (Distributivity  over union) \ $\mathcal R \circ (\mathcal S \cup \mathcal T) = (\mathcal R \circ \mathcal S) \cup (\mathcal R \circ \mathcal T)$;
+\item (Weak distributivity over intersection) \ $\mathcal R \circ (\mathcal S \cap \mathcal T) \subseteq (\mathcal R \circ \mathcal S) \cap (\mathcal R \circ \mathcal T)$;
 \item (Monotonicity) \ $\mathcal S \subseteq \mathcal T \implies \mathcal R \circ \mathcal S \subseteq \mathcal R \circ \mathcal T$.
 \end{enumerate}
 
@@ -355,7 +356,7 @@ R_X = \int_X \max_y \, \mu_R(x,y) \slash x, \quad R_Y = \int_Y \max_x \, \mu_R(x
 
 \end{definition}
 
-The Gaussian MF is arguably the most notable example of a composite MF, since it is a well known result that every $n$-dimensional Gaussian function is the product of $n$ one-dimensional Gaussian functions.
+The Gaussian MF is arguably the most notable example of a composite MF, since it is a well known result that every $n$-dimensional Gaussian function is the product of $n$ one-dimensional Gaussian functions, scaled by some constant factor.
 
 
 %----------------------------------------
@@ -369,8 +370,8 @@ Lastly, we explore the generalization of the classical fuzzy operators that have
 \begin{definition}[Complement operator] A fuzzy complement operator is a continuous function $N:[0,1] \to [0,1]$ which meets the following axiomatic requirements:
 
 \begin{enumerate}
-	\item \textit{(Boundary)} \ $N(0)=1$ and $N(1)=0$.
-	\item \textit{(Monotonicity)} \ $N(a) \ge N(b)$ if $a \le b$.
+	\item \textit{(Boundary)} \ $N(0)=1$ and $N(1)=0$;
+	\item \textit{(Monotonicity)} \ $N(a) \ge N(b)$ if $a \le b$;
 	\item \textit{(Involution)} \ $N(N(a)) = a$.
 \end{enumerate}
 
@@ -382,7 +383,7 @@ Lastly, we explore the generalization of the classical fuzzy operators that have
 
 \begin{example} One can routinely verify that the following two operators are fuzzy complement operators.
 \begin{enumerate}
-  \item \textit{(Sugeno's complement} \cite{sugeno1993fuzzy}$)$ $\displaystyle N_s(a) = \frac{1-a}{1+sa}$, where $s > -1$.
+  \item \textit{(Sugeno's complement} \cite{sugeno1993fuzzy}$)$ $\displaystyle N_s(a) = \frac{1-a}{1+sa}$, where $s > -1$;
   \vspace{.25em}
   \item \textit{(Yager's complement} \cite{yager1979measure}$)$ $N_w(a) = (1-a^w)^{1/w}$, where $w>0$.
 \end{enumerate}
@@ -395,9 +396,9 @@ Lastly, we explore the generalization of the classical fuzzy operators that have
 \]
 and verifies several basic properties, namely:
 \begin{enumerate}
-	\item \textit{(Boundary)} \ $T(0,0) = 0$ and $T(a,1) = a$.
-	\item \textit{(Monotonicity)} \ $T(a,b) \le T(c,d)$ if $a \le c$ and $b \le d$.
-	\item \textit{(Commutativity)} \ $T(a,b) = T(b,a)$.
+	\item \textit{(Boundary)} \ $T(0,0) = 0$ and $T(a,1) = a$;
+	\item \textit{(Monotonicity)} \ $T(a,b) \le T(c,d)$ if $a \le c$ and $b \le d$;
+	\item \textit{(Commutativity)} \ $T(a,b) = T(b,a)$;
 	\item \textit{(Associativity)} \ $T(a, T(b,c)) = T(T(a,b),c)$.
 \end{enumerate}
 
@@ -406,9 +407,9 @@ and verifies several basic properties, namely:
 For the sake of completeness, here are four of the most frequently used $T$-norm operators:
 
 \begin{enumerate}
-	\item \textit{Minimum:} $T_{min}(a,b) = a \land b$.
-	\item \textit{Algebraic product:} $T_{ap}(a,b)=ab$.
-	\item \textit{Bounded product:} $T_{bp}(a,b) = 0 \lor (a+b-1)$.
+	\item \textit{Minimum:} $T_{min}(a,b) = a \land b$;
+	\item \textit{Algebraic product:} $T_{ap}(a,b)=ab$;
+	\item \textit{Bounded product:} $T_{bp}(a,b) = 0 \lor (a+b-1)$;
 	\item \textit{Drastic product:} $T_{dp}(a,b) = \begin{cases}
 	                                      a, & \text{if } b = 1,\\
 	                                      b, & \text{if } a = 1,\\
@@ -423,9 +424,9 @@ For the sake of completeness, here are four of the most frequently used $T$-norm
 Corresponding to the four $T$-norm operators previously defined, we have the following $T$-conorm operators:
 
 \begin{enumerate}
-	\item \textit{Maximum:} $S_{max}(a,b) = a \lor b$.
-	\item \textit{Algebraic sum:} $S_{as}(a,b)=a + b - ab$.
-	\item \textit{Bounded sum:} $S_{bs}(a,b) = 1 \land (a+b)$.
+	\item \textit{Maximum:} $S_{max}(a,b) = a \lor b$;
+	\item \textit{Algebraic sum:} $S_{as}(a,b)=a + b - ab$;
+	\item \textit{Bounded sum:} $S_{bs}(a,b) = 1 \land (a+b)$;
 	\item \textit{Drastic sum:} $S_{ds}(a,b) = \begin{cases}
 	                                      a, & \text{if } b = 0,\\
 	                                      b, & \text{if } a = 0,\\
@@ -459,10 +460,10 @@ The whole new range of possible truth values gives something of a gray area in w
 \begin{definition}[Linguistic Variable] A linguistic variable is a quintuple $(x, T(x), X, G, M)$, in which
 
 \begin{enumerate}
-	\item $x$ is the name of the variable,
-	\item $T(x)$ is the \textit{term set} of $x$, that is, the set of its \textit{linguistic values},
-	\item $X$ is, as usual, the universe of discourse,
-	\item $G$ is a \textit{syntactic rule} which generates the terms in $T(x)$, and
+	\item The symbol $x$ represents the name of the variable;
+	\item $T(x)$ is the \textit{term set} of $x$, that is, the set of its \textit{linguistic values};
+	\item $X$ is, as usual, the universe of discourse;
+	\item $G$ is a \textit{syntactic rule} which generates the terms in $T(x)$;
 	\item $M$ is a semantic rule which associates with each linguistic value $A$ its \textit{meaning} $M(A)$, which in turn is nothing more than a fuzzy set in $X$.
 \end{enumerate}
 
@@ -536,7 +537,7 @@ The core idea behind fuzzy reasoning is that the classical if-then rules of infe
 where ``$x$ is $A$'' is the \textit{antecedent} part and ``$y$ is $B$'' is the \textit{consequent} part. Sometimes we will abbreviate such a rule as $A\to B$.
 \end{definition}
 
-Some examples of fuzzy rules include \textit{if the patient's temperature is high, give them a moderate dosis of medicine}, or \textit{only tall people can ride the roller-coaster}. These rules are most useful, as we have already pointed out, when the concepts we are trying to model are difficult to describe in exact terms: is there a universally accepted height from which a person is considered to be tall? Is a body temperature of 38\textdegree{} indicative of a problem but $37.9$\textdegree{} is not?
+Some examples of fuzzy rules include \textit{if the patient's temperature is high, give them a moderate dose of medicine}, or \textit{tall people will get a big discount}. These rules are most useful, as we have already pointed out, when the concepts we are trying to model are difficult to describe in exact terms: is there a universally accepted height from which a person is considered to be tall? Is a body temperature of 38\textdegree{} indicative of a problem but $37.9$\textdegree{} is not?
 
 Since a fuzzy if-then rule models a relation between two variables $x$ and $y$, it makes sense to interpret $A\to B$ as a fuzzy relation $\mathcal R$ given by a membership function $\mu_{\mathcal R} = f(\mu_A(x), \mu_B(y))$, for an appropiate choice of an implication function $f$ (usually a $T$-norm operator). Now we derive the basic operation of fuzzy reasoning, which consists of an \textit{approximate modus ponens}. Starting from the fuzzy rule \textit{if $x$ is $A$ then $y$ is $B$}, if we have the premise $x$ is $A'$, where $A'$ means an approximation of $A$, we can conclude that $y$ is $B'$, with $B'$ being an approximation of $B$. In other words, if $x$ is $A$ \textit{to a certain degree}, then $y$ is $B$ \textit{to a certain (possibly different) degree}. We give a precise meaning and structure to this process in the following definition.
 
@@ -577,9 +578,9 @@ Now that we have gone over all the key elements in the theory of fuzzy reasoning
   \item A \textit{defuzzifying method} used to convert the output back to a crisp value, if necessary.
 \end{enumerate}
 
-A positive quality of a FIS is that its rulebase can be easily modified with the addition of new rules or the adjustment of existing ones. The rules in the rulebase can be defined by an expert based on their knowledge of the specific problem we are tackling, but \textbf{they can also be learned from data}. This fact opens the door to the treatment of fuzzy systems with the techniques and learning algorithms that have been emerging over the course of the last decades. This is precisely what we pursue: to build a fuzzy system that can learn and benefit from enormous amounts of data.
+A positive quality of a FIS is that its rulebase can be easily modified with the addition of new rules or the adjustment of existing ones. The rules in the rulebase can be defined by an expert based on their knowledge of the specific problem we are tackling, but \textbf{they can also be learned from data}. This fact opens the door to the treatment of fuzzy systems with the techniques and learning algorithms that have been emerging over the course of the last decades in this field. This is precisely what we pursue: to build a fuzzy system that can learn and benefit from enormous amounts of data. This process will be discussed in depth in Chapter \ref{ch:fuzzy-bigdata}.
 
-One of the most important thing to take into account is that the choice of membership function is subjective, but not arbitrary. It heavily depends on the problem we are trying to solve, and selecting the appropiate MF for a given task usually gives much better results than to choose one either at random or that gave good results on some entirely different problem.
+One of the most important thing to take into account is that the choice of membership function is subjective, but not arbitrary. It heavily depends on the problem we are trying to solve, and selecting the appropiate MF for a given task usually gives much better results than choosing one either at random or one that gave good results on some entirely different problem.
 
 Even though we have described every step of the inferring process in this and the previous sections, we summarize them below for completeness.
 
@@ -588,7 +589,7 @@ Even though we have described every step of the inferring process in this and th
   \item Then, the \textit{firing strength} of each rule is computed, which usually consists on performing the fuzzy AND operation between the antecedents.
   \item Now the firing strength of each rule is combined with the consequent part to form an overall degree of satisfaction of the rule, known as the \textit{qualified consequent}. This is done as we described when we talked about implication operators, which in turn are commonly implemented with $T$-norm operators (e.g. the $\land$ operator).
   \item We aggregate all qualified consequents and choose the one that best represents the input value, for which the OR operator is the standard choice.
-  \item Finally, we employ the aggregated output MF to obtain a crisp value as the output, i.e. a deffuzified value.
+  \item Finally, we employ the aggregated output MF to obtain a crisp value as the output, i.e. a defuzzified value.
 \end{enumerate}
 
 \subsection{Fuzzy system types}
@@ -600,14 +601,14 @@ To bring this exposition about fuzzy theory to an end, we present the two most c
   if $X_1$ is $A_1$ and $X_2$ is $A_2$ and $\dots$ and $X_n$ is $A_n$\\
   then $Y_1$ is $B_1$ and $Y_2$ is $B_2$ and $\dots$ and $Y_m$ is $B_m$,
 \end{center}
-together with deffuzification function $D:[0,1]^m \to \R^m$ to compute the final crisp values.
+together with a defuzzification function $D:[0,1]^m \to \R^m$ to compute the final crisp values.
 \end{definition}
 
-The most common deffuzification method is the \textit{centroid of area} method, or \acrshort{coa} for short. It extracts a representative value from a fuzzy set, which can be thought of as the center of gravity of the area under its membership function. For a one-dimensional fuzzy set $A$ in a universe $Z$, it assumes the form
+The most common defuzzification method is the \textit{centroid of area} method, or \acrshort{coa} for short. It extracts a representative value from a fuzzy set, which can be thought of as the center of gravity of the area under its membership function. For a one-dimensional fuzzy set $A$ in a universe $Z$, it assumes the form
 \[
 z = \frac{\int_Z z\mu_A(z)\, dz}{\int_Z \mu_A(z)\, dz}.
 \]
-Other deffuzification methods are studied in the literature. A non-exhaustive classification of such methods can be found in \cite{leekwijck1999deffuzification}.
+Other defuzzification methods are studied in the literature. A non-exhaustive classification of such methods can be found in \cite{leekwijck1999defuzzification}.
 
 \begin{example}
   A typical single-input single-output Madmani fuzzy model could be expressed as follows:
@@ -630,7 +631,7 @@ The other type of FIS that we will study is one in which the output is not a fuz
 where each $f_i$ is a crisp function of the input values (usually a polynomial).
 \end{definition}
 
-One thing to take into account is that the overall output is obtained via a \textit{weighted average} of the output of each rule (the weights being their firing strength), since now there are no fuzzy sets in the consequent part. This also eliminates the need for a deffuzification module, and thus improves the speed of the system.
+One thing to take into account is that the overall output is obtained via a \textit{weighted average} of the output of each rule (the weights being their firing strength), since now there are no fuzzy sets in the consequent part. This also eliminates the need for a defuzzification module, and thus improves the speed of the system.
 
 \begin{example}
   A typical single-input TSK fuzzy model could be expressed as follows:
