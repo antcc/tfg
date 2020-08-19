@@ -23,7 +23,7 @@ where $F$ is a real-valued function of $n+1$ real variables, $x$ is an independe
   A \textit{solution} of the differential equation \eqref{eq:ode} is a function $\phi: I \to \R$, where $I=(a,b)$, $-\infty \leq a < b \leq \infty$ is some open interval of the real line, satisfying the following conditions:
 
   \begin{enumerate}
-    \item The function $\phi$ has derivatives up to order $n$.
+    \item The function $\phi$ has derivatives up to order $n$;
     \item The identity $F(x, \phi(x), \phi'(x), \dots, \phi^{(n)}(x)) = 0$ holds for all $x \in I$.
   \end{enumerate}
   The process of finding solutions of a differential equation is also known as \textit{integrating} the equation.
@@ -38,7 +38,7 @@ and thus their solutions are differentiable functions of $x$ that reduce the equ
   \label{eq:fode-explicit}
   y' = f(x, y),
 \end{equation}
-and we will assume that the function $f(x,y)$ is defined on some domain (open and connected subset) $G$ of the $xy$-plane.
+and we will assume that the function $f(x,y)$ is defined on some domain (open and connected subset) $G$ of the $(x,y)$-plane.
 
 \begin{remark}
   Sometimes we will find it more useful to use Leibniz's notation and express the above equation as
@@ -154,7 +154,7 @@ We can illustrate the previous definitions and properties with a simple example.
   \end{figure}
 \end{example}
 
-As a closing remark, we note that we could have ignored the directions parallel to the $y$-axis altogether, and we still would have ended up with a well defined, reasonable concept of integral curve. This is in fact what V. Arnold does in \cite{cooke1992ordinary}. However, taking these conflicting points into account will allow us to better study and understand \textit{singularities} of the function $f$, which is one of the primary concerns of this work.
+As a closing remark, we note that we could have ignored the directions parallel to the $y$-axis altogether, and we still would have ended up with a well defined, reasonable concept of integral curve. This is in fact what V. Arnold does in \cite{cooke1992ordinary}. However, taking these conflicting points into account will allow us to better study and understand \textit{singularities} of the function $f$, allowing for a more general perspective and broadening the scope of this work.
 
 \section{Existence and uniqueness of solutions}
 
@@ -186,7 +186,7 @@ has at least one solution in $G$. Moreover, if $f$ is continuous on a neighbourh
 
 The concept of a solution passing through a predefined point is not incidental to our study, but it plays a major role in much of the subsequent theory, which is why it merits its own denomination. A differential equation $y'=f(x,y)$ coupled with an \textit{initial condition} $y(x_0)=y_0$ is called an \textit{initial value problem}, often abbreviated as \acrshort{ivp}. With this new definition in mind, Peano's theorem states that every initial value problem defined by a continuous function has at least one solution, or more generally, that there is at least one integral curve of the equation passing through the selected point.
 
-Together with the question of existence comes inevitably the issue of uniqueness. Peano's theorem guarantees that under mild conditions a solution to an initial value problem always exists, but it doesn't say anything about it being unique. It is not hard to think of an example in which uniqueness of solution is violated. For instance, it is inmediate to verify that the IVP
+Together with the question of existence comes inevitably the issue of uniqueness. Peano's theorem guarantees that under mild conditions a solution to an initial value problem always exists, but it doesn't say anything about it being unique. It is not hard to think of an example in which uniqueness of solution is violated. For instance, it is immediate to verify that the IVP
 
 \begin{equation*}
   \begin{cases} y' = 3y^{2/3},\\
