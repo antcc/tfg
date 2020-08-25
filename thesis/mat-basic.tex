@@ -158,7 +158,7 @@ As a closing remark, we note that we could have ignored the directions parallel 
 
 \section{Existence and uniqueness of solutions}
 
-So far we have been talking about solutions of a differential equation without stopping to think even if such solutions exist in the first place. Could we come up with an equation which has no solutions at all? To answer this question, remember that any possible solution is assumed to be smooth, and thus its derivative verifies the \textit{intermediate value theorem}\footnote{A similar argument for non-smooth solutions may be given using \textit{Darboux's theorem} \cite[112]{apostol1974analysis}, which states that the derivative of any differentiable function that takes two different values on an interval must take every value in between.}. But this derivative must be equal to $f$, so it suffices to choose a function that doesn't have the intermediate value property. For example, if we consider the famous Dirichlet function
+So far we have been talking about solutions of a differential equation without stopping to think even if such solutions exist in the first place. Could we come up with an equation which has no solutions at all? To answer this question, remember that any possible solution is assumed to be smooth, and thus its derivative verifies the \textit{intermediate value theorem}\footnote{\label{fn:darboux} A similar argument for non-smooth solutions may be given using \textit{Darboux's theorem} \cite[112]{apostol1974analysis}, which states that the derivative of any differentiable function that takes two different values on an interval must take every value in between.}. But this derivative must be equal to $f$, so it suffices to choose a function that doesn't have the intermediate value property. For example, if we consider the famous Dirichlet function
 \begin{equation*}
   g(x) = \begin{cases}
     1  & \text{if } x \in \mathbb{Q},\\
@@ -197,7 +197,7 @@ Together with the question of existence comes inevitably the issue of uniqueness
 has two valid solutions: $y=0$ and $y=x^3$. Thus some kind of additional condition is needed to ensure that one and only one integral curve passes through a given point, as the following theorem asserts.
 
 \begin{theorem}[Picard-Lindelöf] \label{th:picard}
-  Let $G \subset \R^2$ be a domain in the plane, and suppose $f:G \to \R$ is a continuous function that locally satisfies a Lipschitz condition in the second variable, that is, for every $p \in G$ there exists a neighbourhood $U$ of $p$ in $G$ and a constant $L>0$ such that
+  Let $G \subset \R^2$ be a domain in the plane, and suppose $f:G \to \R$ is a continuous function that locally satisfies a Lipschitz condition in the second variable, that is, for every $p \in G$ there exists a neighbourhood $U_p$ of $p$ in $G$ and a constant $L>0$ such that
 \begin{equation*}
   \abs{f(x, y_2) - f(x, y_1)} \leq L\abs{y_2 - y_1}
 \end{equation*}

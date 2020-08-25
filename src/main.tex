@@ -37,6 +37,9 @@
 
 \input{acronyms}
 
+%Captions margin
+\captionsetup{margin=1cm}
+
 %% Math environments
 \theoremseparator{.}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -65,6 +68,9 @@
 \setlist{noitemsep}
 \setlist[1]{labelindent=\parindent} % < Usually a good idea
 \setlist[enumerate,1]{label=$(\roman*)$}
+
+% Continuous counter for footnotes
+\counterwithout{footnote}{chapter}
 
 \makeindex
 
@@ -110,6 +116,7 @@
 \begin{center}
     \begin{minipage}[t]{12.5cm}
         \doclicenseThis
+        The source code for this document is available at \url{https://www.github.com/antcc/tfg}.
     \end{minipage}
 \end{center}
 \vfill
@@ -264,8 +271,8 @@
 \setpartpreamble[u][\textwidth]{\vspace*{2em}\centering \large \emph{Computer Science}}
 \part{Fuzzy systems for Big Data computing}
 
-%\chapter{Introduction}
-%\input{\TPath/cs-intro}
+\chapter{Introduction}
+\input{\TPath/cs-intro}
 
 \chapter{Fuzzy logic and fuzzy systems}
 \input{\TPath/cs-fuzzy}
@@ -273,7 +280,7 @@
 \chapter{Big Data}
 \input{\TPath/cs-bigdata}
 
-\chapter{Fuzzy systems for Big Data}
+\chapter{Design and implementation of fuzzy systems for Big Data}
 \label{ch:fuzzy-bigdata}
 \input{\TPath/cs-fuzzy-bigdata}
 
@@ -307,7 +314,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\nocite{*}
+%\nocite{*}
 \printbibliography
 
 \noindent All links were last followed on September 7, 2020.
