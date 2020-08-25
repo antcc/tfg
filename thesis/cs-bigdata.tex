@@ -61,11 +61,40 @@ Having reviewed the main properties and characteristics of Big Data, we conclude
 
 We have already covered the analysis step, which consists on applying suitable algorithms to try to extract meaningful conclusiones about the data, remembering that these algorithms must be developed in a scalable way. Not only should they be designed for scalability, but also adapted to be run on parallel architectures that allow the scalability to be implemented. In other words, in a Big Data environment it is typical to work with distributed machines, or \textit{clusters} of computers, so that more and more computing power can be easily added to the mix if needed.
 
-Motivated by this approach arises the need for a method of storing data in multiple places in an efficient and safe way. Although there are multiple proposals to tackle this issue, one of the most prominent architectures is the \textit{Hadoop Distributed File System}\footnote{Hadoop was named after a toy elephant that belonged to the son of Doug Cutting, one of the main developers.}, or HDFS \cite{chansler2010hdfs}. It provides an interface to store and access data in a distributed file system, and it is designed to be fault-tolerant and reliable.
+Motivated by this approach arises the need for a method of storing data in multiple places in an efficient and safe way. Although there are multiple proposals to tackle this issue, one of the most prominent architectures is the \textit{Hadoop Distributed File System}\footnote{The name Hadoop comes from a toy elephant that belongs to the son of Doug Cutting, one of the main developers of the Apache Hadoop project.}, or HDFS \cite{chansler2010hdfs}. It provides an interface to store and access data in a distributed file system, and it is designed to be fault-tolerant and reliable.
 
 As for the processing of the data, the reference framework is the MapReduce programming model, proposed by Google in 2004 \cite{dean2004mapreduce}. It consists on a \textit{mapping} stage, in which transformations are performed on the data, and a \textit{reduce} stage that serves as a summarizing or aggregating operation. These tasks are handled in a parallel fashion, and all communications and data transfers are managed by the framework.
 
 As a final comment, we should point out that a trend that has emerged to facilitate dealing with these architectures is \textit{cloud computing}. Companies are offering their hardware resources for the public to rent and use as a way of working with Big Data, eliminating the need of physically assembling and maintaining a cluster of machines.
 
 \subsection{Apache Spark}
-hadoop
+
+Apache Spark\footnote{Full documentation available at \url{https://spark.apache.org/}.} is an open-source, distributed processing system and cluster-computing framework used to handle Big Data workloads in a fail-safe manner. It was released under its current name in 2014, and since then it has quickly become the \textit{de facto} standard for processing and analyzing large quantities of data. It has a large community of users who steadily make contributions and help improve and maintain the software. It also has a library specifically focused on distributed machine learning algorithms, called \textit{MLlib}, and some APIs specific to various programming languages, such as Python or Scala.
+
+One of the main reasons for its popularity and acceptance is that under the hood Spark implements an improved version of the MapReduce architecture in a way that is transparent to the end user. This is achieved by utilizing a data structure known as \textit{Resilient Distributed Dataset}, or \acrshort{rdd} for short, which is an immutable distributed collection of objects. These datasets are stored in memory in a distributed fashion across many machines and can be manipulated via a series of transformations and actions to produce the desired result. As their name implies, there are a number of safeguarding mechanisms that prevent loss of data if a problem occurs in any of the datasets containers; they are designed to be fault-tolerant. One of the preventive measures taken is to keep track of the \textit{lineage} of each RDD, that is, the sequence of operations that were performed on it before it reached its current state, so that it can be reconstructed if needed.
+
+With regard to the processing of the data, there is a \textit{master node} that controls all operations and is responsible for handing out pending tasks to the \textit{worker nodes} distributed across the cluster of machines. Sparks builds a directed acyclic graph (DAG) as a scheduling layer, which determines which tasks are executed on which nodes and in what sequence. In terms of the map-and-reduce model, the process is as follows:
+
+\begin{enumerate}[1.]
+  \item \textit{Map function}. The master node takes the input from the distributed filesystem or from memory, divides it into several sub-problems or \textit{partitions}, and transfers them to the worker nodes. Next, each worker node processes the data and performs transformations on it, transferring the result back to the master node. In every stage, data is stored and handled as a set of $\langle \text{key},\text{value}\rangle$ pairs.
+  \item \textit{Reduce function}. The master node collects the answers of the worker nodes and combines then in a predefined way, acting on values that share the same key.
+\end{enumerate}
+
+It is worh pointing out that Spark implements a \textit{lazy evaluation} model consisting on \textit{transformations} and \textit{actions}. The so-called transformations are applied to an RDD and produce a new RDD. These transformation lazily stack together, without modifying any RDD in place, until an action is invoked on it. Then and only then the results are collected back to the main node, all the queued transformations are applied and the final action is performed. In this way, transformations are related to the mapping phase, while actions are linked to the reduce phase.
+
+This platform requires a cluster manager and a distributed storage system to function properly. Popular choices regarding these components are Hadoop YARN and HDFS, respectively. We present below a review of the other principal components of the system and its workflow (see Figure \ref{fig:spark-workflow}), in Spark terminology:
+
+\begin{itemize}
+  \item \textit{Driver}. It is a separate process to execute user applications. It is responsible for scheduling jobs and negotiating with the cluster manager via its \textit{master node}.
+  \item \textit{Node or Worker}. Any machine in the cluster that can run application code.
+  \item \textit{Executor}. It is a process launched on a node, that runs tasks and keeps data in memory or disk storage.
+   \item \textit{Task}. The minimal unit of work, executed by one executor on a single thread.
+   \item \textit{Job}. A parallel computation that consists of multiple tasks that get spawned in response to an action.
+\end{itemize}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=.6\textwidth]{spark-workflow}
+  \caption{Apache Spark components and schematic workflow. Taken from \cite{lopez2019distributed}.}
+  \label{fig:spark-workflow}
+\end{figure}

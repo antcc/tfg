@@ -1,0 +1,61 @@
+%
+% Copyright (c) 2020 Antonio Coín Castro
+%
+% This work is licensed under a
+% Creative Commons Attribution-ShareAlike 4.0 International License.
+%
+% You should have received a copy of the license along with this
+% work. If not, see <http://creativecommons.org/licenses/by-sa/4.0/>.
+
+In this chapter we will concentrate on the design and implementation of several fuzzy systems for working with Big Data. While approaching these systems from a theoretical perspective as we have been doing throughout the text, we will shift our focus somewhat and also describe a number of implementations in an actual programming language. This part can be regarded as a more practical aspect of our work, a small software development project undertaken with the intent of fusing the ideas previously presented.
+
+The language of choice is the Scala programming language, and the platform to develop our Big Data programs will be no other than Apache Spark. Although we will generally provide a high-level description of the algorithms, we will also insert occasional pieces of code that help clarify what we are trying to achieve, and even sometimes discuss technical aspects of the implementation or particularities of the language.
+
+The interested reader can refer to \cite{suereth2012scala} or \cite{odersky2008programming} for a detailed introduction to Scala. Basic and intermediate notions of the interaction between Scala and Spark are also covered in \cite{karau2015learning}.
+
+\section{Learning algorithms for fuzzy systems}
+
+There are basically two different strategies to build FRBS, depending on the information available at the moment of its construction. The first way is to rely on human experts, inputting the knowledge manually into the system. This is one of the main tasks tackled in the field of \textit{knowledge engineering}, where knowledge engineers devise the best methods to extract and properly represent the knowledge from experts in the matter. The other way is to try to learn the rules and behaviour of the system from the data, by using several learning methods. We will concentrate on the latter approach.
+
+Generally speaking, learning algorihms for FRBSs can be decomposed in two stages: a structure identification step and a parameter tuning phase. In the first one, the structure and size of the rulebase is estimated, while in the second one the parameters corresponding to the various membership functions involved are optimized. These steps can be performed sequentially or in a simultaneous way.
+
+While these algorithms are tailored to work with fuzzy systems, the restrictions and particularities of the general learning algorithms still apply. That is, choosing a specific algorithm is only one step of the full learning process: data preprocessing, dimensionality reduction, parameter selection, etc. A number of software libraries have been developed to work with fuzzy systems, among which we would like to highlight the \verb|frbs| R package \cite{riza2015frbs}. It gathers a multitude of classification and regression algorithms under a common API that focuses on easiness of use.
+
+Before we specify the algorithms implemented, we present an overview of the three main types of learning algorithms for FRBSs.
+
+\subsection{Space partition algorithms}
+
+These algorithms are designed so that a partition on the input and output spaces is established, and rules are derived from the grade in which each data point represents each of these partitions. In other words, rules are created \textit{ad-hoc} directly from the data.
+
+The parameters of the membership functions are dependent on the specific technique used to partition the spaces, and the expressions used to measure the affinity of each point to each partition. A notable special case is the use of \textit{clustering algorithms} to make the partitions. In this case, each centroid acts as a fuzzy rule, with a membership function that measures the grade in which each points belongs to each centroid. This is known as \textit{fuzzy clustering}, and differs from classical clustering algorithms in that each point generally belongs to every cluster to a greater or lesser extent, not just to one of them.
+
+\subsection{Neural network algorithms}
+
+As their name indicates, these algorithms are based on the concept of artifical neural networks. These structures have been adapted from the field of machine learning and more precisely of deep learning, where they are widely used and serve as the basis of multiple state of the art algorithms (see for example \cite{lecun2015deep}).
+
+The FRBS is usually generated beforehand, and it is then adapted to fit a neural network structure. This network is used as a way of tuning the parameters of the membership function using the backpropagation algorithm, and thus retaining all the advantages of this technique. A typical neuro-fuzzy system has a layer that represents the membership functions of the linguistic values associated with the input variables, an antecedent layer that represents the antecedent parts of every rule, a consequent layer to express the consequent of the rules, and a defuzzification layer to provide a final response. Commonly there are weights involved in the process that calibrate the importance of each rule, and they can also be adjusted when training the network.
+
+\subsection{Genetic algorithms}
+
+We arrive at the last type of FRBS considered here, which is based on genetic algorithms. Ample research has been conducted on this topic, and the reader can refer to \cite{cordon2011historical} for a historical review or to \cite{cordon2001genetic} for a whole book on the subject.
+
+The philosophy behind these algorithms is similar to that of the neuro-fuzzy systems: an initial structure is established, and then a genetic method is adapted to tune a specified set of parameters. But genetic algorithms can also be used to generate the whole structure from the start, as shown in \cite{cordon2001generating}. As an alternative to neuro-fuzzy systems, these algorithms present all the advantages (as well as the disadvantages) of the standard genetic methods. Since we will not be developing any algorithm that falls in this category, we mention a couple of them that are studied in the literature.
+
+\begin{enumerate}[1.]
+  \item The first one is a basic genetic fuzzy system based on Thrift's method \cite{thrift1991genetic} of integer coding. In this method, each possible rule represents a chromosome, and a new population is obtained by applying the usual crossover and mutation operators (although mutations are adapted to this particular setting), and follows an elitist scheme. The fitness of an individual is calculated as the mean squared error between predictions and actual values, as outputed by the system.
+  \item Cordón and Herrera proposed the D-MOGUL method \cite{cordon1997three} to automatically generate a complete knowledge base; it uses a genetic algorithm to determine the structure of the fuzzy rules and the parameters of the membership functions simultaneously. It consists on three steps:
+  \begin{itemize}
+    \item An iterative \textit{rule generation} process that explores the search space for rules that satisfy certain desirable conditions. A partition of the input space consisting on triangular membership functions is considered.
+    \item A \textit{genetic simplification phase}, that eliminates redundant rules from the previous step by exploring the subsets of rules that best cooperate among themselves.
+    \item A \textit{genetic tuning phase} in which membership parameters are adjusted to try to maximize the accuracy of the final model.
+  \end{itemize}
+\end{enumerate}
+
+\section{Cost estimation and planning}
+
+<Description of the planning of the project and the estimated costs of both human and hardware resources.>
+
+\section{Clustering algorithms}
+\subsection{Subtractive clustering}
+\subsection{Fuzzy C-Means}
+\section{Neuro-fuzzy algorithm: HYFIS}
