@@ -7,12 +7,12 @@
 % You should have received a copy of the license along with this
 % work. If not, see <http://creativecommons.org/licenses/by-sa/4.0/>.
 
-Having presented ordinary differential equations and their solutions in the previous chapter, we now focus on our main goal: the study and understanding of \textit{implicit} differential equations, that is, equations in which the derivative can't be isolated. Since we can't put this type of equations into explicit form, all the theory discussed earlier doesn't apply directly to this case, and thus we want to find a general framework that allows for the treatment of these equations from a theoretical point of view. For this task we will refer to \cite[\S \ 25]{petrovski1966ordinary} and \cite[\S \ 3]{arnold2012geometrical}.
+Having presented ordinary differential equations and their solutions in the previous chapter, we now focus on our main goal: the study and understanding of \textit{implicit} differential equations, that is, equations which are not solved for the derivative $y'$. Since we can't put this type of equations into explicit form, all the theory discussed earlier doesn't apply directly to this case, and thus we want to find a general framework that allows for the treatment of these equations from a theoretical point of view. For this task we will refer to \cite[\S \ 25]{petrovski1966ordinary} and \cite[\S \ 3]{arnold2012geometrical}.
 
 Given that equations are expressed in the general or implicit form, it makes sense to think that the \textit{implicit function theorem} will play a significant role in disentangling the complexities behind this formulation of differential equations, and that it will tell us something about their local behaviour. In an effort to provide all the necessary tools for the study we are about to undertake, we write down the statement of this famous theorem below.
 
 \begin{theorem}[Implicit function theorem]
-Let $G$ be an open set in $\R^{n+m}$ with coordinates $(x, y)$ and let $F:G \to \R^m$ be continuously differentiable. If $(a,b)\in G$ verifies $F(a,b)=0$ and the Jacobian matrix $\frac{\partial F}{\partial y}(a, b)$ is nonsingular, then there exists an open set $U \subset \R^n$ with $a \in U$ and a unique $\mathcal C^1$ function $f:U\to \R^m$ such that:
+Let $D$ be an open set in $\R^{n+m}$ with coordinates $(x, y)$ and let $F:D \to \R^m$ be continuously differentiable. If $(a,b)\in D$ verifies $F(a,b)=0$ and the Jacobian matrix $\frac{\partial F}{\partial y}(a, b)$ is nonsingular, then there exists an open set $U \subset \R^n$ with $a \in U$ and a unique $\mathcal C^1$ function $f:U\to \R^m$ such that:
 \begin{enumerate}
   \item $f(a)=b$;
   \item $F(x, f(x)) = 0$ for all $x$ in $U$;
@@ -34,7 +34,7 @@ Even though we have stated the theorem for arbitrary dimensions, we will only ap
 Also, following a standard notation, we will denote by $F_x$, $F_y$ and $F_p$ the partial derivatives of the function $F$ with respect to each of its three variables $x$, $y$ and $p$. Then, the theorem assumes the following form:
 
 \begin{corollary} \label{cor:implicit}
-  Let $G$ be an open subset of $\R^3$ and let $F:G \to \R$ be continuously differentiable. If $(x_0, y_0, p_0) \in G$ verifies $F(x_0, y_0, p_0) = 0$ and $F_p(x_0,y_0,z_0) \neq 0$, then there exists an open set $U\subset \R^2$ containing $(x_0, y_0)$ and a unique $\mathcal C^1$ function $f:U\to \R$ such that $z_0=f(x_0,y_0)$ and $F(x, y, f(x,y))=0$ for all $(x, y) \in U$. Moreover, the partial derivative of $f$ with respect to its second variable is given by
+  Let $D$ be an open subset of $\R^3$ and let $F:D \to \R$ be continuously differentiable. If $(x_0, y_0, p_0) \in D$ verifies $F(x_0, y_0, p_0) = 0$ and $F_p(x_0,y_0,p_0) \neq 0$, then there exists an open set $U\subset \R^2$ containing $(x_0, y_0)$ and a unique $\mathcal C^1$ function $f:U\to \R$ such that $p_0=f(x_0,y_0)$ and $F(x, y, f(x,y))=0$ for all $(x, y) \in U$. Moreover, the partial derivative of $f$ with respect to its second variable is given by
   \begin{equation} \label{eq:der-formula}
   \frac{\partial f}{\partial y}(x, y) = - \frac{F_y(x,y, f(x,y))}{F_p(x, y, f(x,y))}.
 \end{equation}
@@ -46,7 +46,7 @@ In this case we will start with an example. If we consider the differential equa
 \begin{equation} \label{eq:ex1}
   (y')^2 = y,
 \end{equation}
-we should immediatly observe that this expression is an abbreviation for two distinct explicit differential equations: $y'=\sqrt y$ and $y'=-\sqrt y$, for $y\ge0$. Each of these equations produces a direction field, as seen in Figure \ref{fig:ex1}, and each of them separately satisfies an existence and uniqueness theorem on its domain, though clearly the uniqueness of solution fails when combining them. Nevertheless, we would like to examine this kind of equations as a whole, and establish general conditions for their treatment.
+we should immediatly observe that this expression is an abbreviation for two distinct explicit differential equations: $y'=\sqrt y$ and $y'=-\sqrt y$, for $y > 0$. Each of these equations produces a direction field, as seen in Figure \ref{fig:ex1}, and each of them separately satisfies an existence and uniqueness theorem on its domain, though clearly the uniqueness of solution fails when combining them. Nevertheless, we would like to examine this kind of equations as a whole, and establish general conditions for their treatment.
 
 \begin{figure}[h!]
 \centering
@@ -62,10 +62,10 @@ we should immediatly observe that this expression is an abbreviation for two dis
 \label{fig:ex1}
 \end{figure}
 
-One thing to note from the beggining is that there are some occasions in which implicit equations can be put in explicit form, at least in theory. That is, there is a set of conditions that, when satisfied, guarantee that the equation is equivalent to another one in explicit form. Of course, in nontrivial cases this result will only hold locally, and as one would expect is a direct consequence of the aforementioned implicit function theorem.
+One thing to note from the beggining is that there are some occasions in which implicit equations can be put in explicit form, at least in theory. That is, there is a set of conditions that, when satisfied, guarantee that the equation is equivalent to another one in explicit form. Of course, in nontrivial cases this result will only hold locally, and as one would expect it is a direct consequence of the aforementioned implicit function theorem.
 
-\begin{theorem}
-  Let $F:G \to \R$ be a continuously differentiable function on some domain $G$ of the $(x,y,p)$-space. Suppose that $(x_0,y_0,p_0) \in G$ simultaneously satisfies $F(x_0,y_0,p_0)=0$ and $F_p(x_0,y_0,p_0)\neq 0$. Then there exists a unique function $\phi$ defined on an interval containing $x_0$ that is a solution of the equation $F(x,y,y')=0$, satisfying $\phi(x_0)=y_0$ and $\phi'(x_0)=p_0$.
+\begin{theorem} \label{th:implicit-basic}
+  Let $F:D \to \R$ be a continuously differentiable function on some domain $D$ of the $(x,y,p)$-space. Suppose that $(x_0,y_0,p_0) \in D$ simultaneously satisfies $F(x_0,y_0,p_0)=0$ and $F_p(x_0,y_0,p_0)\neq 0$. Then there exists a unique function $\phi$ defined on an interval containing $x_0$ that is a solution of the equation $F(x,y,y')=0$, satisfying $\phi(x_0)=y_0$ and $\phi'(x_0)=p_0$.
 \end{theorem}
 
 \begin{proof} Under these conditions we can apply Corollary \ref{cor:implicit} to $F(x,y,p)$ and express $p$ as a function of $x$ and $y$, that is, there exists a unique smooth $f$ such that $F(x,y,f(x,y))=0$ on a neighbourhood $U$ of the point $(x_0,y_0)$, that also verifies $p_0=f(x_0,y_0)$. Then the IVP
@@ -94,28 +94,33 @@ for which at the point $(0,0,1)$ we have $F_p=0$ but both $x$ and $x-x^2$ are va
 
 If we take a closer look at the above result, we observe that for every choice of $p_0$ there is a potentially different solution to the equation. But just how many suitable points are there? Is there any condition that guarantees that the number of possible solutions passing through a given point in the plane is finite? The following theorem (cf. \cite[76]{petrovski1966ordinary}) gives a satisfactory answer, namely that we can limit the number of solutions in a neighbourhood if after setting a reference point $(x,y)$ we can solve the (algebraic) equation for $p$.
 
-\begin{theorem} \label{th:implicit2} Given the differential equation
-\begin{equation}\label{eq:implicit-th}
-  F(x,y,y')=0,
+\begin{theorem} \label{th:implicit2} Let $F:D \to \R$ be a continuous function defined on some domain $D \subset \R^3$ with coordinates $(x,y,p)$. Suppose that $(x_0,y_0) \in \R^2$ is such that the equation $F(x_0,y_0,p)=0$ has a finite number of distinct roots $p_1,\dots, p_m$ when solved for $p$, verifying that $(x_0,y_0,p_i) \in D$ and that $F_p(x_0,y_0,pi) \neq 0$ for $i=1,\dots,m$. Further suppose that for $i=1,\dots,m$ there exists a neighbourhood $\mathcal R_i$ of the point $(x_0,y_0,p_i)$ in which $F$ is continuously differentiable. Then there is a neighbourhood $\mathcal N$ of $(x_0,y_0)$ such that precisely $m$ solutions of the equation
+  \begin{equation} \label{eq:implicit-th}
+  F(x,y,y')=0
 \end{equation}
-suppose that $F(x,y,p)$ is such that
-\begin{enumerate}
-  \item $F(x,y,p)$ is defined and continuous on a closed bounded domain $\bar{G}$ in $(x,y,p)$-space;
-  \item At some point $(x_0,y_0)$ of the $(x,y)$-plane, equation \eqref{eq:implicit-th} has a finite number of distinct roots $p_1,\dots,p_m$ when solved for $p$;
-  \item Each of the points $(x_0,y_0,p_i), \ i=1,\dots,m$ belongs to $G$ and has a neighbourhood in which $F(x,y,p)$ is continuously differentiable and satisfies $|F_p(x,y,p)|\ge c > 0$.
-\end{enumerate}
-Then there is a neighbourhood $\mathcal N$ of $(x_0,y_0)$ such that precisely $m$ solutions of \eqref{eq:implicit-th} pass through each point of $\mathcal N$.
+  pass through each point of $\mathcal N$.
 
 \end{theorem}
 
 \begin{proof}
-Given these conditions on $F$ it follows from the implicit function theorem that each of the points $(x_0,y_0,p_i)$ has a neighbourhood $\mathcal R_i$ in $(x,y,p)$-space in which $F(x,y,p)=0$ is satisfied by one and only one choice of $p$ as a smooth function of $x$ and $y$, that is, of the form
-\begin{equation}\label{eq:surface-th}
-  p=f_i(x,y), \quad i=1,\dots,m,
-\end{equation}
-where in each case the derivative with respect to $y$ is given by \eqref{eq:der-formula}. Since $|F_p(x,y,f_i(x,y))| \ge c > 0$ by assumption and given that $F_y$ is continuous, we can assure that each $\partial f_i/\partial y$ is bounded on $\mathcal R_i$.
 
-Now the neighbourhoods $\mathcal R_1,\dots, \mathcal R_m$ can be represented as cylinders parallel to the $p$-axis, where the projection of the base of each cylinder onto the $(x,y)$-plane is the same neighbourhood $\mathcal N$ of $(x_0,y_0)$, as shown schematically in Figure \ref{fig:cylinder}. This can be done, eventually shrinking the neighbourhoods, because they all enclose the same point $(x_0,y_0)$ in the $(x,y)$-plane. Not only that, but we can also choose $\mathcal N$ so small that every point $(x,y,p)$ in the cylinder generated by $\mathcal N$ for which $F=0$ belongs to one of the surfaces \eqref{eq:surface-th}. Indeed, if it were not the case, any such point would obviously have to lie outside the cylinders $\mathcal R_1, \dots, \mathcal R_m$, and if they existed for arbitrarily small $\mathcal N$ they would have to be on the line $x=x_0$, $y=y_0$, because $F$ is continuous and $\bar{G}$ is compact. But this is impossible, since then \eqref{eq:implicit-th} would have more than $m$ roots when solved for $p$ at the point $(x_0,y_0)$.
+Since the set $\{p_1,\dots,p_m\}$ is finite, we can suppose without loss of generality that the $\mathcal R_i$ are cylinders parallel to the $p$-axis, where the projection of the base of each cylinder onto the $(x,y)$-plane is the same neighbourhood $\mathcal N$ of $(x_0,y_0)$, as shown schematically in Figure \ref{fig:cylinder}. This can be done, eventually shrinking the neighbourhoods, because they all enclose the same point $(x_0,y_0)$ in the $(x,y)$-plane. More precisely, there exist $r>0$ and $\epsilon > 0$ such that
+\[
+\mathcal R_i = B_r(x_0,y_0) \times (p_i-\epsilon, p_i+\epsilon), \quad i=1,\dots,m.
+\]
+In addition, we can choose $\epsilon$ sufficiently small so that
+\begin{itemize}
+  \item The cylinders are disjoint, that is, $\mathcal R_i \cap \mathcal R_j =\emptyset$, $i\neq j$;
+  \item For every $(x,y,p) \in \mathcal \bigcup_{i=1}^m \mathcal R_i$ we have $|F_p(x,y,p)| \ge c > 0$ (this follows from the continuity of $F$).
+\end{itemize}
+Next we take a compact set $G$ such that
+\[
+\bigcup_{i=1}^m \overbar{\mathcal R}_i \subset G \subset D,
+\]
+and we will henceforth work in $G$, denoting
+\[
+  \mathcal R = \bigcup_{i=1}^m \mathcal R_i.
+\]
 
 \begin{figure}[h!]
 \centering
@@ -124,19 +129,34 @@ Now the neighbourhoods $\mathcal R_1,\dots, \mathcal R_m$ can be represented as 
 \label{fig:cylinder}
 \end{figure}
 
+In this situation the implicit function theorem asserts that in each of the cylinders $\mathcal R_i$ (shrunk if necessary) the equation  $F(x,y,p)=0$ is satisfied by one and only one choice of $p$ as a smooth function of $x$ and $y$, that is, of the form
+\begin{equation}\label{eq:surface-th}
+  p=f_i(x,y), \quad i=1,\dots,m,
+\end{equation}
+where in each case the derivative with respect to $y$ is given by \eqref{eq:der-formula}. Since $|F_p(x,y,f_i(x,y))| \ge c > 0$ by assumption and given that $F_y$ is continuous, we can assure that each $\partial f_i/\partial y$ is bounded on $\mathcal R_i$.
+
+Not only that, but we can also choose $\mathcal N$ so small that every point $(x,y,p)$ in the cylinder generated by $\mathcal N$ for which $F=0$ belongs to one of the surfaces \eqref{eq:surface-th}. Indeed, if it were not the case, any such point would obviously have to lie outside the cylinders $\mathcal R_1, \dots, \mathcal R_m$, and if they existed for arbitrarily small $\mathcal N$ they would have to be on the line $x=x_0$, $y=y_0$. To see this, we argue by contradiction and suppose that for all $n \in \NN$ there exists a point $(x_n,y_n,p_n) \in G$ with the following properties:
+
+\begin{enumerate}
+  \item $F(x_n,y_n,p_n)=0$;
+  \item $\lvert (x_n, y_n) - (x_0, y_0)\rvert < \frac{1}{n}$;
+  \item $(x_n, y_n, p_n) \in G \setminus \mathcal R$.
+\end{enumerate}
+Since $G$ is compact, $\{p_n\}$ is bounded, and we can suppose that it converges to some real value $p_0$. Together with property $(ii)$, this information assures that
+\[\{(x_n,y_n,p_n)\} \to (x_0,y_0,p_0).
+\]
+Now, since $G \setminus \mathcal R$ is closed in $G$, $(iii)$ implies that $(x_0,y_0,p_0) \notin \mathcal R$, and in particular that $p_0 \notin \{p_1,\dots,p_m\}$. Finally, by virtue of $(i)$ and the continuity of $F$, we conclude that
+\[
+0=F(x_n,y_n,p_n) \to F(x_0,y_0,p_0),
+\]
+meaning that $p_0$ is another root of the equation $F(x_0,y_0,p)=0$, which is impossible since its only roots were $p_1,\dots,p_m$.
+
 Thus we have proven that the point $(x_0,y_0)$ has a neighbourhood $\mathcal N$ where $F(x,y,p)=0$ has precisely $m$ solutions \eqref{eq:surface-th}. Each function $f_i$ is continuous and has a bounded derivative with respect to $y$, so according to Theorem \ref{th:picard} each of the equations
 \[
 y' =f_i(x,y)
 \]
-has one and only one integral curve passing through any given point of $\mathcal N$. Repeating the reasoning in the proof of Theorem \ref{th:implicit2} we can see that they are indeed integral curves of \eqref{eq:implicit-th}. Finally, we will verify that, as asserted, precisely $m$ integral curves of \eqref{eq:implicit-th} pass through each point of $\mathcal N$. To see this, one should note that the values of $y'$ associated with each integral curve are all different on $\mathcal N$ (since the cylinders $\mathcal R_i$ are disjoint), so that these integral curves are all different and no two make contact without intersecting. We conclude by noting that the existence of other integral curves would contradict the \textit{intermediate value theorem for derivatives} (see footnote \ref{fn:darboux}).
+has one and only one integral curve passing through any given point of $\mathcal N$. Repeating the reasoning in the proof of Theorem \ref{th:implicit-basic} we can see that these curves are indeed integral curves of \eqref{eq:implicit-th}. Because the values of $y'$ associated with each integral curve are all different on $\mathcal N$ (since the cylinders $\mathcal R_i$ are disjoint), these integral curves are all different and no two make contact without intersecting. Therefore, as asserted, precisely $m$ solutions of equation \eqref{eq:implicit-th} pass through each point of $\mathcal N$.
 \end{proof}
-
-{\color{red}\hrule \vspace{.5em} \noindent Sobre este teorema tengo un par de dudas:
-
-\begin{enumerate}
-  \item Cuando se habla de que se puede escoger $\mathcal N$ para que todos los puntos encima y debajo que verifiquen $F=0$ pertenezcan a alguna de las superficies $p=f_i(x,y)$, no entiendo muy bien el argumento que se utiliza. En particular, ``si existieran puntos que no lo cumplieran para $\mathcal N$ arbitrariamente pequeño, tendrían que estar en la recta $x=x_0,y=y_0$, \textbf{porque $F$ es continua y $\bar{G}$ es cerrado y acotado}''. ¿Qué estamos diciendo aquí exactamente? No veo la implicación.
-  \item En la parte final de la demostración, cuando se hace referencia al teorema del valor intermedio para las derivadas, no me queda del todo claro cuál es la contradicción.\vspace{.5em} \hrule
-\end{enumerate}}
 
 A careful look at the statement of this problem reveals that none of the direction fields defined by equation \eqref{eq:implicit-th} can be parallel to the $y$-axis. However, as in the case of equations solved for $y'$, we would like to include this possibility. Therefore, besides the equation
 \begin{equation}\label{eq:implicit-again}
@@ -155,7 +175,7 @@ As a final remark, we note that if we could explicitly solve for $y'$ (think for
   \begin{equation} \label{eq:ex2}
     (y')^2=y.
   \end{equation}
-We know that two direction fields are combined in this equation (see Figure \ref{fig:ex1}), and hence the direction field of \eqref{eq:ex2} is obtained as the superposition of those two direction fields. Setting $F(x,y,p)=p^2-y$ and solving $F=0$ for $p$ yields $p=\pm \sqrt{y}$, for every $y\ge 0$. We can clearly see that $y=0$ is then an integral curve of the equation. On the other hand we have $F_p=2p$, so we can apply Theorem \ref{th:implicit2} to every point on the set
+We know that two direction fields are combined in this equation (see Figure \ref{fig:ex1}), and hence the direction field of \eqref{eq:ex2} is obtained as the superposition of those two direction fields. Setting $F(x,y,p)=p^2-y$ and solving $F=0$ for $p$ yields $p=\pm \sqrt{y}$, for every $y > 0$. We have $F_p=2p$, so we can apply Theorem \ref{th:implicit2} to every point on the set
 \[
 \{(x,y) \in \R^2: y > 0 \},
 \]
@@ -165,10 +185,21 @@ y'= \pm \sqrt{y}, \quad y > 0,
 \end{equation}
 whose joint family of solutions can be written as
 \[
-y(x)=\frac{1}{4}(2Cx + C^2 + x^2), \quad C \in \R.
+y(x)=\frac{1}{4}(x+C)^2, \quad C \in \R.
 \]
 They are convex parabolas with vertex on the $x$-axis, the upwards branch corresponding to the positive sign in \eqref{eq:parabolas} and the downwards branch to the negative sign.
 \end{example}
+
+\begin{remark} The above example stresses the importance of working in open sets when it comes to uniqueness of solutions. If we were to solve equation \eqref{eq:ex2} for $y\ge 0$, we would immediately note that the line $y=0$ is an integral curve of the equation, and then an infinite number of solutions would pass through every point on the $x$-axis. In particular, for every $x_0 \in \R$ the functions given by
+  \[
+  \phi_k(x)= \begin{cases}
+    0, & x < k,\\
+    \frac{1}{4}(x-k)^2, & x \ge k
+  \end{cases}
+  \]
+for every $k \ge x_0$ are all solutions of the equation passing through the point $(x_0,0)$.
+
+\end{remark}
 
 \section{Geometrical approach to implicit equations}
 
@@ -196,7 +227,7 @@ be the projection of $M$ to the $(x,y)$-plane in the vertical direction. A \text
 
 Thus, in a neighbourhood of a regular point we can apply yet again the implicit function theorem to show that $M$ is the graph of a smooth function, say $p=f(x,y)$. In fact, it is a well-known result in the basic theory of differentiable surfaces that in this case the projection $\pi$ is a local diffeomorphism (see \cite[39]{montiel2009curves}). Then, to each regular point corresponds its own differential equation (in a neighbourhood of the projection of said point) and the direction field that comes with it; all these direction fields on the $(x,y)$-plane are combined in the equation $F=0$.
 
-On the other hand, we forget the projection momentarily and consider a point $(x,y,p)$ in the space of 1-jets and a vector $\xi$ applied at this point, whose components will be denoted by $dx(\xi)$, $dy(\xi)$ and $dp(\xi)$. We now consider the plane of all such vectors at a point $(x,y,p)$ for which $dy=p\,dx$\footnote{In differential geometry this is known as (the kernel of) a 1-form.}, that is, the vectors that when projected onto the $(x,y)$-plane form an angle  with the $x$-axis whose tangent is equal to $p$. Each of these planes is called a \textit{contact plane}, and they are all vertical (they contain the direction of the $p$-axis, since the vector $(0,0,1)$ verifies the condition imposed). The set of all contact planes forms the \textit{contact plane field} in the space of jets, and is called the \textit{contact structure}\footnote{This term is not specific to this problem, but is an important notion in a branch of geometry known as contact geometry, which is outside of the scope of this work.}. Figure \ref{fig:jets} can help visualize the various elements of this construction.
+On the other hand, we forget the projection momentarily and consider a point $(x,y,p)$ in the space of 1-jets and a vector $\xi$ applied at this point, whose components will be denoted by $dx(\xi)$, $dy(\xi)$ and $dp(\xi)$. We now consider the plane of all such vectors at a point $(x,y,p)$ for which $dy=p\,dx$\footnote{In differential geometry this is known as (the kernel of) a 1-form.}, that is, the vectors that when projected onto the $(x,y)$-plane form an angle  with the $x$-axis whose tangent is equal to $p$. Each of these planes is called a \textit{contact plane}, and they are all vertical (they contain the direction of the $p$-axis, since the vector $(0,0,1)$ verifies the condition imposed). The set of all contact planes forms the \textit{contact plane field} in the space of jets, and is called the \textit{contact structure}\footnote{This term is not specific to this problem, but is an important notion in a branch of geometry known as contact geometry, which falls outside of the scope of this work.}. Figure \ref{fig:jets} can help visualize the various elements of this construction.
 
 \begin{figure}[h!]
 \centering
@@ -218,21 +249,6 @@ Bringing back the projection, we study the contact plane at a regular point of t
 \begin{proof}
 We know by definition that the projection of a contact plane onto the $(x,y)$-plane is a straight line in the direction field of equation \eqref{eq:implicit-graph}, because it holds that $p=f(x,y)$. Then, since $\pi$ is a diffeomorphism in the neighbourhood considered, the direction field on $M$ turns into the direction field of \eqref{eq:implicit-graph}. Consequently, the integral curves turn into each other, as well.
 \end{proof}
-
-{\color{red} \noindent Sobre esta parte tengo también algunas dudas.
-
-\begin{enumerate}
-  \item En la demostración del teorema justo arriba (sacada de \cite[16-17]{arnold2012geometrical}), al final se concluye diciendo que proyección es un difeomorfismo local, y entonces los campos de direcciones se transforman el uno en el otro. Por un lado, no sé si esto es algo obvio (supongo que sí), pero no acabo de ver por qué o en qué resultados previos se basa. Por otro, tampoco veo cómo se utiliza la primera parte de la demostración, por qué se habla solo del plano de contacto y qué papel juega en la afirmación posterior. ¿Qué significa ``una recta en el campo de direcciones de \eqref{eq:implicit-graph}''?
-  \item He visto en algunos sitios (por ejemplo en \url{https://arxiv.org/pdf/0808.0348.pdf} o en \url{http://matwbn.icm.edu.pl/ksiazki/bcp/bcp33/bcp3313.pdf}) que las ``coordenadas'' del campo de direcciones en $M$ se pueden escribir como
-  \[
-    [F_p:pF_p: -(F_x + pF_y)],
-    \]
-  o con otra notación,
-  \[
-  \xi = F_p \partial/\partial x + pF_p \partial/\partial y  - (F_x+pF_y)\partial/\partial p.
-  \]
-  No entiendo bien qué significa ninguna de estas notaciones, ni de qué coordenadas se habla o cómo se llega a esta conclusión. Suponiendo que la notación $\partial/\partial x_i$ es simplemente una forma de especificar las coordenadas usuales, entiendo por qué ese campo es tangente a $M$ (cumple la ecuación del plano tangente), pero no me queda claro cómo razonar a partir de la expresión que efectivamente proyecta los vectores en cada punto $(x,y,p)$ en vectores en el plano que pasan por $(x,y)$ con pendiente $p$ (la condición de pertenecer al plano de contacto). Tampoco sé realmente si es algo muy importante como para indagar más e intentar explicarlo aquí de forma simplificada.
-\end{enumerate}}
 
 The conclusion we can extract from all this reasoning is that, in the neighbourhood of a regular point, an implicit equation can be turned into an explicit one and can be studied and solved with the usual methods. However, special attention should be paid to critical points, that is, points in which the equation does not reduce to an explicit one, and in fact we will expand on this matter in the next section. For now, we define a couple of concepts related to these points.
 
