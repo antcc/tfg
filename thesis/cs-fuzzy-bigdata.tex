@@ -55,7 +55,21 @@ The philosophy behind these algorithms is similar to that of the neuro-fuzzy sys
 
 <Description of the planning of the project and the estimated costs of both human and hardware resources.>
 
-\section{Clustering algorithms}
+\section{Clustering algorithms implemented}
+
+We start our implementation task with two algorithms that belong to the family of fuzzy clustering methods. As we will see shortly they are closely related, and the fact that neither of them was available in the MLlib library at the time of writing this thesis was enough motivation to implement both of them. We tried to follow MLlib's code style and conventions as much as possible, though at some points there might be some deviations from said conventions, and a few adjustments would probably be needed in order to integrate these algorithms in the library. Nevertheless, the philosophy of building a model, fitting it to some data and then using it to make predictions is still there.
+
+The purpose of clustering is to group together data points that share certain features, with the hope of detecting similarities and obtaining a more concise representation of a system's behaviour, which we can later use to refine it.
+
 \subsection{Subtractive clustering}
+
+The first algorithm that we tackle is the subtractive clustering method for cluster estimation, proposed by Stepthen Chiu in 1994 \cite{chiu1994identification}. The aim of this algorithm is to provide an estimate number of clusters and an initial guess for the centroids that represent them, obtaining this information from the numerical data available. It can serve as a preliminary step in other purely clustering algorithms, in which estimating the number of centroids or their initial value can be a difficult task, and usually a poor choice in this deparment leads to equally poor performance of the algorithm.
+
+This method builds upon Yager and Filev's iterative mountain method \cite{yager1994approximate}, which basically proposed making a grid in the data space and assigning a value of \textit{potential} to each point on the grid based on their distance to the actual data points, such that a grid point with many nearby points would have a high potential value. In the first iteration the grid point with the highest potential is chosen as the first cluster center, and then the idea is to reduce the potential of each grid point proportionally to the distance to the chosen cluster center. Once all the potentials are updated, a second cluster center is chosen in the same way in the next iteration, and the process is continued until the highest potential value falls below a threshold. This method is simple and effective, but its main drawback is that the computation of the grid potential grows exponentially with the dimension of the problem (a grid is needed in each dimension). This is a very restricting issue, especially in a Big Data context where we can expect to have very high dimensionality. The novel approach introduced by Chiu is to consider the data points themselves as potential cluster centers instead of making a grid. In this way the number of ``grid points'' to be evaluated is simply equal to the number of input data points, and this is independent of the dimension of the problem.
+
+Consider a collection of $n$ input data points $\{x_1,\dots,x_n\}$...
+
 \subsection{Fuzzy C-Means}
-\section{Neuro-fuzzy algorithm: HYFIS}
+Descripción de FCM y su implementación.
+\section{Neuro-fuzzy algorithms implemented}
+Descripción de HYFIS y su implementación.
