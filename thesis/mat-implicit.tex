@@ -155,7 +155,7 @@ Thus we have proven that the point $(x_0,y_0)$ has a neighbourhood $\mathcal N$ 
 \[
 y' =f_i(x,y)
 \]
-has one and only one integral curve passing through any given point of $\mathcal N$. Repeating the reasoning in the proof of Theorem \ref{th:implicit-basic} we can see that these curves are indeed integral curves of \eqref{eq:implicit-th}. Because the values of $y'$ associated with each integral curve are all different on $\mathcal N$ (since the cylinders $\mathcal R_i$ are disjoint), these integral curves are all different and no two make contact without intersecting. Therefore, as asserted, precisely $m$ solutions of equation \eqref{eq:implicit-th} pass through each point of $\mathcal N$.
+has one and only one integral curve passing through any given point of $\mathcal N$. Repeating the reasoning in the proof of Theorem \ref{th:implicit-basic} we can see that these curves are indeed integral curves of \eqref{eq:implicit-th}. Because the values of $y'$ associated with each integral curve are all different on $\mathcal N$ (since the cylinders $\mathcal R_i$ are disjoint), these integral curves are all different and no two make contact without intersecting. Moreover, if there was another integral curve apart from these ones, its derivative would have to take the values $\overbar{p}_i \in \mathcal R_i$ and $\overbar{p}_j \in \mathcal R_j$ for some $i\neq j$, and by the \textit{intermediate value theorem for derivatives} (see footnote \ref{fn:darboux}) it would have to take every value in between, which is impossible since $F$ only vanishes on $\mathcal R$. Therefore, as asserted, precisely $m$ solutions of equation \eqref{eq:implicit-th} pass through each point of $\mathcal N$.
 \end{proof}
 
 A careful look at the statement of this problem reveals that none of the direction fields defined by equation \eqref{eq:implicit-th} can be parallel to the $y$-axis. However, as in the case of equations solved for $y'$, we would like to include this possibility. Therefore, besides the equation
@@ -190,14 +190,14 @@ y(x)=\frac{1}{4}(x+C)^2, \quad C \in \R.
 They are convex parabolas with vertex on the $x$-axis, the upwards branch corresponding to the positive sign in \eqref{eq:parabolas} and the downwards branch to the negative sign.
 \end{example}
 
-\begin{remark} The above example stresses the importance of working in open sets when it comes to uniqueness of solutions. If we were to solve equation \eqref{eq:ex2} for $y\ge 0$, we would immediately note that the line $y=0$ is an integral curve of the equation, and then an infinite number of solutions would pass through every point on the $x$-axis. In particular, for every $x_0 \in \R$ the functions given by
+\begin{remark} The above example stresses the importance of working in open sets when it comes to uniqueness of solutions. If we were to solve equation \eqref{eq:ex2} for $y\ge 0$, we would immediately note that the line $y=0$ is an integral curve of the equation, and then an infinite number of solutions would pass through every point on the $x$-axis. In particular, for every $x_0 \in \R$ the functions parametrized by $k\ge x_0$ as
   \[
   \phi_k(x)= \begin{cases}
     0, & x < k,\\
     \frac{1}{4}(x-k)^2, & x \ge k
   \end{cases}
   \]
-for every $k \ge x_0$ are all solutions of the equation passing through the point $(x_0,0)$.
+are all different solutions of the equation passing through the point $(x_0,0)$.
 
 \end{remark}
 
@@ -216,9 +216,9 @@ A point on the surface $M$ is called a \textit{regular point} if the tangent pla
 \end{definition}
 
 Let us recall that the tangent plane at a point $(x_0,y_0,p_0)$ of the surface $M$ is given by the equation
-\[
-\langle \nabla F(x_0,y_0,p_0), (x,y,p)^T \rangle = 0,
-\]
+\begin{equation} \label{eq:tangent}
+\langle \nabla F(x_0,y_0,p_0), (x-x_0,y-y_0,p-p_0) \rangle = 0,
+\end{equation}
 so that it is nonvertical if and only if $F_p(x_0,y_0,p_0) \neq 0$. This condition should look familiar after seeing the results of the previous section. Let
 \[
 \pi:M\to\R^2, \quad \pi(x,y,p)=(x,y)
@@ -236,7 +236,16 @@ On the other hand, we forget the projection momentarily and consider a point $(x
 \label{fig:jets}
 \end{figure}
 
-Bringing back the projection, we study the contact plane at a regular point of the surface $M$. Since the contact plane is vertical, it intersects the corresponding tangent plane in a line, and this behaviour is reproduced in all the nearby points. In this way, in a neighbourhood of a regular point there arises a smooth direction field, given by the intersections of the contact and tangent planes at every point. The integral curves of equation \eqref{eq:ode-implicit} are, by definition, the integral curves of this direction field on $M$. We are now ready to link these seemingly distinct direction fields (the ones on $M$ and the ones on the $(x,y)$-plane we mentioned earlier), though it should be clear by now what the conclusion will be: that a direction field on $M$ projects locally onto a direction field on the plane.
+Bringing back the projection, we study the contact plane at a regular point of the surface $M$. Since the contact plane is vertical, it intersects the corresponding tangent plane in a line, and this behaviour is reproduced in all the nearby points. In this way, in a neighbourhood of a regular point there arises a smooth direction field, given by the intersections of the contact and tangent planes at every point. The integral curves of equation \eqref{eq:ode-implicit} are, by definition, the integral curves of this direction field on $M$. We can even provide an explicit description of this direction field by analyzing the intersection of the two planes. Firstly, since the contact plane at a regular point $(x,y,p)$ is given by the equation $p\,dx - dy = 0$, the normal vector to this plane at the point $(x,y,p)$ is $(p,-1,0)$, and secondly we know by equation \eqref{eq:tangent} that the normal vector to the tangent plane at said point is $\nabla F(x,y,p)$. Then, the line resulting from the intersection of both planes at the point of interest is
+\[
+\nabla F(x,y,p) \times (p,-1,0) = (F_p, pF_p, - (F_x+pF_y))\, \big|_{\,(x,y,p)},
+\]
+and thus the direction field on $M$ is defined by the vector field
+\begin{equation} \label{eq:field}
+V = (F_p, pF_p, -(F_x+pF_y)).
+\end{equation}
+
+We are now ready to link these seemingly distinct direction fields (the one on $M$ and the ones on the $(x,y)$-plane we mentioned earlier), though it should be clear by now what the conclusion will be: that the direction field on $M$ projects locally onto a direction field on the plane.
 
 \begin{theorem}
   The vertical projection onto the $(x,y)$-plane in the neighbourhood of a regular point maps integral curves of equation \eqref{eq:ode-implicit} on $M$ into integral curves of the equation
@@ -250,18 +259,16 @@ Bringing back the projection, we study the contact plane at a regular point of t
 We know by definition that the projection of a contact plane onto the $(x,y)$-plane is a straight line in the direction field of equation \eqref{eq:implicit-graph}, because it holds that $p=f(x,y)$. Then, since $\pi$ is a diffeomorphism in the neighbourhood considered, the direction field on $M$ turns into the direction field of \eqref{eq:implicit-graph}. Consequently, the integral curves turn into each other, as well.
 \end{proof}
 
-The conclusion we can extract from all this reasoning is that, in the neighbourhood of a regular point, an implicit equation can be turned into an explicit one and can be studied and solved with the usual methods. However, special attention should be paid to critical points, that is, points in which the equation does not reduce to an explicit one, and in fact we will expand on this matter in the next section. For now, we define a couple of concepts related to these points.
+The conclusion we can extract from all this reasoning is that, in the neighbourhood of a regular point, an implicit equation can be turned into an explicit one and can be studied and solved with the usual methods. However, special attention should be paid to critical points, that is, points in which the equation does not reduce to an explicit one, and in fact we will expand on this matter in the next section. For now, we define a couple of concepts related to these points, and we bring this section to an end with an example.
 
 \begin{definition} The set $C$ of critical points of the projection $\pi$ is called the \textit{criminant curve} of equation \eqref{eq:ode-implicit}, and the set $\pi(C)$ of its images is called the \textit{discriminant curve}.
 \end{definition}
 
-\begin{remark} The discriminant curve can be obtained by eliminating $p$ in the equations $F=0$ and $F_p=0$.
+\begin{remark} The discriminant curve can be obtained in some cases by eliminating $p$ in the equations $F=F_p=0$.
 
 \end{remark}
 
-It is worth pointing out that at some critical points it may well be the case that the contact plane is different from the tangent plane, so that they intersect in a straight line and thus still produce a direction field. In fact, we can extend the direction field defined above to include these well-behaved points, and say that this extended field is the \textit{direction field of the equation $F=0$ on $M$}. However, at critical points the conditions to apply the implicit function theorem don't hold, so we can only assure that projections of the pieces of the integral curves (of the extended field) localized between critical points are locally integral curves of the corresponding equations $y'=f(x,y)$. We bring this section to an end with an example.
-
-\begin{example}
+\begin{example} \label{ex:cusp}
   We want to study the equations $p^2=x$ and $p^2=y$ using the techniques of this section. For the first one, we write down the equations of a generic vector at a point $(x,y,p)$ on $M$ that belongs to the direction field:
   \[
   \begin{cases}
@@ -315,6 +322,129 @@ or equivalently,
 \end{example}
 These are parabolas tangent to the line $y=0$, as we already knew from Example \ref{ex:parabolas}.
 
-\section{Singular solutions}
+\section{Singular points and singular solutions}
 
-{\color{red} Me falta esta sección para terminar el capítulo. Había pensado hablar un poco de los puntos singulares y las soluciones asociadas, la envolvente de una familia de curvas y tal. Después falta el último capítulo donde hablar de ejemplos concretos, las ecuaciones de Lagrange y Clairaut y alguna más.}
+Another common terminology for referring to the points on the criminant curve is to call them \textit{singular points} of the equation $F=0$. It is worth pointing out that at some singular points it may well be the case that the contact plane is different from the tangent plane, so that they intersect in a straight line and thus still produce a direction field. In fact, we can extend the direction field defined in the previous section to include these well-behaved points, and say that this extended field is the \textit{direction field of the equation $F=0$ on $M$}. However, at singular points the conditions to apply the implicit function theorem don't hold (we have $F_p=0$), so we can only assure that projections of the pieces of the integral curves (of the extended field) localized between singular points are locally integral curves of the corresponding equations $y'=f(x,y)$.
+
+Following the distinction outlined above between singular points, and remembering the expression \eqref{eq:field} for the direction field on $M$, we arrive at the following definition.
+
+\begin{definition}
+  A singular point of equation $F=0$ (a point on $M$ for which $F_p=0$) is called a \textit{proper singular point} if $F_x+pF_y \neq 0$, and an \textit{improper singular point} otherwise.
+\end{definition}
+In the first case, if $(x_0,y_0,p_0)$ is a proper singular point, the tangent and contact planes intersect each other at the straight line passing through $(x_0,y_0,p_0)$ and having direction
+\[
+v=(0,0,-F_x(x_0,y_0,p_0)-p_0F_y(x_0,y_0,p_0)).
+\]
+In the second case, the contact and tangent planes coincide at the point $(x_0,y_0,p_0)$ and no straight line is produced. Now, among proper regular points we distinguish those which verify an additional smoothness condition: we will refer by \textit{regular singular point}\footnote{Not to be confused with a regular point of $\pi$.} or \textit{folded proper point} to a proper regular point that verifies
+\[
+\operatorname{rank}((x,y,p) \mapsto (F,F_p)) = 2,
+\]
+where the rank of a mapping is defined as the rank of its derivative (which is a linear map). Note that this condition guarantees via the implicit function theorem that the criminant curve is a smooth curve. Moreover, almost all singular points are of this type, by virtue of Sard's theorem (cf. \cite[94]{arnold2012geometrical}).
+
+It turns out that at every regular singular point, the equation $F=0$ is equivalent to another equation of the form $p^2=x$ for a suitable change of coordinates. This is what is called the \textit{normal form} of the equation $F=0$.
+
+\begin{theorem}[Normal form] Let $(x_0,y_0,p_0)$ be a regular singular point of the equation $F(x,y,p)=0$. Then, there exists a diffeomorphism of a neighbourhood of the point $(x_0,y_0)$ in the $(x,y)$-space to a neighbourhood of the point $(0,0)$ in the $(X,Y)$-space such that the equation $F=0$ is reduced to the form $P^2=X$, where $P=dY/dX$.
+
+\end{theorem}
+
+\begin{proof}
+  A detailed proof can be found in \cite[27]{arnold2012geometrical}, which in turn is based on the original 1932 article by Italian mathematician M. Cibrario \cite{cibrario1932reduzione}.
+\end{proof}
+If we revisit Example \ref{ex:cusp} we realize that the equation in normal form can easily be solved, so the following result is immediate.
+
+\begin{corollary} In a neighbourhood of a regular singular point, the family of solutions of the equation $F=0$ is diffeomorphic to the family of semicubical parabolas $y=x^{3/2}+C$.
+
+\end{corollary}
+
+The previous corollary allows us to call these singularities \textit{cusp singularities}. We note that another type of singularities may arise in the discriminant curve, since in general several points of the criminant curve may be mapped by $\pi$ onto the same point in the discriminant curve. These points will almost always be points of self-intersection of the discriminant curve, and they are called \textit{fold singularities}. There are even more types of singularities that we could encounter, but a result by Whitney \cite{whitney1955singularities} states that for an open dense set of functions $F$, the projection $\pi$ is either a local diffeomorphism, a fold map or a cusp map at every point. That is to say, if a function presents another type of singularity, almost every small perturbation would eliminate them. Nevertheless, some attempts have been made at a classification of singularities of implicit equations; see \cite{chertovskih2014pleated} or \cite{dara1975singularites}.
+
+Finally, we explore the concept of singular solutions. A \textit{singular solution} of equation $F=0$ is a solution of the equation that is composed entirely of (projections of) singular points. Such solutions are special because they usually can't be found as part of the general solution. More explicitly, if we have a parametrized family of solutions
+
+\begin{equation} \label{eq:envelope}
+  \Phi(x,y,C)=0,
+\end{equation}
+generally there is no value of $C$ such that when substituted in \eqref{eq:envelope} a singular solution is obtained. For example, equation $p^2=x$ in Example \ref{ex:parabolas} presented a singular solution consisting on the line $x=0$, which happens to be tangent at each point to the family of semicubical parabolas found as ``regular'' solutions. It turns out that this situation is not exceptional, and that most singular solutions occur in this way, so that the following definition is relevant.
+
+\begin{definition}An \textit{envelope} of a family of plane curves is a curve that is tangent to each member of the family at some point, and these points of tangency together form the whole envelope.
+
+\end{definition}
+
+\begin{remark} It is obvious from the tangency condition that the envelope of a family of solutions to $F=0$ is itself a solution, which is usually, though not necessarily, a singular solution\footnote{A study on the relation between singular solutions and envelopes was started by Darboux in 1873 \cite{darboux1873solutions}.}.
+\end{remark}
+
+However, not every family of curves has an envelope. The following result provides some necessary conditions for this to happen, and in practice it gives us a method to find envelopes.
+
+\begin{theorem}
+If a family of curves $\Phi(x,y,C)=0$ has an envelope, then the points of the envelope must simultaneously satisfy the equations $\Phi = \Phi_C=0$.
+\end{theorem}
+
+\begin{proof}
+Since the envelope is tangent to each member of the family of curves at some point, we can regard it as a map from the parameter $C$ to the point of tangency. That is, we can write the points of the envelope as $x=x(C)$, $y=y(C)$. Since the envelope meets every curve of the family, it holds that
+ \[
+\Phi(x(C),y(C),C)=0, \quad \text{for all } C,
+ \]
+which is the first equation claimed to be satisfied by the envelope. Moreover, taking the derivative with respect to $C$ in the previous expression and applying the chain rule yields
+\begin{equation} \label{eq:envelope1}
+  \Phi_x \frac{dx}{dC} + \Phi_y \frac{dy}{dC} + \Phi_C = 0.
+\end{equation}
+ On the other hand, the slope of the envelope at any point is given by
+ \begin{equation} \label{eq:envelope2}
+   \frac{dy}{dx} = \frac{dy/dC}{dx/dC},
+ \end{equation}
+and we can also take a particular curve and differentiate $\Phi(x,y,C)$ with respect to $x$ (with $C$ is held constant), getting that the slope at any point of that curve is expressed as
+\begin{equation} \label{eq:envelope3}
+\Phi_x + \Phi_y \frac{dy}{dx} = 0.
+\end{equation}
+Now, since for a fixed $C$ the envelope is tangent to the curve $\Phi(x,y,C)=0$ at $(x(C),y(C))$, we can combine \eqref{eq:envelope2} and \eqref{eq:envelope3} to get
+\[
+\Phi_x \frac{dx}{dC} + \Phi_y \frac{dy}{dC} = 0,
+\]
+which in light of \eqref{eq:envelope1} implies that $\Phi_C=0$ at every point of the envelope, as asserted.
+\end{proof}
+
+If we want to find an envelope for a given family of curves $\Phi$, attending to the result just proved we could try to eliminate $C$ from the equations $\Phi=\Phi_C=0$ and check that the resulting curve verifies the conditions of an envelope. Even though this is the most common method to find envelopes, it is also interesting to analyze what are the sufficient conditions for their existence, to which the following theorem (proved in \cite[10]{burns1961envelopes}) gives a complete answer.
+
+\begin{theorem} \label{th:sufficient} If $\Phi(x,y,C)$ is a twice-differentiable function satisfying
+  \begin{enumerate}
+    \item $\Phi=\Phi_C=0$;
+    \item $\Phi_{CC}\neq 0$;
+    \item $\begin{vmatrix} \Phi_x & \Phi_y\\
+                    \Phi_{Cx} & \Phi_{Cy}\end{vmatrix} \neq 0$,
+  \end{enumerate}
+  then there exists an envelope of the family of functions represented by $\Phi$.
+
+\end{theorem}
+
+\begin{example} Let us consider the differential equation
+  \begin{equation} \label{eq:example-envelope}
+    1 + (y')^2 = \frac{1}{y^2}.
+  \end{equation}
+  The change of variables $t=1-y^2$ and a direct integration in both branches of the equation yields the family of solutions
+  \begin{equation} \label{eq:circles-envelope}
+  \Phi(x,y,C) = (x+C)^2 + y^2 -1 = 0, \quad C \in \R,
+\end{equation}
+  which are circles of radius 1 and center on the $x$-axis. To find the potential envelope, we differentiate this equation with respect to $C$, getting
+  \[
+  \Phi_C(x,y,C) = 2(x+C)=0,
+  \]
+  which combined with $\Phi=0$ implies that $y=\pm 1$. It is clear that the lines $y=1$ and $y=-1$ are both tangent to the family \eqref{eq:circles-envelope}, as seen in Figure \ref{fig:envelope}, so they are indeed the envelopes of the equation \eqref{eq:example-envelope}. We can also check that these lines form the discriminant of the equation, since $F_p=2p$ only vanishes at $p=0$, which by \eqref{eq:example-envelope} implies that $y=\pm 1$. Thus, we have found two singular solutions of the equation, and besides, they constitute the envelopes of the family of general solutions.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.55\textwidth]{envelope}
+\caption{Representation of the family of general solutions of equation \eqref{eq:example-envelope} and its envelopes $y=\pm 1$.}
+\label{fig:envelope}
+\end{figure}
+\end{example}
+
+\begin{example} A classical counterexample to the existence of envelopes is the family of concentric circles at the origin, described by the equation
+  \[
+  \Phi(x,y,C)=x^2+y^2 -C^2 =0.
+  \]
+If we tried the usual trick of eliminating $C$ from $\Phi=\Phi_C=0$ we would end up with the equation $x^2+y^2=0$, which in fact is satisfied only by the point $(0,0)$, and thus does not constitute a curve, much less a curve tangent to the family of solutions. A look at Theorem \ref{th:sufficient} tells us that this family does indeed have no envelope, since condition $(iii)$ doesn't hold at any point. This is also obvious from Figure \ref{fig:concentric}.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.45\textwidth]{concentric}
+\caption{Representation of a family of curves with no envelope.}
+\label{fig:concentric}
+\end{figure}
+\end{example}
