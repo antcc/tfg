@@ -111,7 +111,7 @@ Since the set $\{p_1,\dots,p_m\}$ is finite, we can suppose without loss of gene
 In addition, we can choose $\epsilon$ sufficiently small so that
 \begin{itemize}
   \item The cylinders are disjoint, that is, $\mathcal R_i \cap \mathcal R_j =\emptyset$, $i\neq j$;
-  \item For every $(x,y,p) \in \mathcal \bigcup_{i=1}^m \mathcal R_i$ we have $|F_p(x,y,p)| \ge c > 0$ (this follows from the continuity of $F$).
+  \item For every $(x,y,p) \in \mathcal \bigcup_{i=1}^m \mathcal R_i$ we have $|F_p(x,y,p)| \ge c > 0$ (this follows from the continuity of $F_p$).
 \end{itemize}
 Next we take a compact set $G$ such that
 \[
@@ -236,9 +236,9 @@ On the other hand, we forget the projection momentarily and consider a point $(x
 \label{fig:jets}
 \end{figure}
 
-Bringing back the projection, we study the contact plane at a regular point of the surface $M$. Since the contact plane is vertical, it intersects the corresponding tangent plane in a line, and this behaviour is reproduced in all the nearby points. In this way, in a neighbourhood of a regular point there arises a smooth direction field, given by the intersections of the contact and tangent planes at every point. The integral curves of equation \eqref{eq:ode-implicit} are, by definition, the integral curves of this direction field on $M$. We can even provide an explicit description of this direction field by analyzing the intersection of the two planes. Firstly, since the contact plane at a regular point $(x,y,p)$ is given by the equation $p\,dx - dy = 0$, the normal vector to this plane at the point $(x,y,p)$ is $(p,-1,0)$, and secondly we know by equation \eqref{eq:tangent} that the normal vector to the tangent plane at said point is $\nabla F(x,y,p)$. Then, the line resulting from the intersection of both planes at the point of interest is
+Bringing back the projection, we study the contact plane at a regular point of the surface $M$. Since the contact plane is vertical, it intersects the corresponding tangent plane in a line, and this behaviour is reproduced in all the nearby points. In this way, in a neighbourhood of a regular point there arises a smooth direction field, given by the intersections of the contact and tangent planes at every point. The integral curves of equation \eqref{eq:ode-implicit} are, by definition, the integral curves of this direction field on $M$. We can even provide an explicit description of this direction field by analyzing the intersection of the two planes. Firstly, since the contact plane at a regular point $(x,y,p)$ is given by the equation $p\,dx - dy = 0$, the normal vector to this plane at the point $(x,y,p)$ is $(p,-1,0)$, and secondly we know by equation \eqref{eq:tangent} that the normal vector to the tangent plane at said point is $\nabla F(x,y,p)$. Then, the line resulting from the intersection of both planes at the point of interest is given by the direction
 \[
-\nabla F(x,y,p) \times (p,-1,0) = (F_p, pF_p, - (F_x+pF_y))\, \big|_{\,(x,y,p)},
+\nabla F(x,y,p) \times (p,-1,0) = {(F_p, pF_p, - (F_x+pF_y))\,}_{\mkern 1mu \vrule width 0.75pt height 2ex\mkern2mu \,(x,y,p)},
 \]
 and thus the direction field on $M$ is defined by the vector field
 \begin{equation} \label{eq:field}
@@ -335,7 +335,7 @@ In the first case, if $(x_0,y_0,p_0)$ is a proper singular point, the tangent an
 \[
 v=(0,0,-F_x(x_0,y_0,p_0)-p_0F_y(x_0,y_0,p_0)).
 \]
-In the second case, the contact and tangent planes coincide at the point $(x_0,y_0,p_0)$ and no straight line is produced. Now, among proper regular points we distinguish those which verify an additional smoothness condition: we will refer by \textit{regular singular point}\footnote{Not to be confused with a regular point of $\pi$.} or \textit{folded proper point} to a proper regular point that verifies
+In the second case, the contact and tangent planes coincide at the point $(x_0,y_0,p_0)$ and no straight line is produced. Now, among proper singular points we distinguish those which verify an additional smoothness condition: we will refer by \textit{regular singular point}\footnote{Not to be confused with a regular point of $\pi$.} or \textit{folded proper point} to a proper singular point that verifies
 \[
 \operatorname{rank}((x,y,p) \mapsto (F,F_p)) = 2,
 \]
