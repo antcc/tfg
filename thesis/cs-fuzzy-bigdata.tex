@@ -33,7 +33,7 @@ The parameters of the membership functions are dependent on the specific techniq
 
 As their name indicates, these algorithms are based on the concept of artifical neural networks. These structures have been adapted from the field of machine learning and more precisely of deep learning, where they are widely used and serve as the basis of multiple state of the art algorithms (see for example \cite{lecun2015deep}).
 
-The FRBS is usually generated beforehand, and it is then adapted to fit a neural network structure. This network is used as a way of tuning the parameters of the membership function using the backpropagation algorithm, and thus retaining all the advantages of this technique. A typical neuro-fuzzy system has a layer that represents the membership functions of the linguistic values associated with the input variables, an antecedent layer that represents the antecedent parts of every rule, a consequent layer to express the consequent of the rules, and a defuzzification layer to provide a final response. Commonly there are weights involved in the process that calibrate the importance of each rule, and they can also be adjusted when training the network.
+The FRBS is usually generated beforehand, and it is then adapted to fit a neural network structure. This network is used as a way of tuning the parameters of the membership function using the backpropagation algorithm, and thus retaining all the advantages of this technique. A typical neuro-fuzzy system has a layer that represents the membership functions of the linguistic values associated with the input variables, an antecedent layer that represents the antecedent parts of every rule, a consequent layer to express the consequent of the rules, and a defuzzification layer to provide a final response. Commonly there are weights involved in the process that calibrate the importance of each rule, and they can also be adjusted when training the network. A good example of this type of algorithm is the HyFIS algorithm \cite{kasabov1999hyfis}, which uses a 5-layer neural network structure and a hybrid learning scheme.
 
 \subsection{Genetic algorithms}
 
@@ -51,25 +51,208 @@ The philosophy behind these algorithms is similar to that of the neuro-fuzzy sys
   \end{itemize}
 \end{enumerate}
 
-\section{Cost estimation and planning}
+\section{Fuzzy learning algorithms implemented}
 
-<Description of the planning of the project and the estimated costs of both human and hardware resources.>
+We begin with an implementation of a basic state partition algorithm, arguably the simplest one of its family, but one that will provide a starting point from which to build upon. We continue our implementation task with two algorithms that belong to the family of fuzzy clustering methods. As we will see shortly they are closely related, and the fact that neither of them was available in the MLlib library at the time of writing this thesis was enough motivation to implement both of them. The purpose of clustering is to group together data points that share certain features, with the hope of detecting similarities and obtaining a more concise representation of a system's behaviour, which we can later use to refine it.
 
-\section{Clustering algorithms implemented}
+We tried to follow MLlib's code style and conventions as much as possible, though at some points there might be some deviations from said conventions, and a few adjustments would probably be needed in order to integrate these algorithms in the library. Nevertheless, the philosophy of building a model, fitting it to some data and then using it to make predictions is still there.
 
-We start our implementation task with two algorithms that belong to the family of fuzzy clustering methods. As we will see shortly they are closely related, and the fact that neither of them was available in the MLlib library at the time of writing this thesis was enough motivation to implement both of them. We tried to follow MLlib's code style and conventions as much as possible, though at some points there might be some deviations from said conventions, and a few adjustments would probably be needed in order to integrate these algorithms in the library. Nevertheless, the philosophy of building a model, fitting it to some data and then using it to make predictions is still there.
+\subsection{Wang \& Mendel algorithm}
 
-The purpose of clustering is to group together data points that share certain features, with the hope of detecting similarities and obtaining a more concise representation of a system's behaviour, which we can later use to refine it.
+The first algorithm developed is the Wang \& Mendel algorithm for learning fuzzy rules from examples \cite{wang1992generating}, which as explained before is a basic space partition algorithm for fuzzy systems. In general terms, it divides the input and output spaces to make a grid, and uses these divisions to infer the rules of the system checking how well the data fits in each portion of the grid. Supposing that we have a collection of $n$ input-output pairs of the form $(x_1^{(1)}, x_2^{(2)}; y^{(1)}),\dots, (x_1^{(n)}, x_2^{(n)}; y^{(n)})$, we summarize below the principal steps of this algoorithm (the extension to the multi-input multi-ouput case is straightforward).
+
+In \textit{Step 1}, we assume that the domain intervals of the variables are $[x_1^-,x_1^+], [x_2^-,x_2^+]$ and $[y^-,y^+]$, which means that with high probability the data on each dimension will lie on those intervals. We then divide each interval in $2N+1$ regions ($N$ can be different for each variable), and assign a membership function to each region. In our implementation we have chosen triangular membership functions, but other choices such as trapezoidal and Gaussian are possible as well. Each region is may be given a name that represents our understanding of the intervals (for example, we could name them $S1,\dots, SN, C, B1, \dots, BN$, where `$S$' stands for small, `$C$' for center and `$B$' for big). A sample partition of the input and output spaces can be seen in Figure \ref{fig:wm}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.5\textwidth]{wm.jpg}
+\caption{Sample division of input output spaces in fuzzy regions. Taken from \cite{wang1992generating}.}
+\label{fig:wm}
+\end{figure}
+
+In \textit{Step 2}, we proceed to the generation of fuzzy rules based on the data points. For the $i$th data point, we compute the membership of $x_1^{(i)},x_2^{(i)}$ and $y^{(i)}$ to each of the regions in their respective dimension, and in each case we select the region with the highest membership. Then we form a rule in which the antecedents are the regions found in the input space, and the consequent is the region selected in the output space. For example, if the regions found were $S1$, $CE$ and $S1$, then the rule would look like
+\begin{equation}\label{eq:rule}
+  \text{if $x_1$ is $S1$ and $x_2$ is $CE$ then $y$ is $S1$}.
+\end{equation}
+
+In \textit{Step 3} we assign a degree of activation to each rule, which is simply the product of the values of the membership functions of the data point in question to each of the selected regions in each dimension. For example, if we take the rule shown in \eqref{eq:rule} its degree would be $D=m_{S1}(x_1)m_{CE}(x_2)m_{S1}(y)$.
+
+In \textit{Step 4} we finally create a combined rule base, aggregating all the rules previously found. To prevent duplicates and conflicts, we only select among the rules with the same antecedent those which have the highest degree.
+
+Finally, \textit{Step 5} is regarded as part of the prediction phase. For a given input $(x_1,x_2)$ we combine the antecedents of the $i$th fuzzy rule to determine the degree to which it is satisfied by $(x_1,x_2)$, and we denote it by
+\[
+m^i_{O^i} = m_{I_1^i}(x_1)m_{I_2^i}(x_2),
+\]
+where $O^i$ is the output region of the $i$th rule and $I_1^i, I_2^i$ represent its input regions. Then we use the centroid defuzzification formula to obtain an output
+\begin{equation}\label{eq:wm-defuzz}
+  y = \dfrac{\displaystyle \sum_{i=1}^K m^i_{O^i}\overbar{y}^i}{\displaystyle \sum_{i=1}^K m^i_{O^i}},
+\end{equation}
+where $K$ is the total number of rules and $\overbar{y}^i$ denotes the center of the fuzzy region $O^i$, which is defined as the smallest absolute value for which the membership function is unity. We see that this step is the only one that would need to be significantly modified to adapt the algorithm to multiple outputs. We would only need to change $O^i$ to $O^{i}_j$ in \eqref{eq:wm-defuzz}, where $O^{i}_j$ is the output region of rule $i$ for the $j$th component (note that $m^i_{O^i_j}$ is the same for all $j$), and also replace $\overbar{y}^i$ with $\overbar{y}^i_j$ (the center of region $O_j^{i}$).
+
+In this case the scalability is exploited when building the rule base (steps 2 and 3), since each point can be processed in parallel, and then all the rules are aggregated as they undergo the conflict elimination process. An extension to this system for solving a classification problem is also immediate: the output variable will simply be the label of the input point, and no division of the output space is needed. The defuzzification strategy would also need to be changed to one that took into account that the output space was comprised of labels.
 
 \subsection{Subtractive clustering}
 
-The first algorithm that we tackle is the subtractive clustering method for cluster estimation, proposed by Stepthen Chiu in 1994 \cite{chiu1994identification}. The aim of this algorithm is to provide an estimate number of clusters and an initial guess for the centroids that represent them, obtaining this information from the numerical data available. It can serve as a preliminary step in other purely clustering algorithms, in which estimating the number of centroids or their initial value can be a difficult task, and usually a poor choice in this deparment leads to equally poor performance of the algorithm.
+The second algorithm that we tackle is the subtractive clustering method for cluster estimation, proposed by Stepthen Chiu in 1994 \cite{chiu1994identification}. The aim of this algorithm is to provide an estimate number of clusters and an initial guess for the centroids that represent them, obtaining this information from the numerical data available. It can serve as a preliminary step in other purely clustering algorithms, in which estimating the number of centroids or their initial value can be a difficult task, and usually a poor choice in this deparment leads to equally poor performance of the algorithm.
 
 This method builds upon Yager and Filev's iterative mountain method \cite{yager1994approximate}, which basically proposed making a grid in the data space and assigning a value of \textit{potential} to each point on the grid based on their distance to the actual data points, such that a grid point with many nearby points would have a high potential value. In the first iteration the grid point with the highest potential is chosen as the first cluster center, and then the idea is to reduce the potential of each grid point proportionally to the distance to the chosen cluster center. Once all the potentials are updated, a second cluster center is chosen in the same way in the next iteration, and the process is continued until the highest potential value falls below a threshold. This method is simple and effective, but its main drawback is that the computation of the grid potential grows exponentially with the dimension of the problem (a grid is needed in each dimension). This is a very restricting issue, especially in a Big Data context where we can expect to have very high dimensionality. The novel approach introduced by Chiu is to consider the data points themselves as potential cluster centers instead of making a grid. In this way the number of ``grid points'' to be evaluated is simply equal to the number of input data points, and this is independent of the dimension of the problem.
 
-Consider a collection of $n$ input data points $\{x_1,\dots,x_n\}$...
+Consider a collection of $n$ input data points $\{x_1,\dots,x_n\}$ in an $M$-dimensional space. Without loss of generality we suppose that each data point is bounded by a hypercube, and define a measure of potential at each point by
+\begin{equation} \label{eq:chiu-pot}
+P_i = \sum_{j=1}^n e^{-\alpha \Vert x_i-x_j \Vert^2},
+\end{equation}
+where
+\[
+\alpha = \frac{4}{r_a^2}, \quad r_a > 0.
+\]
+We note thas the potential of each point is a function inversely proportional to its distance to every other data point. The value $r_a$ is a key parameter in this computation, and it measures the effective neighbourhood radius in which data points have a significant effect in the potential of a specific point. We denote by $x_k^\ast$ the $k$th cluster center chosen, and $P_k^\ast$ its potential. Following the algorithm outlined above, after the $k$th cluster center is selected, we revise the potential of every point according to the formula
+\[
+P_i \leftarrow P_i - P_k^\ast e^{-\beta \Vert x_i - x_k^\ast \Vert^2},
+\]
+where
+\[
+\beta = \frac{4}{r_b^2}
+\]
+and $r_b>0$ is the radius of the neighbourhood in which the cluster center significantly influences the change in potential of the remaining points. Again, the potential is decreased by a quantity that depends on the distance of the point in question to the newly found cluster center. This process is iterated until a stopping condition is reached, depending on two thresholding parameters $\underbar{\epsilon}$ and $\overbar{\epsilon}$, which we describe in Algorithm \ref{alg:chiu1}.
+
+\begin{algorithm}
+  \caption{Stopping condition for Chiu's algorithm.}
+    \label{alg:chiu1}
+  \begin{algorithmic}
+    \If{$P_k^\ast > \overbar{\epsilon}P_1^\ast$}
+      \State Accept $x_k^\ast$ as a cluster center and continue
+    \ElsIf{$P_k^\ast < \underbar{\epsilon}P_1^\ast$}
+      \State Reject $x_k^\ast$ and end the clustering process
+    \Else
+      \State $d_{\text{min}}\gets$ shortest distance between $x_k^\ast$ and all previously found cluster centers
+      \If {$\displaystyle \frac{d_{\text{min}}}{r_a} + \frac{P_k^\ast}{P_1^\ast} \ge 1$}
+        \State Accept $x_k^\ast$ as a cluster center and continue
+      \Else
+        \State$P_k^\ast \gets 0$
+        \parState{Reject $x_k^\ast$ and select the next data point with the highest potential as the new $x_k^\ast$ to re-test}
+      \EndIf
+  \EndIf
+  \end{algorithmic}
+\end{algorithm}
+
+
+Apart from the upper and lower thresholds, we have a gray zone in which we check if the data point provides a good trade-off between having a sufficient potential and being sufficiently far from other cluster centers. The usual choice of parameters without additional information of the problem is $r_b=1.5r_a$, $\underbar{\epsilon}=0.15$ and $\overbar{\epsilon}=0.5$. However, we will experiment with these parameters and choose the values that we feel are best suited for the problem at hand.
+
+In order to implement this algorithm in Spark, we only need to replicate the iterative algorithm, taking into account that the data structure holding the potential of each data point will be a RDD indexed by the point itself, represented as a tuple of coordinates, and the reduction of potential will be an instance of a map-reduce operation. The key step of the algorithm is the initialization step, in which we need to pair every point in the data set with \textit{all} the other points to get the pairwise distance matrix. To implement this initialization, we first produce every possible pair of data points, and then we invoke a map-reduce operation to compute the actual potential.
+
+Another thing to take into account, and arguably the most important aspect of our contribution to this algorithm, is the approach we take in implementing the parallelism. The objective was not to merely adapt the algorithm to a parallel setting, but to design modifications that would increase the scalability. In the end we derived \textit{three distinct versions} of this algorithm for use with Big Data, each one more polished than the last. We provide below a brief summary of each alternative and some insight as to how we moved from one to the next.
+
+\begin{enumerate}[1.]
+\item \textit{Global version}. We started with the most naive strategy, which was almost a literal translation of the sequential algorithm, but distributing the operation involving computations of potentials among the nodes in the cluster. We used the transformation \verb|cartesian| provided by the Spark API to compute every pair of points for the initialization. The time efficiency of this operation is inevitably $O(n^2)$, so we rapidly abandoned all hope that this implementation would be scalable (as the experimentation would later confirm).
+\item \textit{Local version}. The next thing we thought about was how we could tackle the bottle neck in the initialization phase, because once that was done, the rest of the algorithm has a linear time efficiency and could potentially be refined with scalability in mind. The goal was clear: to reduce the number of interactions between points when computing the initial potential. We thought about a method in which each point would only be paired with some ``nearby'' points in order to calculate the potential. This notion of closeness was implemented not as a function of the distance in the $M$-dimensional space (which is precisely the thing we are trying to avoid to compute) but as a function of how the points were internally split up in partitions by Spark. Thus, we devised a technique in which the algorithm is only applied locally: it is executed on each partition only with the points that belong to it, and in the end all the responses are aggregated so that the final result is the concatenation of all the cluster centers found on each partition. In this way the overhead of initializing the potential with a huge quantity of data is eliminated, and the effectiveness of the algorithm is hopefully retained because the (random) partition preserves some measure of representativity of the whole data set. However, precisely for this reason the cluster centers found on each partitions would essentially be the same (remember that we are working with a massive amount of data), and they would not be sufficiently spaced. This was observed to be the case when trying this implementation on some data sets, so this version was not satisfactory either. Nevertheless, for a data set consisting on about 5 million data points in a 8-dimensional space, this algorithm only took a couple of minutes to finish, while the global version took \textit{more than a week}.
+\item \textit{Intermediate version}. Lastly, we wanted to try to resolve the limitation pointed out in the local version. The approach taken involved a somewhat hybrid version based on the two previous ones. First we apply the algorithm locally, but next instead of concatenating the results of all partitions, we form groups of a predefined size and combine the centers of the selected partitions only. Then we apply the global version of the algorithm on each group, taking the cluster centers as the data points, and their current potential as the initial potential. In this way, after executing this second step the centers obtained would be more spaced (because the algorithm internally discards points which are close to the selected cluster centers), and finally the results obtained from applying the algorithm on each group are concatenated. However, since the points come front different partitions, their potential is not directly comparable, so we need to normalize it first. For this we propose to divide the potential of each point by the number of points of its original partition. In this version there are a number of parameters involved, and we will need to find a good balance between the number of cluster centers found and the number of partitions allowed, since more partitions means more parallelism and thus less computation time, but an excessive number of clusters can diminish the quality of the result.
+\end{enumerate}
+
+Regardless of the version chosen to implement this algorithm, we get a set of cluster centers as a result, which will be denoted by $\{x_1^\ast, \dots, x_c^\ast \}$. Now we want to build a FRBS based on these cluster centers, thinking of each of them as a fuzzy rule. We implemented two variants of this construction, depending on whether we want to solve a classification problem or a regression problem. In both instances we get a Mamdani FIS.
+
+In the first case, we suppose that the points used to train the algorithm are labeled with their real class. First we perform the unsupervised clustering analysis (without looking at the labels), and then we assign to each cluster the label of its center. Then, for the prediction phase we simply assign a previously unseen point to the cluster for which it has the greater grade of membership. We were considering each point as a fuzzy rule, so given an input $x$ and taking \eqref{eq:chiu-pot} into account, we define the degree to which rule $i$ is fulfilled as
+\[
+\mu_i = e^{-\alpha \Vert x - x_i^\ast \Vert}.
+\]
+The label of this point will obviously be the label of the selected cluster. In the intermediate version described earlier we let that the value $r_a$ for the membership function above be chosen by the user, since it could have been different in the applications of the local and global versions.
+
+In the second case, we split the data points $x$ into input and output space, denoting the corresponding component vectors $y$ and $z$, respectively. We proceed as in the previous case, and measure the degree to which each rule (represented by each cluster center) is fulfilled with the membership function
+\[
+\mu_i = e^{-\alpha \Vert y - y_i^\ast \Vert}.
+\]
+In this case a defuzzification is needed to predict the output for an input point $x=(y,z)$, for which we employ the COA method,
+\[
+z = \dfrac{\displaystyle \sum_{i=1}^c \mu_iz_i^\ast}{\displaystyle \sum_{i=1}^c \mu_i}.
+\]
 
 \subsection{Fuzzy C-Means}
-Descripción de FCM y su implementación.
-\section{Neuro-fuzzy algorithms implemented}
-Descripción de HYFIS y su implementación.
+
+To complete the study of fuzzy clustering algorithms we explore the implementation of one of the most well-known algorithms in this regard: Fuzzy C-Means (\acrshort{fcm}). This method is the fuzzy analog of the standard K-Means clustering algorithm, and their operation is essentially the same, save for the fact that the fuzzy version allows every point to belong to any number of cluster to some extent.
+
+To perform the clustering of the data we need to provide beforehand the number of clusters and their initial cluster centers. Suppose we have a collection of input data $\{x_1,\dots,x_n\}$ and we want to divide it into $c$ groups. Each data point will then have a membership function that measures the degree to which it belongs to every cluster center, that is, each $x_i$ has an associated set
+\[
+\{u_{ij} \in [0,1]: j=1,\dots,c \},
+\]
+which needs to satisfy the conditions
+\begin{equation} \label{eq:fcm-constraint}
+u_{ij}\geq 0, \quad \text{for all } i,j, \quad \text{and} \quad \sum_{j=1}^c u_{ij} = 1, \quad i=1,\dots,n.
+\end{equation}
+
+If we denote the membership matrix by $U=(u_{ij})$ and the set of cluster centers by $V=\{v_1,\dots, v_c\}$, the strategy of the algorithm is to minimize the function
+\begin{equation} \label{eq:fcm}
+J_m(U,V) = \sum_{i=1}^n \sum_{j=1}^c u_{ij}^m \Vert x_i - v_j \Vert ^2,
+\end{equation}
+where $m > 1$ is the \textit{fuzzification parameter}, which controls how fuzzy the final cluster will be (the value $m=1$ would imply a crisp clustering). We can apply the method of Lagrange multipliers to the constrained optimization problem of minimizing \eqref{eq:fcm} subject to the conditions \eqref{eq:fcm-constraint}, obtaining the iterative update rules given by
+\begin{equation} \label{eq:fcm-update-membership}
+  u_{ij}= \dfrac{1}{\displaystyle \sum_{k=1}^c \left( \frac{\Vert x_i - v_j \Vert}{\Vert x_i - v_k \Vert} \right)^{\frac{2}{m-1}}}
+\end{equation}
+and
+\begin{equation} \label{eq:fcm-update-centers}
+v_j = \dfrac{\displaystyle\sum_{i=1}^n u_{ij}^m x_i}{\displaystyle\sum_{i=1}^n u_{ij}^m}.
+\end{equation}
+As for the stopping condition, we take a double approach. We will end the iterative process when the cluster centers don't change within a fixed tolerance level from one iteration to the next, or when we reach a maximum number of iterations $L$. Having derived these expressions, the literal FCM algorithm is fairly straightforward to implement and can be seen schematically in Algorithm \ref{alg:lfcm}.
+
+\begin{algorithm}
+  \caption{Literal Fuzzy C-Means algorithm.}
+    \label{alg:lfcm}
+    \textbf{Input:} $X,V,c,m,L, \epsilon$\\
+    \textbf{Output:} $U,V'$
+  \begin{algorithmic}[1]
+    \State $l \gets 0$
+    \State Compute membership matrix $U$ according to \eqref{eq:fcm-update-membership}
+    \State Compute the new cluster centers $V'$ as in \eqref{eq:fcm-update-centers}
+    \State $l \gets l+1$
+    \If {$\Vert V - V' \Vert < \epsilon$ \textbf{or} $l \ge L$} \Comment{Here $\Vert \cdot \Vert$ is some fixed matrix norm}
+      \State \Return {$U,V'$}
+    \Else
+      \State $V \gets V'$
+      \State \textbf{go to} 2
+    \EndIf
+  \end{algorithmic}
+\end{algorithm}
+
+Not taking into account the initialization of the cluster centers, this algorithm runs in time $O(nc)$. While there are a number of proposals to improve the literal FCM algorithm and increase its speed via probabilistic or stochastic methods (see for example \cite{pham2001probabilistic}), we will focus on developing a version of the algorithm that is scalable and adheres to the map-reduce model, but without altering its core. In other words, we are looking for a variant that produces the same final result as Algorithm \ref{alg:lfcm}, but that can be reliably executed with arbitrary large amounts of data.
+
+To achieve our goal we will need to identify the steps of the algorithm that can be parallelized in a map-reduce fashion. Since the calculation of the membership degree of each data point is independent of the rest, we focus on computing this value in a distributed way. On top of this, we note that the actual membership values are not needed to recalculate the cluster centers, but only the values of the sums involved in \eqref{eq:fcm-update-centers}. For this reason, we save quite a lot of space and computational time if we do not keep the entire matrix in memory between iterations. This is precisely what we will do, by means of a custom map operation as described in Algorithm \ref{alg:fcm-map}.
+
+\begin{algorithm}
+  \caption{Map stage of the Distributed Fuzzy C-Means algorithm.}
+    \label{alg:fcm-map}
+    \textbf{Input:} $x_i,V,m$\\
+    \textbf{Output:} $\langle j, \langle u_{ij}^m x_i, u_{ij}^m \rangle \rangle$
+  \begin{algorithmic}[1]
+    \For{\textbf{each} $v_j$ \textbf{in} $V$}
+      \State \textbf{yield} $\langle j, \langle u_{ij}^m x_i, u_{ij}^m \rangle \rangle$ \Comment{The values $u_{ij}$ are computed according to \eqref{eq:fcm-update-membership}}
+    \EndFor
+  \end{algorithmic}
+\end{algorithm}
+
+The reduce phase will just be the pairwise addition of the values returned by the map operation, denoted by $sx_j$ and $s_j$ (notice that we are mixing scalar and vector addition, so a custom reduce function is needed in the actual implementation in Spark). A high-level description of the final design can be seen in Algorithm \ref{alg:fcm}.
+
+\begin{algorithm}
+  \caption{Distributed Fuzzy C-Means algorithm.}
+    \label{alg:fcm}
+    \textbf{Input:} $V_0,X,c,m,L, \epsilon$\\
+    \textbf{Output:} $V'$
+  \begin{algorithmic}[1]
+    \State $V \gets V_0$ \Comment{Cluster initialization step}
+    \State $l \gets 0$
+    \State $I \gets X$.mapFCM($V,m$).reduceByKey($+$) \Comment{Compute membership information}
+    \For{$\langle j, \langle sx_j, s_j \rangle \rangle$ \textbf{in} $I$} \Comment{Compute the new cluster centers $V'$}
+      \State $\displaystyle v_j' \gets \frac{sx_j}{s_j}$
+    \EndFor
+    \State $l \gets l+1$
+    \If {$\Vert V - V' \Vert < \epsilon$ \textbf{or} $l \ge L$} \Comment{Here $\Vert \cdot \Vert$ is some fixed matrix norm}
+      \State \Return {$V'$}
+    \Else
+      \State $V \gets V'$
+      \State \textbf{go to} 3
+    \EndIf
+  \end{algorithmic}
+\end{algorithm}
+
+For the prediction stage, we consider directly a classification problem, and approach it in the same way as we did in the subtractive clustering algorithm. However, in this case the cluster centers are not generally input points, and thus we do not know their labels beforehand. To solve this problem, we assign to each cluster the predominant label among the points that belong to it with a degree of at least $\alpha$ (that is, we perform an $\alpha$-cut of the fuzzy set represented by the cluster, and then we select the predominant label). The membership function used for this is of course \eqref{eq:fcm-update-membership}. In addition to this, note that it might be the case that on some clusters the maximum membership function attached at any point is far from 1 (possible, but not very likely, since if a cluster is selected it should have at least some nearby points). To account for this incongruence when performing the $\alpha$-cut, we first scale every membership function by its maximum value.
+
+It is worth pointing out some implementation details that have been added to try to increase the performance of the algorithm. In the first place, the custom map function has actually been implemented as a \verb|mapPartitions| call in Spark. This transformation is the same as a map, but performs the operation in question on every element of the same partition, reducing the number of calls involved and improving the overall speed. Also, in each iteration we \textit{broadcast} the cluster centers to every partition, so that they have a copy stored locally. In this way we reduce the number of interactions between the master node and the worker nodes, which is always a desirable improvement. In general, we have tried to use a more functional style to match the rest of the Spark API and philosophy. This is why some operations such as the computation of the centers and the checking of the stopping conditions are written in a map-reduce syntax, even though they are not actually distributed among nodes.
+
+We finish with a comment about the initialization phase. In the algorithm implemented we provided three options to initialize the number of clusters and the initial centers. They can be either user-specified, chosen at random or generated by Chiu's algorithm described in the previous section. There are a number of initialization algorithms proposed in the literature, many of them based on sampling the input space and performing a rough clustering to approximate the clusters. Though we will not implement any of these algorithms, we mention a specific one that is widely used in practical applications: the kmeans$++$ initialization algorithm\footnote{The value of $k$ representing the number of cluster centers still needs to be provided.} proposed by D. Arthur and S. Vassilvitskii in 2006 \cite{arthur2006k}, and its parallel version called kmeans$||$, proposed by Bahman Bahmani et al. in 2012 \cite{bahmani2012scalable}. They both consider data points and potential cluster center, and they are based on the intuition that generally it is a good thing to have the initial cluster centers as spread out as possible. To achieve this, an initial center is chosen at random from the input data set, and in subsequent iterations more cluster centers are chosen from the remaining points with probability proportional to its distance to the nearest existing cluster center.

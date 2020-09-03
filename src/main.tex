@@ -219,6 +219,12 @@
 
 % END: Verzeichnisse
 
+% Algorithmic wrap paragraphs
+\makeatletter
+\newcommand{\algmargin}{\the\ALG@thistlm}
+\makeatother
+\algnewcommand{\parState}[1]{\State%
+  \parbox[t]{\dimexpr\linewidth-\algmargin}{\strut #1\strut}}
 
 % Headline and footline
 \renewcommand*{\chapterpagestyle}{scrplain}
@@ -285,6 +291,7 @@
 \input{\TPath/cs-fuzzy-bigdata}
 
 \chapter{Comparative study}
+\input{\TPath/cs-study}
 
 \chapter{Conclusions and future work}
 
@@ -323,6 +330,7 @@
 \noindent All links were last followed on September 7, 2020.
 
 \appendix
+\chapter{Cost estimation and planning}
 \chapter{About the software developed}
-
+Data structures,etc.
 \end{document}

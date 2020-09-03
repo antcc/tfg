@@ -1,0 +1,172 @@
+%
+% Copyright (c) 2020 Antonio Coín Castro
+%
+% This work is licensed under a
+% Creative Commons Attribution-ShareAlike 4.0 International License.
+%
+% You should have received a copy of the license along with this
+% work. If not, see <http://creativecommons.org/licenses/by-sa/4.0/>.
+
+In order to test our implementations, we will conduct a study to see how well our algorithms perform in a couple of real data sets. These data sets will of course present characteristics of Big Data, mainly the data volume. Before we begin, we would like to make some considerations.
+
+\begin{enumerate}[1.]
+  \item The main aspect of the algorithms we want to test, apart from their correctness, is their \textit{scalability}. This is not a study to designed to discern whether FRBS are better or worse than other classification or regression algorithms, though we will make comparisons with some of them for reference. That is to say, we do not intend to discuss the efectiveness of fuzzy systems, which has been extensively established. What we do want to show is how the fuzzy algorithms we developed can function in a environment in which an arbitrary large amount of data is involved.
+  \item Continuing along the lines of the previous point, we do not aim to get the best possible result with our algorithm either. That is why we will not be applying fine tuning techniques such as parameter grid search or cross validation. We will sometimes experiment with different configurations of parameters, but not in a sistematic way.
+  \item The data sets chosen for this study have a considerable number of instances, and present a challenge in the sense that a typical personal computer would struggle to process all the data into the algorithms. However, the limitations in the infrastructure available to test our implementations and the interest in making a sizeable number of executions with different parameters result in the choice of data sets with controlled size so that the execution time stays within reasonable margins.
+\end{enumerate}
+
+\section{Hardware and infrastructure}
+
+We have deployed our programs on a dedicated server tailored for Big Data operations, called \verb|ulises.ugr.es|. This is a cluster of 20 machines interconnected and ready to execute Spark programs. The main characteristics of this architecture are as follows.
+
+\begin{itemize}
+  \item There are 20 nodes in total, each carrying 24 CPUS divided in 2 sockets, 6 cores per socket and 2 threads per core.
+  \item Each individual CPU is an Intel(R) Xeon(R) CPU E5-2620 0 @ 2.00GHz.
+  \item Each node has 64GB of memory.
+  \item The Spark installation is currenty at version 2.3.2. It uses YARN as the cluster manager and HDFS as the underlying distributed file system.
+  \item The Scala version installed on this server is 2.11.8.
+  \item The operating system is Ubuntu 18.04.2 LTS (GNU/Linux 4.15.0-74-generic x86\_64).
+\end{itemize}
+
+\section{Data sets}
+
+We have selected four data sets in total for this experimentation. The first three of them are fit for classification problems (the data is labeled), and only the last of them is only for regression purposes. We provide a very brief description of them below\footnote{All data sets used are publicly available at \url{https://archive.ics.uci.edu/ml/datasets.php}.}.
+
+\begin{enumerate}[1.]
+  \item \textit{HAR data set}. This is a ``small'' data set consisting on $165632$ instances of data gathered by sensors on the subject of human activity recognition. It possesses 18 numerical attributes (so we are working in $\R^{18}$) and 5 different class labels. For testing purposes, we make a 70\%-30\% train-test stratified split, resulting in the class distribution shown in Table \ref{tab:har-class}.
+
+  \begin{table}[h!]
+  \centering
+  \caption{Class distribution for the HAR data set.}
+  \label{tab:har-class}
+  \begin{tabular}{cc}
+    \hline
+Class & No. of instances \\ \hline
+  0              & 50631                \\
+  1              & 11827                \\
+  2              & 47370                \\
+  3              & 12414                \\
+  4              & 43390                \\
+  \hline
+  \end{tabular}
+  \end{table}
+  \item \textit{POKER data set}. This data set is almost 10 times as big as the previous. It has 1025010 instances with 10 attributes and 10 classes, representing poker hands. The division in this case is 80\%-20\% for train and test, and the class distribution is imbalanced, but representative of the distribution we want to learn. The class distribution after the split can be seen in Table \ref{tab:poker-class}.
+
+    \begin{table}[h!]
+  \centering
+  \caption{Class distribution for the POKER data set.}
+  \label{tab:poker-class}
+  \begin{tabular}{ccc}
+    \hline
+Class & No. of training instances & No. of testing instances \\ \hline
+0              & 410960                                & 102741                       \\
+1              & 346478                                & 86619                        \\
+2              & 39062                                 & 9766                         \\
+3              & 17308                                 & 4326                         \\
+4              & 3182                                  & 796                          \\
+5              & 1640                                  & 410                          \\
+6              & 1168                                  & 292                          \\
+7              & 189                                   & 47                           \\
+8              & 13                                    & 4                            \\
+9              & 7                                     & 1\\
+  \hline
+  \end{tabular}
+  \end{table}
+
+\item \textit{SUSY data set}. This is a relatively large data set based on physics experiments, and is a well known reference for academic studies in Big Data (see \cite {baldi2014searching}). It has 5 million instances, 18 numerical attributes and 2 classes. We consider the first $4.5$ million points for training and the rest for testing. The class distribution is perfectly balanced in both cases.
+
+\item \textit{Query Analytics Workloads data set}. This is our regression synthetic data set, consisting of 200000 instances, 6 numerical attributes and one variable to predict.
+\end{enumerate}
+
+\section{Experimentation results}
+
+We proceed now with the results of the various scenarios considered. There are a couple of aspects that remain constant across all the executions, so we will briefly address them here. In the first place, we use the transformation \verb|StandardScaler| to normalize the data on each dimension and make it comparable. Next, we fix the parameters in a call to Spark in order to use all the resources available, setting
+
+\begin{itemize}
+  \item \verb|num-executors|: 20.
+  \item \verb|executor-cores|: 19.
+  \item \verb|executor-memory|: 32g.
+\end{itemize}
+We also fix the number of Spark partitions in 380 (1 partition per core) for every dataset except SUSY, for which we consider 780 partitions (2 partitions per core). We tried to find a balance between the number of partitions and the size of the data set, since using many partitions when the number of points is not that big can lead to some unwanted situations. Moreover, we limit the number of iterations to 100 in iterative algorithms, and set the tolerance for stopping conditions at $\epsilon=10^{-4}$.
+
+For the reasons explained in Chapter \ref{ch:fuzzy-bigdata} we will only consider the implementation of the intermediate version of Chiu's algorithm, denoted ChiuI, for which we fix the number of groups to 10.
+
+The metric used to measure the quality of the algorithms will be the \textit{accuracy} in the case of classification problemas and the \textit{mean squared error} (\acrshort{mse}) in regression problems. In each case we will show the value of the metric on the test set and the execution time in minutes, denoted by $T$.
+
+\subsection{Classification algorithms}
+
+For comparison we have included some some well-known classification algorithms from the MLlib: Random Forest with 200 trees and Logistic Regression with L2 regularization. We have also included the clustering algortihm K-Means, to which we have applied the same modification to turn it into a classification algorithm that we did with the Fuzzy C-Means algorithm. We present the results obtained on each of the first three data sets, showing the number of iterations, denoted by \#, and the cluster centers (if applicable). In addition, we will also show the value of the function being optimized in FCM. Firstly, the results of the HAR data set are available on Tables \ref{tab:har1}, \ref{tab:har2} and \ref{tab:har3}.
+
+\begin{table}[h!]
+  \centering
+\caption{Experimentation results of comparison algorithms for the HAR data set.}
+\label{tab:har1}
+\begin{tabular}{cccccc}
+\hline
+Algorithm & Centroids & Acc & Loss & T & \# \\ \hline
+Random Forest & -- & 97.340 & -- & 0.82 & -- \\
+Logistic Regression & --& 83.411 & -- & 0.53 & -- \\
+\multirow{2}{*}{KMeans} & 150 & 93.001 & -- & 1.08 & 59 \\
+& 255 & \textbf{94.568} & -- & 1.48 & 52\\
+ChiuI & 255 & 70.892 & -- & 1.03 & -- \\
+\end{tabular}
+\end{table}
+
+\begin{table}[h!]
+  \centering
+\caption{Experimentation results of the FCM algorithm with random initialization for the HAR data set.}
+\label{tab:har2}
+\begin{tabular}{ccccccccc}
+\hline
+\multicolumn{3}{c}{Algorithm} & Centroids & Acc & Loss & T & \# \\ \hline
+\multirow{24}{*}{FCM + Random} & \multirow{3}{*}{$\alpha = 0.2$} & $m=1.75$ & \multirow{3}{*}{150} & 81.350 & 11922.266 & 5.16 & \multirow{3}{*}{100} \\
+ &  & $m=2.00$ &  & 73.401 & 4106.746 & 5.14 &\\
+ &  & $m=2.25$ &  & 73.131 & 1331.418 & 5.30 &\\ \cline{2-8}
+ & \multirow{3}{*}{$\alpha = 0.4$} & $m=1.75$ & \multirow{3}{*}{150} & 80.557 & 11922.266 & 5.27 &\multirow{3}{*}{100}\\
+ &  & $m=2.00$ &  & 71.847 & 4106.746 & 5.27 &\\
+ &  & $m=2.25$ &  & 71.795 & 1331.418 & 5.47 &\\ \cline{2-8}
+ & \multirow{3}{*}{$\alpha = 0.6$} & $m=1.75$ & \multirow{3}{*}{150} & 80.197 & 11922.266 & 5.31 &\multirow{3}{*}{100}\\
+ &  & $m=2.00$ &  & 71.847 & 4106.746 & 5.29 &\\
+ &  & $m=2.25$ &  & 71.795 & 1331.418 & 5.44 &\\ \cline{2-8}
+ & \multirow{3}{*}{$\alpha = 0.8$} & $m=1.75$ & \multirow{3}{*}{150} & 80.197 & 11922.266 & 5.44 &\multirow{3}{*}{100}\\
+ &  & $m=2.00$ &  & 71.847 & 4106.746 & 5.32 &\\
+ &  & $m=2.25$ &  & 71.795 & 1331.418 & 5.49 &\\ \cline{2-8}
+ & \multirow{3}{*}{$\alpha = 0.2$} & $m=1.75$ & \multirow{3}{*}{255} & \textbf{84.979} & 7910.072 & 11.59 &\multirow{3}{*}{100}\\
+ &  & $m=2.00$ &  & 74.745 & 2412.663 & 11.44 &\\
+ &  & $m=2.25$ &  & 72.600 & 682.426 & 11.92 &\\ \cline{2-8}
+ & \multirow{3}{*}{$\alpha = 0.4$} & $m=1.75$ & \multirow{3}{*}{255} & 84.979 & 7910.072 & 11.85 &\multirow{3}{*}{100}\\
+ &  & $m=2.00$ &  & 73.337 & 2412.663 & 11.74 &\\
+ &  & $m=2.25$ &  & 71.803 & 682.426 & 11.90 &\\\cline{2-8}
+ & \multirow{3}{*}{$\alpha = 0.6$} & $m=1.75$ & \multirow{3}{*}{255} & 84.840 & 7910.072 & 11.94 &\multirow{3}{*}{100}\\
+ &  & $m=2.00$ &  & 73.248 & 2412.663 & 11.81 &\\
+ &  & $m=2.25$ &  & 71.803 & 682.426 & 11.93 &\\\cline{2-8}
+ & \multirow{3}{*}{$\alpha = 0.8$} & $m=1.75$ & \multirow{3}{*}{255} & 84.840 & 7910.072 & 11.95 &\multirow{3}{*}{100}\\
+ &  & $m=2.00$ &  & 73.248 & 2412.663 & 11.79 &\\
+ &  & $m=2.25$ &  & 71.803 & 682.426 & 11.92 &\\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h!]
+  \centering
+\caption{Experimentation results of the FCM algorithm with initialization given by Chiu's algorithm for the HAR data set.}
+\label{tab:har3}
+\begin{tabular}{ccccccccc}
+\hline
+\multicolumn{3}{c}{Algorithm} & Centroids & Acc & Loss & T & \# \\ \hline
+\multirow{12}{*}{FCM + ChiuI} & \multirow{3}{*}{$\alpha = 0.2$} & $m=1.75$ & \multirow{3}{*}{255} & \textbf{80.509} & 8803.850 & 11.97 & \multirow{3}{*}{100}\\ \
+ &  & $m=2.00$ &  & 72.230 & 2609.958 & 11.95 &\\
+ &  & $m=2.25$ &  & 71.856 & 732.872 & 12.04 &\\ \cline{2-8}
+ & \multirow{3}{*}{$\alpha = 0.4$} & $m=1.75$ & \multirow{3}{*}{255} & 80.396 & 8803.850 & 12.14 &\multirow{3}{*}{100}\\
+ &  & $m=2.00$ &  & 71.666 & 2609.958 & 11.89 &\\
+ &  & $m=2.25$ &  & 71.862 & 732.872 & 12.17 & \\ \cline{2-8}
+ & \multirow{3}{*}{$\alpha = 0.6$} & $m=1.75$ & \multirow{3}{*}{255} & 79.998 & 8803.850 & 12.20 &\multirow{3}{*}{100}\\
+ &  & $m=2.00$ &  & 71.600 & 2609.958 & 11.95 &\\
+ &  & $m=2.25$ &  & 69.112 & 732.872 & 12.25 &\\ \cline{2-8}
+ & \multirow{3}{*}{$\alpha = 0.8$} & $m=1.75$ & \multirow{3}{*}{255} & 79.515 & 8803.850 & 12.31 &\multirow{3}{*}{100}\\
+ &  & $m=2.00$ &  & 71.600 & 2609.958 & 11.95 &\\
+ &  & $m=2.25$ &  & 69.102 & 732.872 & 12.16 &\\ \hline
+\end{tabular}
+\end{table}
+
+relation $m$ and time.
+\subsection{Regression algorithms}
