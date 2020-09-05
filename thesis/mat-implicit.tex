@@ -7,7 +7,7 @@
 % You should have received a copy of the license along with this
 % work. If not, see <http://creativecommons.org/licenses/by-sa/4.0/>.
 
-Having presented ordinary differential equations and their solutions in the previous chapter, we now focus on our main goal: the study and understanding of \textit{implicit} differential equations, that is, equations which are not solved for the derivative $y'$. Since we can't put this type of equations into explicit form, all the theory discussed earlier doesn't apply directly to this case, and thus we want to find a general framework that allows for the treatment of these equations from a theoretical point of view. For this task we will refer to \cite[\S \ 25]{petrovski1966ordinary} and \cite[\S \ 3]{arnold2012geometrical}.
+Having presented ordinary differential equations and their solutions in the previous chapter, we now focus on our main goal: the study and understanding of \textit{implicit} differential equations, that is, equations which are not solved for the derivative $y'$. Since we cannot put this type of equations into explicit form, all the theory discussed earlier does not apply directly to this case, and thus we want to find a general framework that allows for the treatment of these equations from a theoretical point of view. For this task we will refer to \cite[\S \ 25]{petrovski1966ordinary} and \cite[\S \ 3]{arnold2012geometrical}.
 
 Given that equations are expressed in the general or implicit form, it makes sense to think that the \textit{implicit function theorem} will play a significant role in disentangling the complexities behind this formulation of differential equations, and that it will tell us something about their local behaviour. In an effort to provide all the necessary tools for the study we are about to undertake, we write down the statement of this famous theorem below.
 
@@ -209,12 +209,11 @@ For the purposes of this section we will assume that $F$ is a sufficiently diffe
 \[
 M = \{ (x,y,p) : F(x,y,p)=0\}
 \]
-in the space of 1-jets is smooth\footnote{This is not a strong restriction, since it holds if $0$ is not a critical value of $F$, and by Sard's theorem this happens almost always. Even if it were not the case, a small perturbation by an additive constant should make it so.}. We will show that a direction field arises on this surface and relate it to a certain direction field on the plane, but before we continue, we define a concept that will be essential in the development of the theory.
+in the space of 1-jets is smooth\footnote{This is not a strong restriction, since it holds if $0$ is not a critical value of $F$, and by Sard's theorem this happens almost always. Even if it were not the case, a small perturbation by an additive constant should make it so.}. We will show that a direction field arises on this surface and relate it to a certain direction field on the plane. Before we continue, we define a concept that will be essential in the development of the theory.
 
 \begin{definition}
 A point on the surface $M$ is called a \textit{regular point} if the tangent plane to the surface at that point is not vertical.
 \end{definition}
-
 Let us recall that the tangent plane at a point $(x_0,y_0,p_0)$ of the surface $M$ is given by the equation
 \begin{equation} \label{eq:tangent}
 \langle \nabla F(x_0,y_0,p_0), (x-x_0,y-y_0,p-p_0) \rangle = 0,
@@ -324,7 +323,7 @@ These are parabolas tangent to the line $y=0$, as we already knew from Example \
 
 \section{Singular points and singular solutions}
 
-Another common terminology for referring to the points on the criminant curve is to call them \textit{singular points} of the equation $F=0$. It is worth pointing out that at some singular points it may well be the case that the contact plane is different from the tangent plane, so that they intersect in a straight line and thus still produce a direction field. In fact, we can extend the direction field defined in the previous section to include these well-behaved points, and say that this extended field is the \textit{direction field of the equation $F=0$ on $M$}. However, at singular points the conditions to apply the implicit function theorem don't hold (we have $F_p=0$), so we can only assure that projections of the pieces of the integral curves (of the extended field) localized between singular points are locally integral curves of the corresponding equations $y'=f(x,y)$.
+Another common terminology for referring to the points on the criminant curve is to call them \textit{singular points} of the equation $F=0$. It is worth pointing out that at some singular points it may well be the case that the contact plane is different from the tangent plane, so that they intersect in a straight line and thus still produce a direction field. In fact, we can extend the direction field defined in the previous section to include these well-behaved points, and say that this extended field is the \textit{direction field of the equation $F=0$ on $M$}. However, at singular points the conditions to apply the implicit function theorem do not hold (we have $F_p=0$), so we can only assure that projections of the pieces of the integral curves (of the extended field) localized between singular points are locally integral curves of the corresponding equations $y'=f(x,y)$.
 
 Following the distinction outlined above between singular points, and remembering the expression \eqref{eq:field} for the direction field on $M$, we arrive at the following definition.
 
@@ -358,18 +357,18 @@ If we revisit Example \ref{ex:cusp} we realize that the equation in normal form 
 
 The previous corollary allows us to call these singularities \textit{cusp singularities}. We note that another type of singularities may arise in the discriminant curve, since in general several points of the criminant curve may be mapped by $\pi$ onto the same point in the discriminant curve. These points will almost always be points of self-intersection of the discriminant curve, and they are called \textit{fold singularities}. There are even more types of singularities that we could encounter, but a result by Whitney \cite{whitney1955singularities} states that for an open dense set of functions $F$, the projection $\pi$ is either a local diffeomorphism, a fold map or a cusp map at every point. That is to say, if a function presents another type of singularity, almost every small perturbation would eliminate them. Nevertheless, some attempts have been made at a classification of singularities of implicit equations; see \cite{chertovskih2014pleated} or \cite{dara1975singularites}.
 
-Finally, we explore the concept of singular solutions. A \textit{singular solution} of equation $F=0$ is a solution of the equation that is composed entirely of (projections of) singular points. Such solutions are special because they usually can't be found as part of the general solution. More explicitly, if we have a parametrized family of solutions
+Finally, we explore the concept of singular solutions. A \textit{singular solution} of equation $F=0$ is a solution of the equation that is composed entirely of (projections of) singular points. Such solutions are special because they usually cannot be found as part of the general solution. More explicitly, if we have a parametrized family of solutions
 
 \begin{equation} \label{eq:envelope}
   \Phi(x,y,C)=0,
 \end{equation}
-generally there is no value of $C$ such that when substituted in \eqref{eq:envelope} a singular solution is obtained. For example, equation $p^2=x$ in Example \ref{ex:parabolas} presented a singular solution consisting on the line $x=0$, which happens to be tangent at each point to the family of semicubical parabolas found as ``regular'' solutions. It turns out that this situation is not exceptional, and that most singular solutions occur in this way, so that the following definition is relevant.
+generally there is no value of $C$ such that when substituted in \eqref{eq:envelope} a singular solution is obtained. For example, equation $p^2=x$ in Example \ref{ex:parabolas} presented a singular solution consisting on the line $x=0$, which happens to be tangent at each point to the family of semicubical parabolas found as ``regular'' solutions. It turns out that this situation is not exceptional, and that most singular solutions occur in this way, so that the following definition is relevant\footnote{A study on the relation between singular solutions and envelopes was started by Darboux in 1873 \cite{darboux1873solutions}.}.
 
 \begin{definition}An \textit{envelope} of a family of plane curves is a curve that is tangent to each member of the family at some point, and these points of tangency together form the whole envelope.
 
 \end{definition}
 
-\begin{remark} It is obvious from the tangency condition that the envelope of a family of solutions to $F=0$ is itself a solution, which is usually, though not necessarily, a singular solution\footnote{A study on the relation between singular solutions and envelopes was started by Darboux in 1873 \cite{darboux1873solutions}.}.
+\begin{remark} It is obvious from the tangency condition that the envelope of a family of solutions to $F=0$ is itself a solution. Moreover, at any point $(x_0,y_0)$ of the envelope there are two solutions of the equation passing through it with the same slope $p_0$: the curve of the underlying family that is tangent to the envelope at that point and the envelope itself. Then we have necessarily that $F_p(x_0,y_0,p_0)=0$, for if this were not the case it would contradict the uniqueness in Theorem \ref{th:implicit-basic}. Thus we conclude that an envelope of a family of solutions to $F=0$ is always a singular solution of that equation.
 \end{remark}
 
 However, not every family of curves has an envelope. The following result provides some necessary conditions for this to happen, and in practice it gives us a method to find envelopes.
@@ -430,7 +429,7 @@ If we want to find an envelope for a given family of curves $\Phi$, attending to
   which combined with $\Phi=0$ implies that $y=\pm 1$. It is clear that the lines $y=1$ and $y=-1$ are both tangent to the family \eqref{eq:circles-envelope}, as seen in Figure \ref{fig:envelope}, so they are indeed the envelopes of the equation \eqref{eq:example-envelope}. We can also check that these lines form the discriminant of the equation, since $F_p=2p$ only vanishes at $p=0$, which by \eqref{eq:example-envelope} implies that $y=\pm 1$. Thus, we have found two singular solutions of the equation, and besides, they constitute the envelopes of the family of general solutions.
 \begin{figure}[h!]
 \centering
-\includegraphics[width=.55\textwidth]{envelope}
+\includegraphics[width=.6\textwidth]{envelope}
 \caption{Representation of the family of general solutions of equation \eqref{eq:example-envelope} and its envelopes $y=\pm 1$.}
 \label{fig:envelope}
 \end{figure}
@@ -440,10 +439,10 @@ If we want to find an envelope for a given family of curves $\Phi$, attending to
   \[
   \Phi(x,y,C)=x^2+y^2 -C^2 =0.
   \]
-If we tried the usual trick of eliminating $C$ from $\Phi=\Phi_C=0$ we would end up with the equation $x^2+y^2=0$, which in fact is satisfied only by the point $(0,0)$, and thus does not constitute a curve, much less a curve tangent to the family of solutions. A look at Theorem \ref{th:sufficient} tells us that this family does indeed have no envelope, since condition $(iii)$ doesn't hold at any point. This is also obvious from Figure \ref{fig:concentric}.
+If we tried the usual trick of eliminating $C$ from $\Phi=\Phi_C=0$ we would end up with the equation $x^2+y^2=0$, which in fact is satisfied only by the point $(0,0)$, and thus does not constitute a curve, much less a curve tangent to the family of solutions. A look at Theorem \ref{th:sufficient} tells us that this family does indeed have no envelope, since condition $(iii)$ does not hold at any point. This is also obvious from Figure \ref{fig:concentric}.
 \begin{figure}[h!]
 \centering
-\includegraphics[width=.45\textwidth]{concentric}
+\includegraphics[width=.5\textwidth]{concentric}
 \caption{Representation of a family of curves with no envelope.}
 \label{fig:concentric}
 \end{figure}

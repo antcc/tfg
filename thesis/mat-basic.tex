@@ -29,7 +29,7 @@ where $F$ is a real-valued function of $n+1$ real variables, $x$ is an independe
   The process of finding solutions of a differential equation is also known as \textit{integrating} the equation.
 \end{definition}
 
-From now on, unless otherwise stated we will restrict ourserlves to \textit{first order} ODEs, which take the general form
+From now on, unless otherwise stated we will restrict ourselves to \textit{first order} ODEs, which take the general form
 \begin{equation}\label{eq:fode}
   F(x,y,y') = 0,
 \end{equation}
@@ -74,7 +74,7 @@ where
 \end{equation*}
 The rationale behind this decision is to allow the function $f$ to become infinite at some points (representing a vertical slope), and shift our perspective from the $x$-axis to the $y$-axis at those points. In this way, at points where both $f$ and $f_1$ are defined we can use either \eqref{eq:fode-explicit} or \eqref{eq:fode-explicit1} to construct the direction field, but we use \eqref{eq:fode-explicit1} at points where $f$ becomes infinite\footnote{At each point of $G$, at least one of $f$ or $f_1$ is always defined, for $f=0$ if and only if $f_1$ is infinite, and $f_1=0$ if and only if $f$ is infinite.}.
 
-We are now ready to define our new, more general concept of solution, which will necessarily be related not only to the original equation, but also to the newly defined associated equation. We will restrict ourselves to the class of \textit{smooth} \textit{regular} curves, that is, continuously differentiable curves with nonvanishing derivative everywhere. From now on, all curves will implicitly be assumed to belong to this class.
+We are now ready to define our new, more general concept of solution, which will necessarily be related not only to the original equation, but also to the newly defined associated equation. We will restrict ourselves to the class of \textit{smooth} \textit{regular} curves, that is, continuously differentiable curves with non-vanishing derivative everywhere. From now on, all curves will implicitly be assumed to belong to this class.
 
 \begin{definition}\label{def:integral-curves}
   An \textit{integral curve} of equations \eqref{eq:fode-explicit} and \eqref{eq:fode-explicit1} is a smooth regular curve whose tangent at each point has a direction specified by the direction field of said equations.
@@ -158,7 +158,7 @@ As a closing remark, we note that we could have ignored the directions parallel 
 
 \section{Existence and uniqueness of solutions}
 
-So far we have been talking about solutions of a differential equation without stopping to think even if such solutions exist in the first place. Could we come up with an equation which has no solutions at all? To answer this question, remember that any possible solution is assumed to be smooth, and thus its derivative verifies the \textit{intermediate value theorem}\footnote{\label{fn:darboux} A similar argument for non-smooth solutions may be given using \textit{Darboux's theorem} \cite[112]{apostol1974analysis}, which states that the derivative of any differentiable function that takes two different values on an interval must take every value in between.}. But this derivative must be equal to $f$, so it suffices to choose a function that doesn't have the intermediate value property. For example, if we consider the famous Dirichlet function
+So far we have been talking about solutions of a differential equation without stopping to think even if such solutions exist in the first place. Could we come up with an equation which has no solutions at all? To answer this question, remember that any possible solution is assumed to be smooth, and thus its derivative verifies the \textit{intermediate value theorem}\footnote{\label{fn:darboux} A similar argument for non-smooth solutions may be given using \textit{Darboux's theorem} \cite[112]{apostol1974analysis}, which states that the derivative of any differentiable function that takes two different values on an interval must take every value in between.}. But this derivative must be equal to $f$, so it suffices to choose a function that does not have the intermediate value property. For example, if we consider the famous Dirichlet function
 \begin{equation*}
   g(x) = \begin{cases}
     1  & \text{if } x \in \mathbb{Q},\\
@@ -186,7 +186,7 @@ has at least one solution in $G$. Moreover, if $f$ is continuous on a neighbourh
 
 The concept of a solution passing through a predefined point is not incidental to our study, but it plays a major role in much of the subsequent theory, which is why it merits its own denomination. A differential equation $y'=f(x,y)$ coupled with an \textit{initial condition} $y(x_0)=y_0$ is called an \textit{initial value problem}, often abbreviated as \acrshort{ivp}. With this new definition in mind, Peano's theorem states that every initial value problem defined by a continuous function has at least one solution, or more generally, that there is at least one integral curve of the equation passing through the selected point.
 
-Together with the question of existence comes inevitably the issue of uniqueness. Peano's theorem guarantees that under mild conditions a solution to an initial value problem always exists, but it doesn't say anything about it being unique. It is not hard to think of an example in which uniqueness of solution is violated. For instance, it is immediate to verify that the IVP
+Together with the question of existence comes inevitably the issue of uniqueness. Peano's theorem guarantees that under mild conditions a solution to an initial value problem always exists, but it does not say anything about it being unique. It is not hard to think of an example in which uniqueness of solution is violated. For instance, it is immediate to verify that the IVP
 
 \begin{equation*}
   \begin{cases} y' = 3y^{2/3},\\
@@ -218,4 +218,4 @@ has exactly one solution.
   The Lipschitz condition on Theorem \ref{th:picard} can be relaxed to a condition on the partial derivative. The theorem remains true, via a direct application of the \textit{mean value theorem}, if $\partial f / \partial y$ is locally bounded, which in turn holds if said partial derivative is continuous on $G$. This condition is often easier to check.
 \end{remark}
 
-Bringing back the geometric interpretation of differential equations, it is straightforward to see that at points where there is uniqueness of solutions two integral curves can never be tangent to each other (they can't cross either by definition). However, it is precisely the points in which uniqueness fails that interest us, and we will study them in depth in the following chapter.
+Bringing back the geometric interpretation of differential equations, it is straightforward to see that at points where there is uniqueness of solutions two integral curves can never be tangent to each other (they cannot cross either by definition). However, it is precisely the points in which uniqueness fails that interest us, and we will study them in depth in the following chapter.
