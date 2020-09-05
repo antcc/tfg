@@ -112,7 +112,7 @@ Alternatively, $A$ is convex if all its $\alpha$-level sets are convex (i.e. com
 
 \end{definition}
 
-In most applications it makes sense to work with convex membership functions, since they are easy to visualize and interpret. An example visualization to help us differentiate between convex and nonconvex fuzzy sets can be seen in Figure \ref{fig:convex-fuzzy}.
+In most applications it makes sense to work with convex membership functions, since they are easy to visualize and interpret. An example visualization to help us differentiate between convex and non-convex fuzzy sets can be seen in Figure \ref{fig:convex-fuzzy}.
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{.4\textwidth}
@@ -124,10 +124,10 @@ In most applications it makes sense to work with convex membership functions, si
 \begin{subfigure}{.4\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{nonconvex-fuzzy}
-  \caption{Nonconvex fuzzy set}
+  \caption{Non-convex fuzzy set}
   \label{fig:sub-second}
 \end{subfigure}
-\caption{Representation of membership functions of convex and nonconvex fuzzy sets.}
+\caption{Representation of membership functions of convex and non-convex fuzzy sets.}
 \label{fig:convex-fuzzy}
 \end{figure}
 
@@ -170,7 +170,7 @@ Similarly, the \textit{Cartesian co-product} $A+B$ is a fuzzy set in $X \times Y
 
 As it turns out, there are various ways of defining these basic operations in a fuzzy context, so we will refer to the operators used above as the \textit{classical} or \textit{standard fuzzy operators}. Other operators are discussed briefly in Subsection \ref{ssec:tnorm}. The choice of a specific fuzzy operator will depend on the specific problem we try to model, since different operators will most likely yield different outcomes and conclusions.
 
-As with any new mathematical structure, one of the first steps after studyng its basic properties is to study which operations preserve this structure, and how to generate new entities from existing ones. Regardless of the concrete operators employed, the operations just described provide us with the ability of generating new fuzzy sets from existing ones, while maintaining a reasonable interpretation of what they represent. Some of them will even preserve interesting properties of fuzzy sets, as seen in next result, whose proof can be derived by merely writing down the definitions of the concepts involved.
+As with any new mathematical structure, one of the first steps after studying its basic properties is to study which operations preserve this structure, and how to generate new entities from existing ones. Regardless of the concrete operators employed, the operations just described provide us with the ability of generating new fuzzy sets from existing ones, while maintaining a reasonable interpretation of what they represent. Some of them will even preserve interesting properties of fuzzy sets, as seen in next result, whose proof can be derived by merely writing down the definitions of the concepts involved.
 
 \begin{prop} An arbitrary intersection of convex fuzzy sets is a convex fuzzy set.
 \end{prop}
@@ -304,7 +304,7 @@ Triangular and trapezoidal membership functions are used because of their simpli
     \centering
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{mf-triangle}
-        \caption{Traingular MF}
+        \caption{Triangular MF}
     \end{subfigure}
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{mf-trapezoid}
@@ -446,7 +446,7 @@ In fact, the eight operators showed above are dual in the sense of the generaliz
 
 \section{Fuzzy logic}
 
-In this section we will study the methods and principles of \textit{fuzzy reasoning}, and present fuzzy logic as a multi-valued logic that generalizes the classical two-valued logic. If we think of the predicates \textit{true} and \textit{false} as being codified as $0$ and $1$, respectively, we can understand how to derive a \textit{fuzzy} logic theory in which every predicate has a \textit{truth grade} quantified by an appropiate membership function.
+In this section we will study the methods and principles of \textit{fuzzy reasoning}, and present fuzzy logic as a multi-valued logic that generalizes the classical two-valued logic. If we think of the predicates \textit{true} and \textit{false} as being codified as $0$ and $1$, respectively, we can understand how to derive a \textit{fuzzy} logic theory in which every predicate has a \textit{truth grade} quantified by an appropriate membership function.
 
 The whole new range of possible truth values gives something of a gray area in which propositions can fall. This is specially interesting in situations which involve a high degree of uncertainty, and thus its structure is difficult to capture with crisp values (if possible at all). The first example that comes to mind is what is known as \textit{natural language processing}, or the modelling of human speech to be ultimately processed by a computer. It is precisely this example that inspires the definitions and concepts that will be presented next, and it can be viewed as the starting point of the subsequent theory.
 
@@ -539,7 +539,7 @@ where ``$x$ is $A$'' is the \textit{antecedent} part and ``$y$ is $B$'' is the \
 
 Some examples of fuzzy rules include \textit{if the patient's temperature is high, give them a moderate dose of medicine}, or \textit{tall people will get a big discount}. These rules are most useful, as we have already pointed out, when the concepts we are trying to model are difficult to describe in exact terms: is there a universally accepted height from which a person is considered to be tall? Is a body temperature of 38\textdegree{} indicative of a problem but $37.9$\textdegree{} is not?
 
-Since a fuzzy if-then rule models a relation between two variables $x$ and $y$, it makes sense to interpret $A\to B$ as a fuzzy relation $\mathcal R$ given by a membership function $\mu_{\mathcal R} = f(\mu_A(x), \mu_B(y))$, for an appropiate choice of an implication function $f$ (usually a $T$-norm operator). Now we derive the basic operation of fuzzy reasoning, which consists of an \textit{approximate modus ponens}. Starting from the fuzzy rule \textit{if $x$ is $A$ then $y$ is $B$}, if we have the premise $x$ is $A'$, where $A'$ means an approximation of $A$, we can conclude that $y$ is $B'$, with $B'$ being an approximation of $B$. In other words, if $x$ is $A$ \textit{to a certain degree}, then $y$ is $B$ \textit{to a certain (possibly different) degree}. We give a precise meaning and structure to this process in the following definition.
+Since a fuzzy if-then rule models a relation between two variables $x$ and $y$, it makes sense to interpret $A\to B$ as a fuzzy relation $\mathcal R$ given by a membership function $\mu_{\mathcal R} = f(\mu_A(x), \mu_B(y))$, for an appropriate choice of an implication function $f$ (usually a $T$-norm operator). Now we derive the basic operation of fuzzy reasoning, which consists of an \textit{approximate modus ponens}. Starting from the fuzzy rule \textit{if $x$ is $A$ then $y$ is $B$}, if we have the premise $x$ is $A'$, where $A'$ means an approximation of $A$, we can conclude that $y$ is $B'$, with $B'$ being an approximation of $B$. In other words, if $x$ is $A$ \textit{to a certain degree}, then $y$ is $B$ \textit{to a certain (possibly different) degree}. We give a precise meaning and structure to this process in the following definition.
 
 \begin{definition}[Fuzzy reasoning] Let $X,Y$ be two universes of discourse and let $A, A'$ and $B$ be fuzzy sets in $X$, $X$ and $Y$, respectively. If $A\to B$ is a fuzzy implication, then a fuzzy set $B'$ is induced on $Y$, defined by
 \[
@@ -573,14 +573,14 @@ Now that we have gone over all the key elements in the theory of fuzzy reasoning
 
 \begin{enumerate}[1.]
   \item A \textit{fuzzification module}, which converts crisp inputs into fuzzy sets, with some predefined membership functions.
-  \item A \textit{rulebase} that contains a set of fuzzy if-then rules.
-  \item An \textit{inference engine} that takes some input and employs the rules in the rulebase to infer the corresponding output, using the fuzzy reasoning scheme described in the previous section. The membership functions in the output space are also predefined.
+  \item A \textit{rule base} that contains a set of fuzzy if-then rules.
+  \item An \textit{inference engine} that takes some input and employs the rules in the rule base to infer the corresponding output, using the fuzzy reasoning scheme described in the previous section. The membership functions in the output space are also predefined.
   \item A \textit{defuzzifying method} used to convert the output back to a crisp value, if necessary.
 \end{enumerate}
 
-A positive quality of a FIS is that its rulebase can be easily modified with the addition of new rules or the adjustment of existing ones. The rules in the rulebase can be defined by an expert based on their knowledge of the specific problem we are tackling, but they can also be \textit{learned from data}. This fact opens the door to the treatment of fuzzy systems with the techniques and learning algorithms that have been emerging over the course of the last decades in this field. This is precisely what we pursue: to build a fuzzy system that can learn and benefit from enormous amounts of data. This process will be discussed in depth in Chapter \ref{ch:fuzzy-bigdata}.
+A positive quality of a FIS is that its rule base can be easily modified with the addition of new rules or the adjustment of existing ones. The rules in the rule base can be defined by an expert based on their knowledge of the specific problem we are tackling, but they can also be \textit{learned from data}. This fact opens the door to the treatment of fuzzy systems with the techniques and learning algorithms that have been emerging over the course of the last decades in this field. This is precisely what we pursue: to build a fuzzy system that can learn and benefit from enormous amounts of data. This process will be discussed in depth in Chapter \ref{ch:implementation}.
 
-One of the most important thing to take into account is that the choice of membership function is subjective, but not arbitrary. It heavily depends on the problem we are trying to solve, and selecting the appropiate MF for a given task usually gives much better results than choosing one either at random or one that gave good results on some entirely different problem.
+One of the most important thing to take into account is that the choice of membership function is subjective, but not arbitrary. It heavily depends on the problem we are trying to solve, and selecting the appropriate MF for a given task usually gives much better results than choosing one either at random or one that gave good results on some entirely different problem.
 
 Even though we have described every step of the inferring process in this and the previous sections, we summarize them below for completeness.
 
@@ -621,7 +621,7 @@ Other defuzzification methods are studied in the literature. A non-exhaustive cl
 \]
 \end{example}
 
-The other type of FIS that we will study is one in which the output is not a fuzzy set, but a crisp function of the input values. It is aimed at generating fuzzy rules from a given input-output data set, and is appropiate for solving regression problems.
+The other type of FIS that we will study is one in which the output is not a fuzzy set, but a crisp function of the input values. It is aimed at generating fuzzy rules from a given input-output data set, and is appropriate for solving regression problems.
 
 \begin{definition}[TSK fuzzy inference system] A TSK fuzzy inference system (proposed by Takagi, Sugeno and Kang \cite{takagi1985identification, sugeno1988structure}) is a FIS that takes an input $X=(X_1,\dots,X_n)$ and produces an output $Y = (Y_1, \dots, Y_m)$, using rules of the form
 \begin{center}

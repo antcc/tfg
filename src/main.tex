@@ -287,13 +287,14 @@
 \input{\TPath/cs-bigdata}
 
 \chapter{Design and implementation of fuzzy systems for Big Data}
-\label{ch:fuzzy-bigdata}
-\input{\TPath/cs-fuzzy-bigdata}
+\label{ch:implementation}
+\input{\TPath/cs-implementation}
 
 \chapter{Comparative study}
 \input{\TPath/cs-study}
 
 \chapter{Conclusions and future work}
+\input{\TPath/cs-conclusions}
 
 \setpartpreamble[u][\textwidth]{\vspace*{2em}\centering \large \emph{Mathematics}}
 \part{Ordinary differential equations not solved for the derivative}
@@ -305,7 +306,24 @@
 \input{\TPath/mat-basic}
 
 \chapter{Implicit equations}
+\label{ch:implicit}
 \input{\TPath/mat-implicit}
+
+\chapter{Classical examples of implicit equations}
+\input{\TPath/mat-examples}
+
+\chapter{Conclusions and future work}
+
+- extend the results to second order odes, many problems in physics:
+
+- brachistochrone. contar el problema y decir que a través de cálculo variacional se resuleve resolviendo la ec. $y^{-1/2}/sqrt(1+p^2)=0$ (https://arxiv.org/pdf/1401.2660.pdf).
+
+- se han citado fuentes originales. algo de historia.
+
+- generalization clairaut
+%https://books.google.es/books?hl=en&lr=&id=y_xkG1kzfNkC&oi=fnd&pg=PA1&dq=Introduction+to+nonlinear+differential+and+integral+equation&ots=xXIYlsdjHP&sig=Hesm9hrw7NjgqFAtmfGUpt1nNFI#v=onepage&q=d'alembert&f=false
+
+-luis varona, otros tipos
 
 %%%% End part
 \bookmarksetup{startatroot}% this is it
@@ -330,7 +348,10 @@
 \noindent All links were last followed on September 7, 2020.
 
 \appendix
-\chapter{Cost estimation and planning}
 \chapter{About the software developed}
+\label{app:software}
 Data structures,etc.
+Difficulties: save checkpoint, erase history in iterative Algorithms, garbage collector, reduce time, etc.
+In iterative algorithms, data MUST be cached!
+configuraciones extra (heartbeat)
 \end{document}
