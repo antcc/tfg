@@ -7,4 +7,29 @@
 % You should have received a copy of the license along with this
 % work. If not, see <http://creativecommons.org/licenses/by-sa/4.0/>.
 
-<Detailed introduction to the work done, with objectives, motivation, etc.>
+The theory of differential equations came into existence after Newton and Leibniz invented calculus in the late 17th century. The concept of a relation between a function and its derivatives quickly became an essential one in the mathematical works of the time, and renowned mathematicians such as Euler, Lagrange or the Bernoulli brothers dedicated a great part of their lives to the study of these equations\footnote{A fairly complete historical review on the subject can be consulted in \cite{archibald2004history}.}. Since then, it has arguably become one of the main topics of research in the mathematical community, not only because it comprises the methods and techniques of many other fields (analysis, geometry, algebra...), but also because of its extensive practical applications to solve real-life problems.
+
+Throughout modern history, many problems and phenomena in classical mechanics, physics, biology and other sciences have ended up being modelled by differential equations, either explicitly or indirectly. Among these situations, a certain type of equation seemed to be recurrent, one in which the derivative could not be explicitly isolated in one side of the equation. These equations came to be known as \textit{equations not solved for the derivative} or \textit{implicit differential equations}, and they take the general form $F(x,y,y')=0$. Thus, there was an interest, both practical and theoretical, in studying and understanding these implicit equations, and this is precisely the motivation behind the topic of this work.
+
+We will focus on first order differential equations not solved for $y'$. While the theory of explicit differential equations is well-known and established in the curriculum of every undergraduate course in mathematics, implicit equations are usually not treated in depth from a theoretical point of view. This is why we will first make a brief summary of the most essential aspects of the theory of ordinary differential equations, and then introduce the theory of implicit equations, explaining how the former affects the latter.
+
+The main references used for the writing this document were the works of two Russian mathematicians, Vladimir Arnold \cite{arnold2012geometrical, cooke1992ordinary} and Ivan Petrovsky \cite{petrovski1966ordinary}. Citations of these and other complementary sources are made within the text.
+
+\section{Objectives}
+
+The goals of this study are as follows:
+
+\begin{enumerate}[1.]
+  \item To review the theory of first order differential equations at an undergraduate level, highlighting the geometrical interpretation of these equations and stating the most relevant theorems on existence and uniqueness of solutions.
+  \item To carry out a thorough study on equations not solved for the derivative, developing a theory rooted in the general theory of differentiable mappings, and providing general conditions for their treatment.
+  \item To analyze the so-called singular solutions of implicit equations, which are solutions that usually arise outside of the general family of solutions, and can be thought of as the set of critical points of a certain mapping. These singular solutions have special and interesting properties that warrant their study.
+  \item To present some classical equations such as the Lagrange and Clairaut equations, explain how they fit in the theory of implicit equations described before, and provide explicit techniques for their resolution.
+\end{enumerate}
+
+\section{Structure}
+
+In Chapter \ref{ch:basic} we present the theory of first order ordinary differential equation, starting from the most basic definitions. First, the concepts of a differential equation and its solutions are rigorously defined. Next, we occupy ourselves with a geometrical analysis of differential equations, arriving at the concepts of integral curves and direction fields. Lastly, the theorems of Peano and Picard-Lindelöf are presented, along with a very schematic description of their proof and a reference where one can read them in their entirety.
+
+In Chapter \ref{ch:implicit} the study of equations not solved for the derivative is carried out. We begin by showing a simple condition that allows us to write implicit equations locally in explicit form, namely the condition for the \textit{implicit function theorem} to hold. Next, we present a result that establishes an algebraic condition under which there are finitely many solutions passing through a certain point on the plane. Following this result, we shift our perspective again and return to the geometrical perspective, viewing an equation $F=0$ as a surface on a certain three-dimensional space, and its solutions as projections to a two-dimensional plane. Lastly, we study the concepts of singular points, singular solutions and envelopes of curves, which still retain a notable geometrical component.
+
+Finally, in Chapter \ref{ch:examples} some concrete and famous examples of implicit equations are presented. In particular, we analyze and provide a method for solving Clairaut, Lagrange and Chrystal equations, applying the techniques studied throughout this work and presenting a visual representation of the general and singular solutions.

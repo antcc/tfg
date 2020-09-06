@@ -11,7 +11,7 @@ In this last chapter we will present, study and provide a general method to solv
 
 \section{Clairaut equation}
 
-We begin with the study an implicit differential equation introduced by French mathematician A. Clairaut in 1734, which appears in geometric problems in which it is required to determine a curve in terms of a prescribed property of its tangents at all points, as we will shortly verify. A Clairaut equation takes the form
+We begin with the study of an implicit differential equation introduced by French mathematician A. Clairaut in 1734, which appears in geometric problems in which it is required to determine a curve in terms of a prescribed property of its tangents at all points, as we will shortly verify. A Clairaut equation takes the form
 \begin{equation}  \label{eq:clairaut}
   y=xy' + f(y'),
 \end{equation}
@@ -22,20 +22,20 @@ There are a number of ways to tackle this equation, ranging from an exhaustive t
   \begin{cases}
     y-xp-f(p)=0,\\
     p\,dx - dy -x\,dp -f'(p)\,dp=0,\\
-    dy=p\,dx,
+    dy=p\,dx.
   \end{cases}
 \]
-and from the second and third equations we get the relation
+Now from the second and third equations we get the relation
 \begin{equation} \label{eq:clairaut1}
 (x+f'(p))\,dp = 0.
 \end{equation}
-On the other hand, we have $F_p = -(x+f')$, so the criminant is composed by the points on $M$ for which $x=-f'$. Outside of those points, equation \eqref{eq:clairaut1} implies that the integral curves on $M$ are the lines $p=C$, and when projected on the $(x,y)$-plane (substituting $p=C$ in the expression of $F$) we get the family of lines
+On the other hand, we have $F_p = -(x+f'(p))$, so the criminant is composed by the points on $M$ for which $x=-f'(p)$. Outside of those points, equation \eqref{eq:clairaut1} implies that the integral curves on $M$ are the lines $p=C$, and when projected on the $(x,y)$-plane (substituting $p=C$ in the expression of $F$) we get the family of lines
 \begin{equation} \label{eq:clairaut-general}
 y=xC + f(C),
 \end{equation}
  which is the general solution of the equation. Thus we can say that \textit{a Clairaut equation is the equation of a family of lines parametrized by the slope}.
 
-Returning to the points on the criminant, we note that they are all improper singular points, since $F_x+pF_y=0$ holds for every point. We can project these singular points and get the expression for the discriminant curve in parametric form as
+Turning our attention towards the points on the criminant, we note that they are all improper singular points, since $F_x+pF_y=0$ holds everywhere. We can project these singular points and get the expression for the discriminant curve in parametric form as
 \begin{equation} \label{eq:clairaut-singular}
 x=-f'(p), \quad y = -pf'(p) + f(p),
 \end{equation}
@@ -44,9 +44,9 @@ where $p$ is now the parameter along the curve. This singular solution turns out
 \[
 \frac{dy}{dx} = \frac{dy/dp}{dx/dp} = \frac{-f'(p)-pf''(p)+f'(p)}{-f''(p)}=p,
 \]
-given that $f''\neq 0$ at the point of interest. It can also be checked that curves consisting on arbitrary segments of the singular solution and the two lines of the family \eqref{eq:clairaut-general} tangent to it at each end of the segment, including the degenerate case in which the segment is a single point. In other words, infinitely many solutions of the equation pass through each point of the envelope.
+given that $f''\neq 0$ at the point of interest. It can also be checked that curves consisting on arbitrary segments of the singular solution and the two lines of the family \eqref{eq:clairaut-general} tangent to it at each end of the segment are solutions of the equation as well, including the degenerate case in which the segment is a single point. In other words, infinitely many solutions of the equation pass through each point of the envelope.
 
-Another method for solving this equation more directly but arguably losing the intuition behind it is to consider the original expresion $y-xy'-f(y')=0$, introduce a parameter $p=dy/dx$ directly and differentiate with respect to $x$, obtaining
+Another method for solving this equation more directly but arguably losing the intuition behind it is to consider the original expression $y-xy'-f(y')=0$, introduce a parameter $p=dy/dx$ and differentiate with respect to $x$, obtaining
 \[
 p-p-xp'-f'(p)p' =0 \implies -(x+f'(p))p' =0.
 \]
@@ -69,7 +69,7 @@ is the singular solution, which can also be written explicitly eliminating the p
 Both this figure and the next one were created by Alex Hall and are \href{https://en.wikipedia.org/wiki/File:Solutions_to_Clairaut\%27s_equation_where_f(t)\%3Dt\%5E2.png}{freely} \href{https://en.wikipedia.org/wiki/File:Solutions_to_Clairaut\%27s_equation_where_f(t)\%3Dt\%5E3.png}{distributed} on Wikimedia Commons under a CC-BY-SA 3.0 license.
 }%
 
-We can see from the figure that if we choose a point $(x_0,y_0)$ under the singular curve, there is no solution passing through this point. On the other hand, we can see that the parabola $y=\frac{-x^2}{4}$ and the line $y=xp+p^2$ intercept at the point $(-2p,-p^2)$, so for example the curves
+We can see from the figure that if we choose a point $(x_0,y_0)$ under the singular curve, there is no solution passing through this point. On the other hand, we observe that the singular parabola and the line $y=xp+p^2$ intercept at the point $(-2p,-p^2)$, so for example the curves
 \[
 \phi_p(x)= \begin{cases}
   xp + p^2, & x < -2p,\\
@@ -82,7 +82,7 @@ In a completely analogous way, the general solution of $y=xy'+(y')^3$ is the fam
 \[
 y^2=\frac{-4x^3}{27}, \quad x \le 0,
 \]
-as shown in Figure \ref{fig:clairaut-sol2}.
+as shown in Figure \ref{fig:clairaut-sol2}. Unlike the previous example, in this case there is at least one solution passing through every point of the $(x,y)$-plane.
 
 \begin{figure}[h!]
 \centering
@@ -99,7 +99,7 @@ The next equation we consider is the family of Lagrange equations,
 \begin{equation}\label{eq:lagrange}
   y=xf(y')+g(y'),
 \end{equation}
-where both $f$ and $g$ are defined and continuously differentiable in some open interval $I\subset \R$. These equations are named after Joseph Louis Lagrange\footnote{These equations are also associated with d'Alembert, so in some texts they are referred to as d'Alembert equations.}, who also studied the theory of differential equations and implicit solutions in the second half of the 18th century, treating this specific equation in \cite{lagrange1759integration}. One thing to note from the start is that when $f$ is the identity function, equation \eqref{eq:lagrange} reduces to a Clairaut equation, so in some sense this new equation is a generalization of the former.
+where both $f$ and $g$ are defined and continuously differentiable in some open interval $I\subset \R$. These equations are named after Joseph Louis Lagrange\footnote{They are also associated with d'Alembert, so in some texts they are referred to as d'Alembert equations.}, who also studied the theory of implicit differential equations and singular solutions in the second half of the 18th century, and discussed this specific equation in \cite{lagrange1759integration}. One thing to note from the start is that when $f$ is the identity function, equation \eqref{eq:lagrange} reduces to a Clairaut equation, so in some sense this new equation is a generalization of the former.
 
 To solve this equation the most straightforward method is to introduce the parameter $p=dy/dx$ and differentiate the equation with respect to $x$, obtaining
 \begin{equation} \label{eq:lagrange1}
@@ -107,7 +107,7 @@ To solve this equation the most straightforward method is to introduce the param
 \end{equation}
 Now we consider firstly the case when $p'=0$, that is, $p=y'=C \in I$. Equation \eqref{eq:lagrange1} implies that $p=f(p)$, and substituting this information back into \eqref{eq:lagrange} gives us that the straight line $y=xC+g(C)$ is a solution of the equation. Thus, the family
 \[
-\left\{y=xC+g(C): C \text{ is a root of } p-f(p)\right\}
+\left\{y=xC+g(C): C \text{ is a root of } p-f(p) = 0\right\}
 \]
 is a family of solutions of the equation, which might or might not be singular. It can also be shown that these are the only straight lines that are solutions of the equation.
 
@@ -115,7 +115,7 @@ Assuming that $p\neq f(p)$, equation \eqref{eq:lagrange1} implies that $dp/dx\ne
 \begin{equation}\label{eq:lagrance-linear}
   \frac{dx}{dp} = \frac{xf'(p)+g'(p)}{p-f(p)}.
 \end{equation}
-This is a linear differential equation in the independent variable $p$, which will have a general solution, say $x=\Phi(p,C)$. Reverting the change of variables, we have found the family of general solutions of equation \eqref{eq:lagrange}, which is expressed as a function of the parameter $p$ as
+This is a linear differential equation in the independent variable $p$, which will have a general solution, say $x=\Phi(p,C)$. Substituting back into the original equation, we have found the family of general solutions of equation \eqref{eq:lagrange}, which is expressed as a function of the parameter $p$ as
 \[
 x=\Phi(p,C),\quad y=\Phi(p,C)f(p) + g(p).
 \]
@@ -125,7 +125,7 @@ x=\Phi(p,C),\quad y=\Phi(p,C)f(p) + g(p).
     y=2xy'-(y')^2.
   \end{equation}
 
-We identify the functions $f(p)=2p$ and $g(p)=-p^2$. Solving $f(p)=p$ for $p$ yields $p=0$, so the only solution line is that of slope $0$ passing through the point $(0,g(0))=(0,0)$, that is, the horizontal line $y=0$. If we analyzed the criminant of this equation, we would realize that it is composed of the points on the solution surface for which $x=-p$, so the line $y=0$ is not a singular solution of the equation.
+We identify the functions $f(p)=2p$ and $g(p)=-p^2$. Solving $f(p)=p$ for $p$ yields $p=0$, so the only solution line is that of slope $0$ passing through the point $(0,g(0))=(0,0)$, that is, the horizontal line $y=0$. If we analyzed the criminant of this equation, we would realize that it is composed of the points on the solution surface for which $x=p$, so the line $y=0$ is not a singular solution of the equation.
 
 If $p'\neq 0$, setting $y'=p$ in the equation and differentiating with respect to $x$ yields
 \[
@@ -135,7 +135,7 @@ which since $p'\neq 0$ we can rewrite as the linear ODE
 \[
 \frac{dx}{dp}= \frac{-2}{p}x + 2.
 \]
-This equation gives the general solution $x(p)=\frac{2}{3}p+\frac{C}p^{-2}$, which we can substitute in our equation to get the family of general solutions of \eqref{eq:lagrange-ex}, depicted on Figure \ref{fig:lagrange}:
+This equation gives the general solution $x(p)=\frac{2}{3}p+\frac{C}{p^2}$, which we can substitute in our equation to get the family of general solutions of \eqref{eq:lagrange-ex}, depicted in Figure \ref{fig:lagrange}:
 \[
 \begin{cases}
   \displaystyle x=\frac{2}{3}p+\frac{C}{p^2},\\
@@ -154,7 +154,7 @@ This equation gives the general solution $x(p)=\frac{2}{3}p+\frac{C}p^{-2}$, whi
 
 \section{Chrystal equation}
 
-Lastly we present an equation studied at the end of the $19$th century by G. Chrystal, who took a closer look at its potential singular solutions. A Chrystal equation assumes the form
+Lastly we present an equation studied at the end of the $19$th century by G. Chrystal, who took a closer look at its potential singular solutions (see \cite{chrystal1897discriminant} for the original article). A Chrystal equation assumes the form
 \begin{equation} \label{eq:chrystal}
   (y')^2 + Axy' + By + Cx^2=0,
 \end{equation}
@@ -162,7 +162,7 @@ where $A,B,C$ are real-valued constants. As we will see below, under certain con
 
 The solving process for this equation begins by solving \eqref{eq:chrystal} for $y'$ and considering at the same time the two resulting differential equations, that is,
 \begin{equation}\label{eq:chrystal1}
-  y' = -\frac{1}{2}Ax \pm \frac{1}{2}(A^2x^2-By-4Cx^2)^{1/2}.
+  y' = -\frac{A}{2}x \pm \frac{1}{2}(A^2x^2-4By-4Cx^2)^{1/2}.
 \end{equation}
 Now we introduce a new variable $z=z(x)$ by means of the relation
 \begin{equation} \label{eq:chrystal5}
@@ -183,17 +183,17 @@ The next step is to factorize the denominator in the right hand side of \eqref{e
 \end{equation}
 we can rewrite equation \eqref{eq:chrystal2} in the form
 \begin{equation} \label{eq:chrystal4}
-\frac{dx}{x}=\frac{x\,dz}{(z-a)(z-b)}.
+\frac{dx}{x}=\frac{z\,dz}{(z-a)(z-b)}.
 \end{equation}
 It can be proven (via direct integration) that if $a\neq b$, the solutions of this equation take the form
 \[
 x\dfrac{(z-a)^{a/(a-b)}}{(z-b)^{b/(a-b)}} = k, \quad k \in \R,
 \]
-and if $a=b$ then the solutions\footnote{A more profound analysis of the trascendental solutions that arise in this case can be found in \cite{jordan2010note}.} are
+and if $a=b$ then the solutions\footnote{A more profound analysis of the transcendental solutions that arise in this case can be found in \cite{jordan2010note}.} are
 \[
 x(z-a)\exp \left( \frac{a}{a-z} \right) = k, \quad k \in \R.
 \]
-Reverting the change of variables \eqref{eq:chrystal5} using these expressions in each case we get the solutions to our equation in parametric form, where now $z$ is the parameter.
+In each case we substitute back into \eqref{eq:chrystal5} using these expressions, and hence we get the solutions to our equation in parametric form, where now $z$ is the parameter.
 
 Apart from this general procedure, the case when one of the roots $a$ or $b$ is $0$ merits special attention. Suppose without loss of generality that $a=0$. Then by equation \eqref{eq:chrystal3} we have
 \begin{equation} \label{eq:chrystal6}
