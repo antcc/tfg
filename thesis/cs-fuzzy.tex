@@ -227,9 +227,9 @@ If $X$ and $Y$ are both discrete, we can express a fuzzy relation as a relation 
 \begin{prop} Let $\mathcal R, \mathcal S$ and $\mathcal T$ be binary relations on $X \times Y$, $Y \times Z$ and $Z \times W$, respectively, and let $\circ$ denote the max-min composition. Then, the following properties hold:
 
 \begin{enumerate}
-\item (Associativity) \ $\mathcal R \circ (\mathcal S \circ \mathcal T) = (\mathcal R \circ \mathcal S) \circ \mathcal T$;
-\item (Distributivity  over union) \ $\mathcal R \circ (\mathcal S \cup \mathcal T) = (\mathcal R \circ \mathcal S) \cup (\mathcal R \circ \mathcal T)$;
-\item (Weak distributivity over intersection) \ $\mathcal R \circ (\mathcal S \cap \mathcal T) \subseteq (\mathcal R \circ \mathcal S) \cap (\mathcal R \circ \mathcal T)$;
+\item (Associativity) \ $\mathcal R \circ (\mathcal S \circ \mathcal T) = (\mathcal R \circ \mathcal S) \circ \mathcal T$.
+\item (Distributivity  over union) \ $\mathcal R \circ (\mathcal S \cup \mathcal T) = (\mathcal R \circ \mathcal S) \cup (\mathcal R \circ \mathcal T)$.
+\item (Weak distributivity over intersection) \ $\mathcal R \circ (\mathcal S \cap \mathcal T) \subseteq (\mathcal R \circ \mathcal S) \cap (\mathcal R \circ \mathcal T)$.
 \item (Monotonicity) \ $\mathcal S \subseteq \mathcal T \implies \mathcal R \circ \mathcal S \subseteq \mathcal R \circ \mathcal T$.
 \end{enumerate}
 
@@ -370,8 +370,8 @@ Lastly, we explore the generalization of the classical fuzzy operators that have
 \begin{definition}[Complement operator] A fuzzy complement operator is a continuous function $N:[0,1] \to [0,1]$ which meets the following axiomatic requirements:
 
 \begin{enumerate}
-	\item \textit{(Boundary)} \ $N(0)=1$ and $N(1)=0$;
-	\item \textit{(Monotonicity)} \ $N(a) \ge N(b)$ if $a \le b$;
+	\item \textit{(Boundary)} \ $N(0)=1$ and $N(1)=0$.
+	\item \textit{(Monotonicity)} \ $N(a) \ge N(b)$ if $a \le b$.
 	\item \textit{(Involution)} \ $N(N(a)) = a$.
 \end{enumerate}
 
@@ -383,7 +383,7 @@ Lastly, we explore the generalization of the classical fuzzy operators that have
 
 \begin{example} One can routinely verify that the following two operators are fuzzy complement operators.
 \begin{enumerate}
-  \item \textit{(Sugeno's complement} \cite{sugeno1993fuzzy}$)$ $\displaystyle N_s(a) = \frac{1-a}{1+sa}$, where $s > -1$;
+  \item \textit{(Sugeno's complement} \cite{sugeno1993fuzzy}$)$ $\displaystyle N_s(a) = \frac{1-a}{1+sa}$, where $s > -1$.
   \vspace{.25em}
   \item \textit{(Yager's complement} \cite{yager1979measure}$)$ $N_w(a) = (1-a^w)^{1/w}$, where $w>0$.
 \end{enumerate}
@@ -396,9 +396,9 @@ Lastly, we explore the generalization of the classical fuzzy operators that have
 \]
 and verifies several basic properties, namely:
 \begin{enumerate}
-	\item \textit{(Boundary)} \ $T(0,0) = 0$ and $T(a,1) = a$;
-	\item \textit{(Monotonicity)} \ $T(a,b) \le T(c,d)$ if $a \le c$ and $b \le d$;
-	\item \textit{(Commutativity)} \ $T(a,b) = T(b,a)$;
+	\item \textit{(Boundary)} \ $T(0,0) = 0$ and $T(a,1) = a$.
+	\item \textit{(Monotonicity)} \ $T(a,b) \le T(c,d)$ if $a \le c$ and $b \le d$.
+	\item \textit{(Commutativity)} \ $T(a,b) = T(b,a)$.
 	\item \textit{(Associativity)} \ $T(a, T(b,c)) = T(T(a,b),c)$.
 \end{enumerate}
 
@@ -407,9 +407,9 @@ and verifies several basic properties, namely:
 For the sake of completeness, here are four of the most frequently used $T$-norm operators:
 
 \begin{enumerate}
-	\item \textit{Minimum:} $T_{min}(a,b) = a \land b$;
-	\item \textit{Algebraic product:} $T_{ap}(a,b)=ab$;
-	\item \textit{Bounded product:} $T_{bp}(a,b) = 0 \lor (a+b-1)$;
+	\item \textit{Minimum:} $T_{min}(a,b) = a \land b$.
+	\item \textit{Algebraic product:} $T_{ap}(a,b)=ab$.
+	\item \textit{Bounded product:} $T_{bp}(a,b) = 0 \lor (a+b-1)$.
 	\item \textit{Drastic product:} $T_{dp}(a,b) = \begin{cases}
 	                                      a, & \text{if } b = 1,\\
 	                                      b, & \text{if } a = 1,\\
@@ -424,9 +424,9 @@ For the sake of completeness, here are four of the most frequently used $T$-norm
 Corresponding to the four $T$-norm operators previously defined, we have the following $T$-conorm operators:
 
 \begin{enumerate}
-	\item \textit{Maximum:} $S_{max}(a,b) = a \lor b$;
-	\item \textit{Algebraic sum:} $S_{as}(a,b)=a + b - ab$;
-	\item \textit{Bounded sum:} $S_{bs}(a,b) = 1 \land (a+b)$;
+	\item \textit{Maximum:} $S_{max}(a,b) = a \lor b$.
+	\item \textit{Algebraic sum:} $S_{as}(a,b)=a + b - ab$.
+	\item \textit{Bounded sum:} $S_{bs}(a,b) = 1 \land (a+b)$.
 	\item \textit{Drastic sum:} $S_{ds}(a,b) = \begin{cases}
 	                                      a, & \text{if } b = 0,\\
 	                                      b, & \text{if } a = 0,\\
@@ -457,13 +457,13 @@ The whole new range of possible truth values gives something of a gray area in w
 
 \subsection{Linguistic variables}
 
-\begin{definition}[Linguistic Variable] A linguistic variable is a quintuple $(x, T(x), X, G, M)$, in which
+\begin{definition}[Linguistic Variable] A linguistic variable is a quintuple $(x, T(x), X, G, M)$, in which:
 
 \begin{enumerate}
-	\item The symbol $x$ represents the name of the variable;
-	\item $T(x)$ is the \textit{term set} of $x$, that is, the set of its \textit{linguistic values};
-	\item $X$ is, as usual, the universe of discourse;
-	\item $G$ is a \textit{syntactic rule} which generates the terms in $T(x)$;
+	\item The symbol $x$ represents the name of the variable.
+	\item $T(x)$ is the \textit{term set} of $x$, that is, the set of its \textit{linguistic values}.
+	\item $X$ is, as usual, the universe of discourse.
+	\item $G$ is a \textit{syntactic rule} which generates the terms in $T(x)$.
 	\item $M$ is a semantic rule which associates with each linguistic value $A$ its \textit{meaning} $M(A)$, which in turn is nothing more than a fuzzy set in $X$.
 \end{enumerate}
 

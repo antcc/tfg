@@ -7,8 +7,37 @@
 % You should have received a copy of the license along with this
 % work. If not, see <http://creativecommons.org/licenses/by-sa/4.0/>.
 
-<Detailed introduction to the work done, with objectives, motivation, etc.>
-Interpretability (https://sci2s.ugr.es/keel/pdf/keel/articulo/Gacto-Alcala-Herrera%20INS%20(Review%20on%20Fuzzy%20Semantic%20Linguistic%20Interpretability%20Indexes).pdf)
+Nowadays the words \textit{neural network} and \textit{deep learning} sound familiar not only to experts in the field, but also to the general public, as they have become the visible face of artificial intelligence and machine learning. But they are not novel approaches, since the first perceptron model proposed by Frank Rosenblatt dates all the way back to 1958 \cite{rosenblatt1958perceptron}, and then some deep learning algorithms were proposed in the late 60s and early 70s (see \cite{ivakhnenko1967cybernetics} and \cite{ivakhnenko1971polynomial}). However, they did not get much traction because the hardware available at the time could not cope with the requirements that these models presented, so they were relegated only to the theoretical realm. It was not until the decade of the 90s and the beginning of this century a renewed interest arose in complex algorithms that could \textit{learn} from the data without explicit human intervention.
 
-%Fuzzy modeling interpretability-accuracy tradeoff
-%file:///tmp/mozilla_antcc0/1-s2.0-S0888613X11000582-main.pdf
+In this regard, a good alternative were models based on fuzzy theory, which was being concurrently developed as a tool that provided an effective and mathematically tractable way of dealing with situations that presented an inherent ambiguity, such as the processing of human language and thoughts. These fuzzy systems were initially implemented as a way of modelling control systems, in which expert human knowledge was usually involved. The idea of making them learn from the data in a semi-automatic way was borrowed from the artificial neural models described above.
+
+Coupled with the increase in computing power came the increase in the ability to generate more and more data, so much that a term was coined to represent the scenarios in which a large volume of data was involved: it was called Big Data. It turns out that the use of fuzzy systems can improve the performance in the results obtained by Big Data learning algorithms. There are at least two reasons that support using fuzzy techniques in a Big Data context:
+
+\begin{enumerate}[1.]
+  \item They serve to model uncertainty not only in the data, but in the whole gathering and analyzing pipeline. Furthermore, they permit a higher level of interpretation than other learning models, and many problems that are unavoidably turning into Big Data problems can surely benefit from some degree of interpretability in their answers.
+  \item There are situations in which obtaining the exact answer to a problem can be very expensive or time consuming, and it could be the case that a sufficiently good solution that reduces both economic and temporal costs is preferred. This circumstance is aggravated when we have massive amounts of data, or when the data volume never stops increasing.
+\end{enumerate}
+
+For the reasons stated above, we set out to first gain a deep understanding of fuzzy systems and Big Data from a theoretical perspective, and then to design some algorithms that bring to light the peculiarities of the interaction between these two concepts, while hopefully making a useful contribution to the current research in the matter.
+
+The current lines of research in this area focus on re-designing existing fuzzy learning algorithms with scalability in mind, which is precisely what we will do in this work. A good review of the state of the art in fuzzy systems for Big Data can be consulted in \cite{wang2017overview} and \cite{fernandez2016view}.
+
+\section{Objectives}
+
+We summarize below the main objectives of this work:
+
+\begin{enumerate}[1.]
+  \item To review the theory of fuzzy sets, fuzzy logic and fuzzy systems, and of fuzzy \textit{if-then} rules in particular. Also, to analyze the distinction between a Mamdani and a TSK fuzzy system, and to explore the philosophy behind the learning algorithms related to them.
+  \item To understand what Big Data is (and what it is not), to explore the principal characteristics that define it and to familiarize ourselves with the various methods and tools that come with this new paradigm.
+  \item To design, implement and test a suite of scalable fuzzy system learning algorithms to use in a Big Data environment, employing the industry standard tools for these tasks.
+\end{enumerate}
+
+\section{Structure}
+
+In Chapter \ref{ch:fuzzy} we tackle the first of the tasks proposed above. We begin with an introduction to fuzzy set theory, reviewing the basic definitions and analyzing with detail the concept of membership functions. Next we introduce fuzzy logic as a muti-valued logic that finds applications in many fields, such as natural language processing. In this part we stop to study in depth the concepts of fuzzy rules and fuzzy inference, which is arguably the core of the fuzzy theory presented here. Finally, we define what a fuzzy system is and analyze some of the different types that can arise.
+
+In Chapter \ref{ch:bigdata} we continue our theoretical study and explore the main characteristics of Big Data and the idiosyncrasies of the algorithms that are used in this context. We also embark in a brief discussion about the ethics and moral implications involved in the gathering of massive amounts of data. Finally, we describe the principal architectures built specifically for Big Data, including Apache Spark and the MapReduce framework.
+
+In Chapter \ref{ch:implementation} we review the state of the art in fuzzy learning algorithms and analyze the three main types: algorithms based on space partitions, neuro-fuzzy algorithms and genetic algorithms. Next we present a description of the algorithms designed and implemented in Spark as the practical portion of this project. In each case we give a high-level account of the general behaviour of the algorithm, we analyze their time complexity and scalability issues and then we detail how we have proceeded in implementing them in a scalable manner, providing code snippets to illustrate the implementation.
+
+Finally, in Chapter \ref{ch:study} we perform a comparative study of the algorithms we have developed, also measuring them against some well-known learning algorithms that are already implemented in Spark. This study is done by executing the algorithms on a few data sets with a large quantity of instances, using a dedicated cluster server with enough capacity. We present the execution results in different formats and later discuss how the algorithms have performed.

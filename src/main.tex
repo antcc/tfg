@@ -79,6 +79,28 @@
 \renewcommand*{\glstextformat}[1]{\textcolor{black}{#1}}
 \allowdisplaybreaks
 
+
+\lstset{language=Scala,
+  showstringspaces=false,
+  extendedchars=true,
+  basicstyle=\normalsize\ttfamily,
+  commentstyle=\slshape,
+  % DE: Original: \rmfamily, damit werden die Strings im Quellcode hervorgehoben. Zusaetzlich evtl.: \scshape oder \rmfamily durch \ttfamily ersetzen. Dann sieht's aus, wie bei fancyvrb
+  stringstyle=\normalsize\ttfamily,
+  breaklines=true,
+  breakatwhitespace=true,
+  % EN: alternative: fixed
+  columns=flexible,
+  numbers=left,
+  keywordstyle=\color{teal}\bfseries,
+  numberstyle=\tiny,
+  basewidth=.5em,
+  xleftmargin=1cm,
+  % aboveskip=0mm, %DE: deaktivieren, falls man lstlistings direkt als floating object benutzt (\begin{lstlisting}[float,...])
+  % belowskip=0mm, %DE: deaktivieren, falls man lstlistings direkt als floating object benutzt (\begin{lstlisting}[float,...])
+  captionpos=b
+}
+
 \begin{document}
 %\setlength{\belowdisplayshortskip}{.5em}
 
@@ -237,36 +259,6 @@
 \ofoot[\usekomafont{pagenumber}\thepage]{\usekomafont{pagenumber}\thepage}
 \ifoot[]{}
 
-
-%% vv  scroll down for content  vv %%
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % Main content starts here
@@ -281,9 +273,11 @@
 \input{\TPath/cs-intro}
 
 \chapter{Fuzzy logic and fuzzy systems}
+\label{ch:fuzzy}
 \input{\TPath/cs-fuzzy}
 
 \chapter{Big Data}
+\label{ch:bigdata}
 \input{\TPath/cs-bigdata}
 
 \chapter{Design and implementation of fuzzy systems for Big Data}
@@ -291,6 +285,7 @@
 \input{\TPath/cs-implementation}
 
 \chapter{Comparative study}
+\label{ch:study}
 \input{\TPath/cs-study}
 
 \chapter{Conclusions and future work}
@@ -303,6 +298,7 @@
 \input{\TPath/mat-intro}
 
 \chapter{Basic concepts}
+\label{ch:basic}
 \input{\TPath/mat-basic}
 
 \chapter{Implicit equations}
@@ -310,20 +306,11 @@
 \input{\TPath/mat-implicit}
 
 \chapter{Classical examples of implicit equations}
+\label{ch:examples}
 \input{\TPath/mat-examples}
 
 \chapter{Conclusions and future work}
-
-- extend the results to second order odes, many problems in physics:
-
-- brachistochrone. contar el problema y decir que a través de cálculo variacional se resuleve resolviendo la ec. $y^{-1/2}/sqrt(1+p^2)=0$ (https://arxiv.org/pdf/1401.2660.pdf).
-
-- se han citado fuentes originales. algo de historia.
-
-- generalization clairaut
-%https://books.google.es/books?hl=en&lr=&id=y_xkG1kzfNkC&oi=fnd&pg=PA1&dq=Introduction+to+nonlinear+differential+and+integral+equation&ots=xXIYlsdjHP&sig=Hesm9hrw7NjgqFAtmfGUpt1nNFI#v=onepage&q=d'alembert&f=false
-
--luis varona, otros tipos
+\input{\TPath/mat-conclusions}
 
 %%%% End part
 \bookmarksetup{startatroot}% this is it
@@ -350,8 +337,7 @@
 \appendix
 \chapter{About the software developed}
 \label{app:software}
-Data structures,etc.
-Difficulties: save checkpoint, erase history in iterative Algorithms, garbage collector, reduce time, etc.
-In iterative algorithms, data MUST be cached!
-configuraciones extra (heartbeat)
+\input{\TPath/appendix-software}
+
+
 \end{document}

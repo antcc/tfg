@@ -10,14 +10,14 @@
 In order to test our implementations, we will conduct a study to see how well our algorithms perform in a couple of real data sets. These data sets will of course present characteristics of Big Data, mainly the data volume. Before we begin, we would like to make some considerations.
 
 \begin{enumerate}[1.]
-  \item The main aspect of the algorithms we want to test, apart from their correctness, is their \textit{scalability}. This is not a study to designed to discern whether FRBS are better or worse than other classification or regression algorithms, though we will make comparisons with some of them for reference. That is to say, we do not intend to discuss the effectiveness of fuzzy systems, which has been extensively established. What we do want to show is how the fuzzy algorithms we developed can function in a environment in which an arbitrary large amount of data is involved.
+  \item The main aspect of the algorithms we want to test, apart from their correctness, is their \textit{scalability}. This is not a study to designed to discern whether FRBS are better or worse than other classification or regression algorithms, though we will make comparisons with some of them for reference. That is to say, we do not intend to discuss the effectiveness of fuzzy systems, which has already been extensively established. What we do want to show is how the fuzzy algorithms we developed can function in an environment in which an arbitrary large amount of data is involved.
   \item Continuing along the lines of the previous point, we do not aim to get the best possible result with our algorithm either. That is why we will not be applying fine tuning techniques such as parameter grid search or cross validation. We will sometimes experiment with different configurations of parameters, but not in a systematic way.
   \item The data sets chosen for this study have a considerable number of instances, and present a challenge in the sense that a typical personal computer would struggle to process all the data into the algorithms. However, the limitations in the infrastructure available to test our implementations and the interest in making a sizeable number of executions with different parameters result in the choice of data sets with controlled size so that the execution time stays within reasonable margins.
 \end{enumerate}
 
 \section{Hardware and infrastructure}
 
-We have deployed our programs on a dedicated server tailored for Big Data operations, called \verb|ulises.ugr.es|. This is a cluster of 20 machines interconnected and ready to execute Spark programs. The main characteristics of this architecture are as follows.
+We have deployed our programs on a dedicated server tailored for Big Data operations, called \verb|ulises.ugr.es|. This is a cluster of 20 machines interconnected and ready to execute Spark programs. The main characteristics of this architecture are as follows:
 
 \begin{itemize}
   \item There are 20 nodes in total, each carrying 24 CPUs divided in 2 sockets, 6 cores per socket and 2 threads per core.
@@ -197,7 +197,7 @@ Logistic Regression                   & --                   & 34.198           
 \multirow{8}{*}{KMeans} & 10                  & 50.131   & 0.68       & \multirow{4}{*}{100} \\
                         & 25                  & 50.237        & 0.78       &                      \\
                         & 50                  & 50.811                      & 1.07       &                      \\
-                        & 100                 & 51.850                       & 1.67       &                      \\ \cline{2-5}
+                        & 100                 & 51.850                       & 1.67       &                      \\
                         & 250                 & 52.743                          & 3.46       &          \multirow{4}{*}{100}            \\
                         & 500                 & 53.679                      & 5.91       &                      \\
                         & 750                 & 54.391                         & 8.41       &                      \\
@@ -221,7 +221,7 @@ FCM + ChiuI & 356 & 50.117 & 21.00 & 14\\ \bottomrule
 \end{tabular}
 \end{table}
 
-Lastly we arrive at the SUSY data set, which is the real test to see if our implementation can withstand such a large quantity of data or if, on the contrary, they take a disproportionate amount of time to finish. Looking at the comparison algorithms in Table \ref{tab:susy1} we see that we can expect higher execution times than in the previous data sets, and also that the general tone of the results remains the same. In this case the Logistic Regression algorithm does outperform the rest save for the Random Forest mdoel, but the interesting thing is that it does so many times faster (it takes less than a minute to finish). For the ChiuI algorithm we chose $r_a=1.5$ and $r_b=3.0$, getting a number of clusters just upwards of 600, while maintaining a controlled execution time.
+Lastly we arrive at the SUSY data set, which is the real test to see if our implementation can withstand such a large quantity of data or if, on the contrary, they take a disproportionate amount of time to finish. Looking at the comparison algorithms in Table \ref{tab:susy1} we see that we can expect higher execution times than in the previous data sets, and also that the general tone of the results remains the same. In this case the Logistic Regression algorithm does outperform the rest save for the Random Forest model, but the interesting thing is that it does so many times faster (it takes less than a minute to finish). For the ChiuI algorithm we chose $r_a=1.5$ and $r_b=3.0$, getting a number of clusters just upwards of 600, while maintaining a controlled execution time.
 
 \begin{table}[h!]
 \centering
@@ -301,7 +301,7 @@ We begin with the smaller QAW data set, whose execution results can be seen in T
 
 Similarly, the results of the executions on the GSA data set are summarized in Table \ref{tab:gsa}. The comparison algorithms behave in a similar way as in the previous case, but now the Random Forest does perform fairly well. However, in the Wang \& Mendel algorithm we observe an effect opposed to what we saw before, because in this case it seems that a higher number of partitions is better. This diametral change in the situation should not come as a surprise, since now we are considering 4 million points more, and it makes sense that a few more rules are needed to better explain the behaviour of the system.
 
-The behaviour exhibited by Chiu's algorithm is also in direct opposition to the previous case, because now the results are better (and of coruse faster) with a lower number of clusters. This can be explained because, in a Big Data setting, having a huge quantity of points could mean that clusters can take up more space, and fewer of them are needed to accurately describe the idiosyncrasies of the data. With regard to the execution time, the Wang \& Mendel algorithm with 15 partitions finishes in less than half the time as the subtractive clustering algorithm, and also produces a better result. However, in both cases we can say that the time taken to finish is relatively low, especially when compared with the classification algorithms for the similarly sized SUSY data set.
+The behaviour exhibited by Chiu's algorithm is also in direct opposition to the previous case, because now the results are better (and of course faster) with a lower number of clusters. This can be explained because, in a Big Data setting, having a huge quantity of points could mean that clusters can take up more space, and fewer of them are needed to accurately describe the idiosyncrasies of the data. With regard to the execution time, the Wang \& Mendel algorithm with 15 partitions finishes in less than half the time as the subtractive clustering algorithm, and also produces a better result. However, in both cases we can say that the time taken to finish is relatively low, especially when compared with the classification algorithms for the similarly sized SUSY data set.
 
 \begin{table}[h!]
 \centering

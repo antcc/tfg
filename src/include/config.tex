@@ -491,25 +491,7 @@
 % EN: Code Listings
 % DE: Listings
 \usepackage{listings}
-\lstset{language=XML,
-  showstringspaces=false,
-  extendedchars=true,
-  basicstyle=\footnotesize\ttfamily,
-  commentstyle=\slshape,
-  % DE: Original: \rmfamily, damit werden die Strings im Quellcode hervorgehoben. Zusaetzlich evtl.: \scshape oder \rmfamily durch \ttfamily ersetzen. Dann sieht's aus, wie bei fancyvrb
-  stringstyle=\ttfamily,
-  breaklines=true,
-  breakatwhitespace=true,
-  % EN: alternative: fixed
-  columns=flexible,
-  numbers=left,
-  numberstyle=\tiny,
-  basewidth=.5em,
-  xleftmargin=.5cm,
-  % aboveskip=0mm, %DE: deaktivieren, falls man lstlistings direkt als floating object benutzt (\begin{lstlisting}[float,...])
-  % belowskip=0mm, %DE: deaktivieren, falls man lstlistings direkt als floating object benutzt (\begin{lstlisting}[float,...])
-  captionpos=b
-}
+
 
 \ifluatex
 \else
@@ -536,8 +518,8 @@
 %\DefineShortVerb{\§}
 %
 % EN: Shrink font size of listings
-\RecustomVerbatimEnvironment{Verbatim}{Verbatim}{fontsize=\footnotesize}
-\RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}{fontsize=\footnotesize}
+\RecustomVerbatimEnvironment{Verbatim}{Verbatim}{fontsize=\normalsize}
+\RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}{fontsize=\normalsize}
 %
 % EN: Hack for fancyvrb based on http://newsgroups.derkeiler.com/Archive/Comp/comp.text.tex/2008-12/msg00075.html
 %     Change of the solution: \Vref somehow collidated with cleveref/varioref as the output of \Vref{} was "Abschnitt 4.3 auf Seite 85"; therefore changed to \myVref -- so completely removed
