@@ -168,10 +168,10 @@
 \ifdeutsch
   \section*{Kurzfassung}
 \else
-  \section*{Abstract}
+  \section*{Summary}
 \fi
 
-\input{\TPath/abstract}
+\input{\TPath/summary}
 
 \cleardoublepage
 
@@ -326,6 +326,10 @@
 \addcontentsline{toc}{chapter}{Acronyms}
 \cleardoublepage
 
+%% Acknowledgements
+\chapter*{Acknowledgements}
+\input{acknowledgements.tex}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % Bibliography
@@ -339,6 +343,9 @@
 \noindent All links were last followed on September 7, 2020.
 
 \appendix
+\chapter{Cost estimation and planning}
+\label{app:planning}
+\input{\TPath/appendix-planning}
 \chapter{About the software developed}
 \label{app:software}
 \input{\TPath/appendix-software}

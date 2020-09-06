@@ -12,7 +12,7 @@ Having presented ordinary differential equations and their solutions in the prev
 Given that equations are expressed in the general or implicit form, it makes sense to think that the \textit{implicit function theorem} will play a significant role in disentangling the complexities behind this formulation of differential equations, and that it will tell us something about their local behaviour. In an effort to provide all the necessary tools for the study we are about to undertake, we write down the statement of this famous theorem below.
 
 \begin{theorem}[Implicit function theorem]
-Let $D$ be an open set in $\R^{n+m}$ with coordinates $(x, y)$ and let $F:D \to \R^m$ be continuously differentiable. If $(a,b)\in D$ verifies $F(a,b)=0$ and the Jacobian matrix $\frac{\partial F}{\partial y}(a, b)$ is nonsingular, then there exists an open set $U \subset \R^n$ with $a \in U$ and a unique $\mathcal C^1$ function $f:U\to \R^m$ such that:
+Let $D$ be an open set in $\R^{n+m}$ with coordinates $(x, y)$ and let $F:D \to \R^m$ be continuously differentiable. If $(a,b)\in D$ verifies $F(a,b)=0$ and the Jacobian matrix $\frac{\partial F}{\partial y}(a, b)$ is non-singular, then there exists an open set $U \subset \R^n$ with $a \in U$ and a unique $\mathcal C^1$ function $f:U\to \R^m$ such that:
 \begin{enumerate}
   \item $f(a)=b$.
   \item $F(x, f(x)) = 0$ for all $x$ in $U$.
@@ -46,7 +46,7 @@ In this case we will start with an example. If we consider the differential equa
 \begin{equation} \label{eq:ex1}
   (y')^2 = y,
 \end{equation}
-we should immediatly observe that this expression is an abbreviation for two distinct explicit differential equations: $y'=\sqrt y$ and $y'=-\sqrt y$, for $y > 0$. Each of these equations produces a direction field, as seen in Figure \ref{fig:ex1}, and each of them separately satisfies an existence and uniqueness theorem on its domain, though clearly the uniqueness of solution fails when combining them. Nevertheless, we would like to examine this kind of equations as a whole, and establish general conditions for their treatment.
+we should immediately observe that this expression is an abbreviation for two distinct explicit differential equations: $y'=\sqrt y$ and $y'=-\sqrt y$, for $y > 0$. Each of these equations produces a direction field, as seen in Figure \ref{fig:ex1}, and each of them separately satisfies an existence and uniqueness theorem on its domain, though clearly the uniqueness of solution fails when combining them. Nevertheless, we would like to examine this kind of equations as a whole, and establish general conditions for their treatment.
 
 \begin{figure}[h!]
 \centering
@@ -62,7 +62,7 @@ we should immediatly observe that this expression is an abbreviation for two dis
 \label{fig:ex1}
 \end{figure}
 
-One thing to note from the beggining is that there are some occasions in which implicit equations can be put in explicit form, at least in theory. That is, there is a set of conditions that, when satisfied, guarantee that the equation is equivalent to another one in explicit form. Of course, in nontrivial cases this result will only hold locally, and as one would expect it is a direct consequence of the aforementioned implicit function theorem.
+One thing to note from the beginning is that there are some occasions in which implicit equations can be put in explicit form, at least in theory. That is, there is a set of conditions that, when satisfied, guarantee that the equation is equivalent to another one in explicit form. Of course, in nontrivial cases this result will only hold locally, and as one would expect it is a direct consequence of the aforementioned implicit function theorem.
 
 \begin{theorem} \label{th:implicit-basic}
   Let $F:D \to \R$ be a continuously differentiable function on some domain $D$ of the $(x,y,p)$-space. Suppose that $(x_0,y_0,p_0) \in D$ simultaneously satisfies $F(x_0,y_0,p_0)=0$ and $F_p(x_0,y_0,p_0)\neq 0$. Then there exists a unique function $\phi$ defined on an interval containing $x_0$ that is a solution of the equation $F(x,y,y')=0$, satisfying $\phi(x_0)=y_0$ and $\phi'(x_0)=p_0$.
@@ -203,7 +203,7 @@ are all different solutions of the equation passing through the point $(x_0,0)$.
 
 \section{Geometrical approach to implicit equations}
 
-When studying equations in implicit form, the previous results and techniques suggest a geometrical approach in which we consider the direction field not on the $(x,y)$-plane, but on the surface of the three-dimensional $(x,y,p)$-space given by the equation $F(x,y,p)=0$, where $p=dy/dx$. This way, even though the equation might define several direction fields, we compensate for this by adding a new dimension in which to visualize them together. This space is known as the space of \textit{1-jets} of functions $y(x)$, which is basically representing the truncated Taylor polynomial of a (differentiable) function at a given point. We can regard its points as all the nonvertical directions\footnote{We could circumvent this restriction with the usual trick of considering another function $F_1$, but we will not do it here for simplicity.} (those not parallel to the $y$-axis) at all points of the $(x,y)$-plane: a point $(x,y,p)$ represents the direction of a line $dy=p\,dx$ at the point $(x,y)$. In what follows, the direction of the $p$-axis will be referred to as the \textit{vertical direction}.
+When studying equations in implicit form, the previous results and techniques suggest a geometrical approach in which we consider the direction field not on the $(x,y)$-plane, but on the surface of the three-dimensional $(x,y,p)$-space given by the equation $F(x,y,p)=0$, where $p=dy/dx$. This way, even though the equation might define several direction fields, we compensate for this by adding a new dimension in which to visualize them together. This space is known as the space of \textit{1-jets} of functions $y(x)$, which is basically representing the truncated Taylor polynomial of a (differentiable) function at a given point. We can regard its points as all the non-vertical directions\footnote{We could circumvent this restriction with the usual trick of considering another function $F_1$, but we will not do it here for simplicity.} (those not parallel to the $y$-axis) at all points of the $(x,y)$-plane: a point $(x,y,p)$ represents the direction of a line $dy=p\,dx$ at the point $(x,y)$. In what follows, the direction of the $p$-axis will be referred to as the \textit{vertical direction}.
 
 For the purposes of this section we will assume that $F$ is a sufficiently differentiable function and that the surface
 \[
@@ -218,7 +218,7 @@ Let us recall that the tangent plane at a point $(x_0,y_0,p_0)$ of the surface $
 \begin{equation} \label{eq:tangent}
 \langle \nabla F(x_0,y_0,p_0), (x-x_0,y-y_0,p-p_0) \rangle = 0,
 \end{equation}
-so that it is nonvertical if and only if $F_p(x_0,y_0,p_0) \neq 0$. This condition should look familiar after seeing the results of the previous section. Let
+so that it is non-vertical if and only if $F_p(x_0,y_0,p_0) \neq 0$. This condition should look familiar after seeing the results of the previous section. Let
 \[
 \pi:M\to\R^2, \quad \pi(x,y,p)=(x,y)
 \]
@@ -276,7 +276,7 @@ The conclusion we can extract from all this reasoning is that, in the neighbourh
     dy=p\,dx & \text{(the condition of belonging to the contact plane)}.
   \end{cases}
   \]
-We note that the criminant is given by the curve $p=0$ on $M$, which results when projected in a disciminant curve consisting on the $x$-axis (it follows from the first condition that $x=0$ when $p=0$). In this case it is convenient to choose the coordinates $(p,y)$ on $M$. Combining the conditions above we get that (in our chosen coordinates) the integral curves are defined by the equation
+We note that the criminant is given by the curve $p=0$ on $M$, which results when projected in a discriminant curve consisting on the $x$-axis (it follows from the first condition that $x=0$ when $p=0$). In this case it is convenient to choose the coordinates $(p,y)$ on $M$. Combining the conditions above we get that (in our chosen coordinates) the integral curves are defined by the equation
 \[
 \frac{dy}{dp} = 2p^2,
 \]
@@ -288,7 +288,7 @@ If we want, we can also reverse the change of variables to write down the soluti
 \[
 (y+C)^2 = \frac{4}{9}p^6 \implies (y+C)^2 = \frac{4}{9}x^3,\quad C \in \R.
 \]
-It can be checked that these solutions are semicubical parabolas with a cusp on the discriminant line $x=0$, as seen in Figure \ref{fig:parabola}.
+It can be checked that these solutions are semi-cubical parabolas with a cusp on the discriminant line $x=0$, as seen in Figure \ref{fig:parabola}.
 
 \begin{figure}[h!]
 \centering
@@ -351,7 +351,7 @@ It turns out that at every regular singular point, the equation $F=0$ is equival
 \end{proof}
 If we revisit Example \ref{ex:cusp} we realize that the equation in normal form can easily be solved, so the following result is immediate.
 
-\begin{corollary} In a neighbourhood of a regular singular point, the family of solutions of the equation $F=0$ is diffeomorphic to the family of semicubical parabolas $y=x^{3/2}+C$.
+\begin{corollary} In a neighbourhood of a regular singular point, the family of solutions of the equation $F=0$ is diffeomorphic to the family of semi-cubical parabolas $y=x^{3/2}+C$.
 
 \end{corollary}
 
@@ -362,7 +362,7 @@ Finally, we explore the concept of singular solutions. A \textit{singular soluti
 \begin{equation} \label{eq:envelope}
   \Phi(x,y,C)=0,
 \end{equation}
-generally there is no value of $C$ such that when substituted in \eqref{eq:envelope} a singular solution is obtained. For example, equation $p^2=x$ in Example \ref{ex:parabolas} presented a singular solution consisting on the line $x=0$, which happens to be tangent at each point to the family of semicubical parabolas found as ``regular'' solutions. It turns out that this situation is not exceptional, and that most singular solutions occur in this way, so that the following definition is relevant\footnote{A study on the relation between singular solutions and envelopes was started by Darboux in 1873 \cite{darboux1873solutions}.}.
+generally there is no value of $C$ such that when substituted in \eqref{eq:envelope} a singular solution is obtained. For example, equation $p^2=x$ in Example \ref{ex:parabolas} presented a singular solution consisting on the line $x=0$, which happens to be tangent at each point to the family of semi-cubical parabolas found as ``regular'' solutions. It turns out that this situation is not exceptional, and that most singular solutions occur in this way, so that the following definition is relevant\footnote{A study on the relation between singular solutions and envelopes was started by Darboux in 1873 \cite{darboux1873solutions}.}.
 
 \begin{definition}An \textit{envelope} of a family of plane curves is a curve that is tangent to each member of the family at some point, and these points of tangency together form the whole envelope.
 
