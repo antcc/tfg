@@ -30,7 +30,7 @@ We have deployed our programs on a dedicated server tailored for Big Data operat
 
 \section{Data sets}
 
-We have selected four data sets in total for this experimentation. The first three of them are fit for classification problems (the data is labeled), and only the last of them is only for regression purposes. We provide a very brief description of them below\footnote{All data sets used are publicly available at \url{https://archive.ics.uci.edu/ml/data sets.php}.}.
+We have selected five data sets in total for this experimentation. The first three of them are fit for classification problems (the data is labeled), and the last two are considered for regression purposes. We provide a very brief description of them below\footnote{All data sets used are publicly available at \url{https://archive.ics.uci.edu/ml/data sets.php}.}.
 
 \begin{enumerate}[1.]
   \item \textit{HAR data set}. This is a ``small'' data set consisting on $165632$ instances of data gathered by sensors on the subject of human activity recognition. It possesses 18 numerical attributes (so we are working in $\R^{18}$) and 5 different class labels. For testing purposes, we make a 70\%-30\% train-test stratified split, resulting in the class distribution shown in Table \ref{tab:har-class}.
@@ -77,19 +77,19 @@ Class & No. of training instances & No. of testing instances \\ \midrule
 
 \item \textit{Query Analytics Workloads data set (QAW)}. This is a regression synthetic data set, consisting of 199843 instances, 6 numerical attributes and one numerical variable to predict.
 
-\item \textit{Gas Sensor Array data set (GSA)}. The last regression data set consists on a considerable higher number of instances, comparable to taht of the SUSY data set. It consists of 4177504 instances with 16 numerical attributes and a variable to predict. The data was gathered by a number of sensors measuring the concentration of some chemical compounds in a gas mixture under certain specific conditions.
+\item \textit{Gas Sensor Array data set (GSA)}. The last regression data set consists on a considerable higher number of instances, comparable to that of the SUSY data set. It consists of 4177504 instances with 16 numerical attributes and a numerical variable to predict. The data was gathered by a number of sensors measuring the concentration of some chemical compounds in a gas mixture under certain specific conditions.
 \end{enumerate}
 
 \section{Experimental results}
 
-We proceed now with the results of the various scenarios considered. There are a couple of aspects that remain constant across all the executions, so we will briefly address them here. In the first place, we use the transformation \verb|StandardScaler| to normalize the data on each dimension and make it comparable. Next, we fix the parameters in a call to Spark in order to use all the resources available, setting
+We proceed now with the results of the various scenarios considered. There are a couple of aspects that remain constant across all the executions, so we will briefly address them here. In the first place, we use the transformation \verb|StandardScaler| to standardize the data on each dimension and make it comparable, with mean $0$ and standard deviation $1$. Next, we fix the parameters in a call to Spark in order to use all the resources available, setting:
 
 \begin{itemize}
   \item \verb|num-executors|: 20.
   \item \verb|executor-cores|: 19.
   \item \verb|executor-memory|: 32g.
 \end{itemize}
-We also fix the number of Spark partitions in 380 (1 partition per core) for every data set except SUSY, for which we consider 760 partitions (2 partitions per core). We tried to find a balance between the number of partitions and the size of the data set, since using many partitions when the number of points is not that big can lead to some unwanted situations. Moreover, we limit the number of iterations to 100 in iterative algorithms, and set the tolerance for stopping conditions at $\epsilon=10^{-4}$.
+We also fix the number of Spark partitions in 380 (1 partition per core) for every data set except SUSY and GSA, for which we consider 760 partitions (2 partitions per core). We tried to find a balance between the number of partitions and the size of the data set, since using many partitions when the number of points is not that big can lead to some unwanted situations. Moreover, we limit the number of iterations to 100 in iterative algorithms, and set the tolerance for stopping conditions at $\epsilon=10^{-4}$.
 
 For the reasons explained in Chapter \ref{ch:implementation} we will only consider the implementation of the intermediate version of Chiu's algorithm, denoted ChiuI, for which we fix the number of groups to 10. In addition, when coupled with the FCM algorithm, we will always compare the results with the random initialization version using \textit{the number of centroids found with the subtractive clustering algorithm}.
 

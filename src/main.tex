@@ -79,6 +79,9 @@
 \renewcommand*{\glstextformat}[1]{\textcolor{black}{#1}}
 \allowdisplaybreaks
 
+% Asterisks to separate content
+\def\EndParagraph{\subsubsection*{\hfill\large*\hspace{1em}\large*\hspace{1em}\large*\hfill\hfill}}
+
 
 \lstset{language=Scala,
   showstringspaces=false,
@@ -267,6 +270,7 @@
 
 \setpartpreamble[u][\textwidth]{\vspace*{2em}\centering \large \emph{Computer Science}}
 \part{Fuzzy systems for Big Data computing}
+\label{part:cs}
 
 \chapter{Introduction}
 \input{\TPath/cs-intro}
@@ -292,6 +296,7 @@
 
 \setpartpreamble[u][\textwidth]{\vspace*{2em}\centering \large \emph{Mathematics}}
 \part{Ordinary differential equations not solved for the derivative}
+\label{part:maths}
 
 \chapter{Introduction}
 \input{\TPath/mat-intro}
