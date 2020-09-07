@@ -4,7 +4,7 @@ Trabajo de Fin de Grado del Doble Grado en Ingeniería Informática y Matemátic
 
 # Bachelor's Thesis
 
-Bachelor's Thesis in Computer Science and Mathematics at the University of Granada.
+This repository contains the source code of my Bachelor's Thesis in Computer Science and Mathematics at the University of Granada.
 
 The compiled pdf version of the thesis is available [here](https://github.com/antcc/tfg/blob/master/tfg.pdf), and it can also be generated using `make`. This work is licensed under a [CC BY-SA-4.0](http://creativecommons.org/licenses/by-sa/4.0/) license.
 
