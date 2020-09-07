@@ -14,4 +14,4 @@ We study the interaction between fuzzy systems and Big Data and undertake the ta
 
 ## Mathematics: Ordinary differential equations not solved for the derivative
 
-We study ordinary differential equations in implicit form, that is, equations of the form $F(x,y,y')=0$ for which the derivative cannot be isolated. We review the standard theory of explicit ODEs, we present both algebraic and geometrical approaches to implicit equations from the general theory of differentiable mappings, and we examine some classical examples such as Lagrange or Clairaut equations. A study of singular points and singular solutions that arise in implicit equations is also carried out.
+We study ordinary differential equations in implicit form, that is, equations for which the derivative cannot be isolated. We review the standard theory of explicit ODEs, we present both algebraic and geometrical approaches to implicit equations from the general theory of differentiable mappings, and we examine some classical examples such as Lagrange or Clairaut equations. A study of singular points and singular solutions that arise in implicit equations is also carried out.
