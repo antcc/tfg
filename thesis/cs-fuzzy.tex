@@ -44,7 +44,7 @@ We now present a couple of concepts that help summarize the characteristics of o
 \begin{definition}[Core] The core of a fuzzy set $A$ is the set of all points $x \in X$ such that $\mu_A(x) = 1$.
 \end{definition}
 
-\begin{definition}[Normality] A fuzzy set $A$ is \textit{normal} if its core is nonempty, that is, if there exists some $x \in X$ such that $\mu_A(x) = 1$.
+\begin{definition}[Normality] A fuzzy set $A$ is \textit{normal} if its core is non-empty, that is, if there exists some $x \in X$ such that $\mu_A(x) = 1$.
 \end{definition}
 
 \begin{definition}[Crossover points] A crossover point of a fuzzy set is a point $x \in X$ for which $\mu_A(x) = 0.5$:
@@ -62,11 +62,11 @@ We now present a couple of concepts that help summarize the characteristics of o
 \[
 A_\alpha = \{ x \ | \ \mu_A(x) \ge \alpha \}.
 \]
-Similarly, the strong $\alpha$-cut, or \textit{strong $\alpha$-level set} $A'_\alpha$ is defined by replacing '$\ge$' with '$>$'.
+Similarly, the strong $\alpha$-cut, or \textit{strong $\alpha$-level set} $A'_\alpha$ is defined by replacing `$\ge$' with `$>$'.
 
 \end{definition}
 
-\begin{remark} With the notation for level sets, it is clear that $\operatorname{support}(A) = A'_0$ and $\operatorname{core}(A) = A_1$.
+\begin{remark} With the notation introduced for level sets, it is clear that $\operatorname{support}(A) = A'_0$ and $\operatorname{core}(A) = A_1$.
 
 \end{remark}
 
@@ -159,11 +159,11 @@ As in the case of the union, $C$ can be viewed as the ``largest'' fuzzy set cont
 \begin{definition}[Cartesian product and co-product]
 Let $A$ and $B$ be fuzzy sets in $X$ and $Y$, respectively. The \textit{Cartesian product} $A \times B$ is a fuzzy set in $X \times Y$ given by
 \[
-\mu_{A \times B}(x,y) = \mu_A(x) \lmin \mu_B(y).
+\mu_{A \times B}(x,y) = \min\{\mu_A(x), \mu_B(y)\} = \mu_A(x) \lmin \mu_B(y).
 \]
 Similarly, the \textit{Cartesian co-product} $A+B$ is a fuzzy set in $X \times Y$ which has the membership function
 \[
-\mu_{A + B}(x,y) = \mu_A(x) \lmax \mu_B(y).
+\mu_{A + B}(x,y) = \max\{\mu_A(x), \mu_B(y)\} = \mu_A(x) \lmax \mu_B(y).
 \]
 
 \end{definition}
@@ -229,8 +229,8 @@ If $X$ and $Y$ are both discrete, we can express a fuzzy relation as a relation 
 \begin{enumerate}
 \item (Associativity) \ $\mathcal R \circ (\mathcal S \circ \mathcal T) = (\mathcal R \circ \mathcal S) \circ \mathcal T$.
 \item (Distributivity  over union) \ $\mathcal R \circ (\mathcal S \cup \mathcal T) = (\mathcal R \circ \mathcal S) \cup (\mathcal R \circ \mathcal T)$.
-\item (Weak distributivity over intersection) \ $\mathcal R \circ (\mathcal S \cap \mathcal T) \subseteq (\mathcal R \circ \mathcal S) \cap (\mathcal R \circ \mathcal T)$.
-\item (Monotonicity) \ $\mathcal S \subseteq \mathcal T \implies \mathcal R \circ \mathcal S \subseteq \mathcal R \circ \mathcal T$.
+\item (Weak distributivity over intersection) \ $\mathcal R \circ (\mathcal S \cap \mathcal T) \subset (\mathcal R \circ \mathcal S) \cap (\mathcal R \circ \mathcal T)$.
+\item (Monotonicity) \ $\mathcal S \subset \mathcal T \implies \mathcal R \circ \mathcal S \subset \mathcal R \circ \mathcal T$.
 \end{enumerate}
 
 \end{prop}
@@ -417,7 +417,7 @@ For the sake of completeness, here are four of the most frequently used $T$-norm
                                           \end{cases}$
 \end{enumerate}
 
-\begin{definition}[$T$-conorm operator] Similarly, the union of two fuzzy sets $A$ and $B$ is specified in general by a function $S:[0,1]\times [0,1] \to [0,1]$, known as a $T$-conorm operator, which works in the same way as a $T$-norm, except that the boundary condition is now $S(1,1) = 1$ and $S(0,a) = a$.
+\begin{definition}[$T$-conorm operator] Similarly, the union of two fuzzy sets $A$ and $B$ is specified in general by a function $S:[0,1]\times [0,1] \to [0,1]$, known as a $T$-conorm operator, which works in the same way as a $T$-norm, except that the boundary conditions are now $S(1,1) = 1$ and $S(0,a) = a$.
 
 \end{definition}
 
@@ -528,7 +528,7 @@ where each $t_i$ is a convex and normal fuzzy set defined on $X$.
 
 \subsection{Fuzzy if-then rules}
 
-The core idea behind fuzzy reasoning is that the classical if-then rules of inference used in many systems can be reinterpreted under a fuzzy perspective, taking advantage of all the properties and easiness of interpretation that come with it.
+The core idea behind fuzzy reasoning is that the classical \textit{if-then} rules of inference used in many systems can be reinterpreted under a fuzzy perspective, taking advantage of all the properties and easiness of interpretation that come with it.
 
 \begin{definition}[Fuzzy if-then rules] If $A$ and $B$ are linguistic values, a fuzzy if-then rule associated with them assumes the form
 \begin{center}
@@ -561,7 +561,7 @@ It goes without saying that we can have as many fuzzy rules as we want, and our 
     \rule{7cm}{0.4pt}\\
     $z$ is $C'$
   \end{center}
-In this case, we interpret the first rule as a relation $\mathcal R_1 = A_1 \times B_1 \to C_1$ and the second one as $\mathcal R_2 = A_2 \times B_2 \to C_2$. Then, the induced fuzzy set $C'$ is given by
+In this case, we interpret the first rule as a relation $\mathcal R_1 = A_1 \times B_1 \to C_1$ and the second one as $\mathcal R_2 = A_2 \times B_2 \to C_2$. Then, it can be checked that the induced fuzzy set $C'$ is given by
 \[
 C' = (A' \times B') \circ (\mathcal R_1 \circ \mathcal R_2) = C_1' \cup C_2',
 \]
@@ -580,7 +580,7 @@ Now that we have gone over all the key elements in the theory of fuzzy reasoning
 
 A positive quality of a FIS is that its rule base can be easily modified with the addition of new rules or the adjustment of existing ones. The rules in the rule base can be defined by an expert based on their knowledge of the specific problem we are tackling, but they can also be \textit{learned from data}. This fact opens the door to the treatment of fuzzy systems with the techniques and learning algorithms that have been emerging over the course of the last decades in this field. This is precisely what we pursue: to build a fuzzy system that can learn and benefit from enormous amounts of data. This process will be discussed in depth in Chapter \ref{ch:implementation}.
 
-One of the most important thing to take into account is that the choice of membership function is subjective, but not arbitrary. It heavily depends on the problem we are trying to solve, and selecting the appropriate MF for a given task usually gives much better results than choosing one either at random or one that gave good results on some entirely different problem.
+One of the most important things to take into account is that the choice of membership function is subjective, but not arbitrary. It heavily depends on the problem we are trying to solve, and selecting the appropriate MF for a given task usually gives much better results than choosing one either at random or one that gave good results on some entirely different problem.
 
 Even though we have described every step of the inferring process in this and the previous sections, we summarize them below for completeness.
 

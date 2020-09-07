@@ -23,7 +23,7 @@ The concept of the various \textit{V's of Big Data} has become a popular way of 
 
 \begin{enumerate}[1.]
   \item \textit{Volume}. It refers to the quantity of generated and stored data. It must be sufficient to draw meaningful conclusions and gain insight into the problem at hand. A necessary condition for establishing that some data has enough volume is that it exceeds the standard capacities of modern computers, which as of the year 2020 is in the terabytes.
-  \item \textit{Velocity}. It relates to the speed or rate at which the data is generated or received. In some cases it includes real-time data processing, also known as \textit{streaming data}. In general, it is expected that the information be produced continually (think for example in a sensor of some kind).
+  \item \textit{Velocity}. It relates to the speed or rate at which the data is generated or received. In some cases it includes real-time data processing, also known as \textit{streaming data}. In general, it is expected that the information be produced continually (for example by means of a sensor of some kind).
   \item \textit{Variety}. The type and nature of the data also plays an important role. It includes both structured and unstructured data, drawn from various sources such as text, image, audio, etc.
   \item \textit{Veracity}. We can think of it as a way of measure how trustworthy the data is. The quality of the data can be affected by multiple factors such as inconsistencies, incompleteness or ambiguity, among others.
   \item \textit{Value}. It describes the added value that the collected data may have in the intended process, and the potential utility that can be extracted from the data. This value could change with time as the data is stored for a longer period, or even if the volume or velocity are modified.
@@ -37,7 +37,7 @@ In general, a learning problem can be formally stated as follows:
 
 \begin{quotation}
   \itshape \noindent
-  Let $X$ be an input space and $Y$ an output space, and suppose there is some kind of unknown relation between them, modelled by a function $f:X\to Y$. Further suppose that there is an underlying probability distribution $\mathcal P$ on $X \times Y$. The problem consists on estimating $f$ using a set of $n$ samples $\mathcal D = \{ (x_i, f(x_i)) \ | \ i = 1,\dots,n \}$ drawn independently and identically distributed from $X \times Y$ according to $\mathcal P$.
+  Let $X$ be an input space and $Y$ an output space, and suppose there is some kind of unknown relation between them, modelled by a function $f:X\to Y$. Further suppose that there is an underlying probability distribution $\mathcal P$ on $X \times Y$. The problem consists on estimating $f$ using a set of $n$ samples $\mathcal D = \{ (x_i, f(x_i)): i = 1,\dots,n \}$ drawn independently and identically distributed from $X \times Y$ according to $\mathcal P$.
 \end{quotation}
 If the output space is discrete we say it is a classification problem (the elements of $Y$ are regarded as labels), and if it consists on a continuous range of values, we say it is a regression problem. One common example is analyzing medical data to extract information about a certain disease, or trying to predict if a patient will develop a condition based on some previously collected data from sensors, tests, etc.
 
@@ -88,7 +88,7 @@ This platform requires a cluster manager and a distributed storage system to fun
   \item \textit{Driver}. It is a separate process to execute user applications. It is responsible for scheduling jobs and negotiating with the cluster manager via its \textit{master node}.
   \item \textit{Node or Worker}. Any machine in the cluster that can run application code.
   \item \textit{Executor}. It is a process launched on a node, that runs tasks and keeps data in memory or disk storage.
-   \item \textit{Task}. The minimal unit of work, executed by one executor on a single thread.
+   \item \textit{Task}. The minimal unit of work, carried out by one executor on a single thread.
    \item \textit{Job}. A parallel computation that consists of multiple tasks that get spawned in response to an action.
 \end{itemize}
 
