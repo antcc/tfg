@@ -38,7 +38,7 @@ and thus their solutions are differentiable functions of $x$ that reduce the equ
   \label{eq:fode-explicit}
   y' = f(x, y),
 \end{equation}
-and we will assume that the function $f(x,y)$ is defined on some domain (open and connected subset) $G$ of the $(x,y)$-plane.
+and we will assume that the function $f(x,y)$ is defined on some domain (open and connected subset) $D$ of the $(x,y)$-plane.
 
 \begin{remark}
   Sometimes we will find it more useful to use Leibniz's notation and express the above equation as
@@ -50,16 +50,16 @@ and we will assume that the function $f(x,y)$ is defined on some domain (open an
 
 \section{Geometric interpretation of ODEs}
 
-Continuing our description of differential equations, we shall now present a natural interpretation of equations such as \eqref{eq:fode-explicit} and a way to visualize them in the plane. To begin with, suppose that we draw a short line segment through every point $(x,y)$ of $G$ with slope equal to $f(x,y)$, obtaining a set of directions in $G$ that is called the \textit{direction field} of equation \eqref{eq:fode-explicit}. In other words, we transform our (known) function $f$ in a vector field on its domain. At this point we can restate the problem of solving \eqref{eq:fode-explicit} from a geometric perspective:
+Continuing our description of differential equations, we shall now present a natural interpretation of equations such as \eqref{eq:fode-explicit} and a way to visualize them in the plane. To begin with, suppose that we draw a short line segment through every point $(x,y)$ of $D$ with slope equal to $f(x,y)$, obtaining a set of directions in $D$ that is called the \textit{direction field} of equation \eqref{eq:fode-explicit}. In other words, we transform our (known) function $f$ in a vector field on its domain. At this point we can restate the problem of solving \eqref{eq:fode-explicit} from a geometric perspective:
 \begin{quotation}
   \itshape \noindent
-  Find all differentiable curves $y=\phi(x)$ in $G$ whose tangents have directions belonging to the direction field of \eqref{eq:fode-explicit}.
+  Find all differentiable curves $y=\phi(x)$ in $D$ whose tangents have directions belonging to the direction field of \eqref{eq:fode-explicit}.
 \end{quotation}
 To see how this is equivalent to solving \eqref{eq:fode-explicit}, one need only recall that the slope of the tangent of a (differentiable) curve at any point coincides with its derivative at that point, and then look at Definition \ref{def:solution}. However, this formulation of the problem has two noticeable caveats from a geometric point of view:
 
 \begin{enumerate}[1.]
   \item By considering only \textit{graphs} over the $x$-axis we are excluding curves that are intersected more than once by vertical lines.
-  \item The imposition that the slope of the direction field generated in $G$ be given by $f$ automatically excludes directions parallel to the $y$-axis, because $f$ would need to be infinite at those points.
+  \item The imposition that the slope of the direction field generated in $D$ be given by $f$ automatically excludes directions parallel to the $y$-axis, because $f$ would need to be infinite at those points.
 \end{enumerate}
 
 We are interested in looking at solutions of differential equations in a more general setting. This is why, based on the previous reformulation, we will develop a broader concept of solution with a strong geometrical meaning, one that will address both difficulties outlined above. In the first place, we allow general curves in parametric form, that is, $x=\lambda(t)$, $y=\mu(t)$, $-\infty \leq \alpha < t < \beta \leq \infty$. This solves the first problem. To overcome the second limitation, in addition to equation \eqref{eq:fode-explicit} we consider the associated differential equation
@@ -72,7 +72,7 @@ where
 \begin{equation*}
   f_1(x,y) = \frac{1}{f(x,y)}.
 \end{equation*}
-The rationale behind this decision is to allow the function $f$ to become infinite at some points (representing a vertical slope), and shift our perspective from the $x$-axis to the $y$-axis at those points. In this way, at points where both $f$ and $f_1$ are defined we can use either \eqref{eq:fode-explicit} or \eqref{eq:fode-explicit1} to construct the direction field, but we use \eqref{eq:fode-explicit1} at points where $f$ becomes infinite\footnote{At each point of $G$, at least one of $f$ or $f_1$ is always defined, for $f=0$ if and only if $f_1$ is infinite, and $f_1=0$ if and only if $f$ is infinite.}.
+The rationale behind this decision is to allow the function $f$ to become infinite at some points (representing a vertical slope), and shift our perspective from the $x$-axis to the $y$-axis at those points. In this way, at points where both $f$ and $f_1$ are defined we can use either \eqref{eq:fode-explicit} or \eqref{eq:fode-explicit1} to construct the direction field, but we use \eqref{eq:fode-explicit1} at points where $f$ becomes infinite\footnote{At each point of $D$, at least one of $f$ or $f_1$ is always defined, for $f=0$ if and only if $f_1$ is infinite, and $f_1=0$ if and only if $f$ is infinite.}.
 
 We are now ready to define our new, more general concept of solution, which will necessarily be related not only to the original equation, but also to the newly defined associated equation. We will restrict ourselves to the class of \textit{smooth} \textit{regular} curves, that is, continuously differentiable curves with non-vanishing derivative everywhere. From now on, all curves will implicitly be assumed to belong to this class.
 
@@ -169,11 +169,11 @@ then the equation $y'=f(x, y) = g(x)$ has no solutions.
 
 From this example we can speculate that the lack of continuity of $f(x,y)$ is the key property that makes the equation unsolvable. This is indeed the case, as it turns out that existence of solutions is always guaranteed if we impose that $f$ be continuous.
 
-\begin{theorem}[Peano's existence theorem] Let $f(x,y)$ be a continuous function on a domain $G\subset \R^2$. Then the differential equation
+\begin{theorem}[Peano's existence theorem] Let $f(x,y)$ be a continuous function on a domain $D\subset \R^2$. Then the differential equation
   \begin{equation*}
     y' = f(x,y)
   \end{equation*}
-has at least one solution in $G$. Moreover, if $f$ is continuous on a neighbourhood of a point $(x_0, y_0) \in G$, then there exists a solution $\phi$ defined on a neighbourhood of $x_0$ satisfying $\phi(x_0)=y_0$.
+has at least one solution in $D$. Moreover, if $f$ is continuous on a neighbourhood of a point $(x_0, y_0) \in D$, then there exists a solution $\phi$ defined on a neighbourhood of $x_0$ satisfying $\phi(x_0)=y_0$.
 \end{theorem}
 
 \begin{proof}
@@ -197,13 +197,13 @@ Together with the question of existence comes inevitably the issue of uniqueness
 has two valid solutions: $y=0$ and $y=x^3$. Thus some kind of additional condition is needed to ensure that one and only one integral curve passes through a given point, as the following theorem asserts.
 
 \begin{theorem}[Picard-Lindelöf] \label{th:picard}
-  Let $G \subset \R^2$ be a domain in the plane, and suppose $f:G \to \R$ is a continuous function that locally satisfies a Lipschitz condition in the second variable, that is, for every $p \in G$ there exists a neighbourhood $U_p$ of $p$ in $G$ and a constant $L>0$ such that
+  Let $D \subset \R^2$ be a domain in the plane, and suppose $f:D \to \R$ is a continuous function that locally satisfies a Lipschitz condition in the second variable, that is, for every $p \in D$ there exists a neighbourhood $U_p$ of $p$ in $D$ and a constant $L>0$ such that
 \begin{equation*}
   \abs{f(x, y_2) - f(x, y_1)} \leq L\abs{y_2 - y_1}
 \end{equation*}
-whenever $(x,y_1),(x,y_2) \in U_p$. Then for every point $(x_0, y_0) \in G$ the initial value problem
+whenever $(x,y_1),(x,y_2) \in U_p$. Then for every point $(x_0, y_0) \in D$ the initial value problem
   \begin{equation}
-  \begin{cases} y' = f(x, y) & \text{in } G,\\
+  \begin{cases} y' = f(x, y) & \text{in } D,\\
     y(x_0)= y_0
   \end{cases}
 \end{equation}
@@ -215,7 +215,7 @@ has exactly one solution.
 \end{proof}
 
 \begin{remark}
-  The Lipschitz condition on Theorem \ref{th:picard} can be relaxed to a condition on the partial derivative. The theorem remains true, via a direct application of the \textit{mean value theorem}, if $\partial f / \partial y$ is locally bounded, which in turn holds if said partial derivative is continuous on $G$. This condition is often easier to check.
+  The Lipschitz condition on Theorem \ref{th:picard} can be relaxed to a condition on the partial derivative. The theorem remains true, via a direct application of the \textit{mean value theorem}, if $\partial f / \partial y$ is locally bounded, which in turn holds if said partial derivative is continuous on $D$. This condition is often easier to check.
 \end{remark}
 
 Bringing back the geometric interpretation of differential equations, it is straightforward to see that at points where there is uniqueness of solutions two integral curves can never be tangent to each other (they cannot cross either by definition). However, it is precisely the points in which uniqueness fails that interest us, and we will study them in depth in the following chapter.
