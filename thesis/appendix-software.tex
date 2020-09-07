@@ -9,20 +9,20 @@
 
 All the code developed for this bachelor's thesis is freely available at \url{https://github.com/antcc/fuzzyspark} under a GPLv3 license. It consists roughly on 2200 lines of code written in Scala 2.11.8 and Spark 2.3.2. Every function, class and method is properly documented in the source code.
 
-The algorithms developed come bundled as a package, called \textit{fuzzyspark}, which consists on a subpackage for the clustering algorithms and another one for more generic FRBSs. In addition, a couple of separate testing files are provided with the code used to perform the comparative study on Chapter \ref{ch:study}. The project can be compiled using Scala's interactive building tool, \textit{sbt}, and two build files are provided (one for the algorithms suite and one for the testing files). Since the package developed is not published anywhere, some additional steps have to be taken:
+The algorithms developed come bundled as a package, called \textit{fuzzyspark}, which consists on a subpackage for the clustering algorithms and another one for more generic FRBSs. In addition, a couple of separate testing files are provided with the code used to perform the comparative study on Chapter \ref{ch:study}. The project can be compiled using Scala's interactive building tool, \textit{sbt}, for which two build files are provided (one for the algorithms suite and one for the testing files). Since the package developed is not published anywhere, some additional steps have to be taken:
 
 \begin{enumerate}[1.]
-  \item In the first place, the package \textit{fuzzyspark} needs to be published to the local repository, with the order \verb|sbt publishLocal| inside the \textit{fuzzyspark} folder.
-  \item In the second place, the published package needs to be bundled with the testing application as a dependency, for which we can use the \textit{assembly} plugin, executing the order \verb|sbt assembly| inside the \textit{testing} directory.
+  \item In the first place, the package \textit{fuzzyspark} needs to be published to the local repository, executing the order \verb|sbt publishLocal| inside the \textit{fuzzyspark} folder. Another alternative is to manually package it into a JAR file and add it as an unmanaged dependency.
+  \item In the second place, the resulting package needs to be bundled with the testing application as a dependency, for which we can use the \textit{assembly} plugin, executing the order \verb|sbt assembly| inside the \textit{testing} directory.
 \end{enumerate}
-Following the above steps we end up with a JAR file ready to be executed in Spark. For this execution we use the script \textit{spark-submit} that comes with Spark. In particular, a JAR file containing Spark code can be executed with the following line, where $N$, $M$ and $C$ are adjustable parameters to specify the configuration of the YARN cluster:
+Following the above steps we end up with a JAR file ready to be executed in Spark. For this execution we use the script \textit{spark-submit} that comes with the installation. In particular, a JAR file containing Spark code can be executed with the following line, where $N$, $M$ and $C$ are adjustable parameters used to specify the configuration of the YARN cluster:
 
 \begin{verbatim}
 spark-submit --class MAIN_CLASS --num-executors N --executor-cores C \
   --executor-memory M [JAR_FILE] [ARGS]
 \end{verbatim}
 
-Regarding the file structure, two files have been developed for each algorithm: one which contains the learning phase and methods to fit the model to the data available, and another which contains the trained model and implements the prediction phase. Specifically, they are:
+Regarding the file structure, two source files have been developed for each algorithm: one which contains the learning phase and methods to fit the model to the data, and another one which contains the trained model and implements the prediction phase. Specifically, they are:
 
 \begin{itemize}
   \item \verb|FuzzyCMeans.scala| and \verb|FuzzyCMeansModel.scala| for the Fuzzy C-Means algorithm.
@@ -35,6 +35,6 @@ No external libraries apart from Spark were used in the code. The principal data
 
 \section*{Lessons learned}
 
-Finally, we summarize some of the difficulties that arose in the programming phase, especially those having to do with how Spark works internally. We found that iterative algorithms are still a challenge to be properly implemented in Spark. For example, we observed that when we modified an RDD on each iteration and the number of iterations grew large, a special operation called a \textit{checkpoint} needed to be performed in order to restart the \textit{lineage} of the RDD (that is, the history of the sequence of transformations executed upon it), or else memory problems would occur. Also, the data should always be cached so that it is kept in memory between iterations to increase performance.
+Finally, we summarize some of the difficulties that arose in the programming phase, especially those having to do with how Spark works internally. We found that iterative algorithms are still a challenge to be properly implemented in Spark. For example, we observed that when we modified an RDD on each iteration and the number of iterations grew large, a special operation called a \textit{checkpoint} needed to be performed in order to restart the \textit{lineage} of the RDD (that is, the history of the sequence of transformations executed upon it), or else this history would grow so big that memory problems would start to appear. Also, the data should always be cached so that it is kept in memory between iterations to increase performance.
 
-In some cases we also needed to tune a few of Spark parameters, such as the garbage collector or the maximum response time for the worker nodes, to prevent some errors in the execution. In addition, the number of partitions was also an essential factor that greatly influenced execution time.
+In some cases we also needed to tune a few of Spark internal parameters, such as the garbage collector or the maximum response time for the worker nodes, to prevent some errors in the execution. In addition, the number of partitions was also an essential factor that greatly influenced execution time, and finding a suitable value for each data set was a challenging task.

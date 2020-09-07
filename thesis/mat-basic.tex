@@ -98,7 +98,7 @@ but we shall sometimes write \eqref{eq:fode-mn} as
 \begin{equation*}
   M\,dx - N\, dy = 0,
 \end{equation*}
-to stress the symmetry in $x$ and $y$. This equation specifies a direction field at every point where both $M$ and $N$ are defined and at least one of them is nonzero.
+to stress the symmetry in $x$ and $y$. This equation specifies a direction field at every point where both $M$ and $N$ are defined and at least one of them is non-zero.
 
 Even though we are allowing general curves in parametric form, they are not (the graph of) a true solution of our equation unless we restrict them to some interval in which they can be expressed as a graph. We can think of the family of all solutions to equation \eqref{eq:fode-explicit} as a subset of the family of integral curves of \eqref{eq:fode-explicit} and \eqref{eq:fode-explicit1}, restricted to a suitable interval if need be. An example visualization of direction fields and integral curves is shown in Figure \ref{fig:integral-curves-ex}.
 
@@ -116,7 +116,7 @@ The requirement that integral curves be regular guarantees that we can always sh
 \end{prop}
 
 \begin{proof}
-  Let $x=\lambda(t)$, $y=\mu(t)$, $\alpha < t < \beta$ be a smooth regular curve, and pick $t_0 \in (\alpha, \beta)$. The regularity of the curve guarantees that either $\lambda'(t_0)$ or $\mu'(t_0)$ is nonzero, so suppose without loss of generality that $\lambda'(t_0) \neq 0$. Since $\lambda'(t_0)$ is continuous by assumption, there exists an $\epsilon > 0$ such that $\lambda'(t)\neq 0$ for $t \in (t_0 - \epsilon, t_0 + \epsilon)$, and then the equation $x=\lambda(t)$ has a unique smooth solution in $t$ by virtue of the \textit{inverse function theorem} (see \cite[372]{apostol1974analysis}). Then, by eventually shrinking $\epsilon$ we may write $t=\psi(x)$, $\lambda(t_0 - \epsilon) < x < \lambda(t_0 + \epsilon)$. Substituting in $y=\mu(t)$ yields $y=\mu(\psi(x)) = \phi(x)$, $\lambda(t_0 - \epsilon) < x < \lambda(t_0 + \epsilon)$, which is the equation of a smooth graph.
+  Let $x=\lambda(t)$, $y=\mu(t)$, $\alpha < t < \beta$ be a smooth regular curve, and pick $t_0 \in (\alpha, \beta)$. The regularity of the curve guarantees that either $\lambda'(t_0)$ or $\mu'(t_0)$ is non-zero, so suppose without loss of generality that $\lambda'(t_0) \neq 0$. Since $\lambda'(t_0)$ is continuous by assumption, there exists an $\epsilon > 0$ such that $\lambda'(t)\neq 0$ for $t \in (t_0 - \epsilon, t_0 + \epsilon)$, and then the equation $x=\lambda(t)$ has a unique smooth solution in $t$ by virtue of the \textit{inverse function theorem} (see \cite[372]{apostol1974analysis}). Then, by eventually shrinking $\epsilon$ we may write $t=\psi(x)$, $\lambda(t_0 - \epsilon) < x < \lambda(t_0 + \epsilon)$. Substituting in $y=\mu(t)$ yields $y=\mu(\psi(x)) = \phi(x)$, $\lambda(t_0 - \epsilon) < x < \lambda(t_0 + \epsilon)$, which is the equation of a smooth graph.
 \end{proof}
 
 \begin{remark} The conditions on integral curves in Definition \ref{def:integral-curves} imply that our solutions are also smooth, that is, continuously differentiable.
