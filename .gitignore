@@ -1,6 +1,3 @@
-# PDF output
-*.pdf
-
 # Latexmk
 *.tex.swp
 *.fdb_latexmk
