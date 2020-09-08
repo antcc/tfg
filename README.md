@@ -6,7 +6,7 @@ Trabajo de Fin de Grado del Doble Grado en Ingeniería Informática y Matemátic
 
 This repository contains the source code of my bachelor's thesis in Computer Science and Mathematics at the University of Granada, which is licensed under a [CC BY-SA-4.0](http://creativecommons.org/licenses/by-sa/4.0/) license.
 
-The compiled pdf version of the thesis is available [here](https://github.com/antcc/tfg/raw/master/tfg.pdf). It can also be generated using `latexmk -pdf tfg` inside the `src` directory (requires `lualatex`).
+The compiled pdf version of the thesis is available [here](https://github.com/antcc/tfg/raw/master/thesis.pdf). It can also be generated using `latexmk -pdf thesis` inside the `src` directory (requires `lualatex`).
 
 ## Computer Science: Fuzzy systems for Big Data computing
 
