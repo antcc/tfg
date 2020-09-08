@@ -10,6 +10,8 @@
 *.log
 *.toc
 *.pytxcode
+*.snm
+*.nav
 *.ist
 *.acn
 *.acr
