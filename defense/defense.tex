@@ -1,0 +1,377 @@
+%
+% Copyright (c) 2020 Antonio Coín Castro
+%
+% This work is licensed under a
+% Creative Commons Attribution-ShareAlike 4.0 International License.
+%
+% You should have received a copy of the license along with this
+% work. If not, see <http://creativecommons.org/licenses/by-sa/4.0/>.
+%
+
+\documentclass[spanish]{beamer}
+
+% OPCIONES DE BEAMER
+
+\definecolor{Maroon}{cmyk}{0, 0.87, 0.88, 0.1}
+\definecolor{teal}{rgb}{0.0, 0.45, 0.45}
+
+\usetheme[block=fill, subsectionpage=progressbar, titleformat section=smallcaps]{metropolis}
+\setbeamertemplate{frametitle continuation}[roman]
+\setbeamertemplate{section in toc}[balls numbered]
+\setbeamertemplate{subsection in toc}[subsections unnumbered]
+%\setsansfont[BviejoFont={Fira Sans SemiBold}]{Fira Sans Book}  % Increase font weigth
+\widowpenalties 1 10000
+\raggedbottom
+
+% COLORES
+\setbeamercolor{palette primary}{bg=teal}
+\setbeamercolor{progress bar}{use=Maroon, fg=Maroon}
+
+% PAQUETES
+
+\usepackage[utf8]{inputenc}
+\usepackage[absolute,overlay]{textpos}
+\usepackage[spanish, es-nodecimaldot]{babel}
+\usepackage{microtype}
+\usepackage{epigraph}
+\usepackage{amssymb, amsmath, amsthm, amsfonts, amscd}
+\usepackage{listings}
+
+
+\definecolor{backg}{HTML}{F2F2F2} % Fondo
+\definecolor{comments}{HTML}{a8a8a8} % Comentarios
+\definecolor{keywords}{HTML}{08388c} % Palabras clave
+\definecolor{strings}{HTML}{0489B1}  % Strings
+
+\lstset{
+language=scala,
+basicstyle=\footnotesize\ttfamily,
+breaklines=true,
+keywordstyle=\color{keywords},
+commentstyle=\color{comments},
+stringstyle=\color{strings},
+xleftmargin=.5cm,
+tabsize=2,
+% Acentos, ñ, ¿, ¡ (tex.stackexchange.com/questions/24528)
+extendedchars=true
+}
+
+% COMANDOS PERSONALIZADOS
+
+\let\lmin\wedge
+\let\lmax\vee
+\newtheorem{proposition}{Proposición}
+\newcommand\ddfrac[2]{\frac{\displaystyle #1}{\displaystyle #2}}  % Fracción grande
+
+% TÍTULO
+
+\title{Sistemas difusos para computación en Big Data \\ Ecuaciones no resolubles con respecto a la derivada}
+\providecommand{\subtitle}[1]{}
+\subtitle{Doble Grado en Ingeniería Informática y Matemáticas}
+\date{17 de Septiembre de 2020}
+\author{Antonio Coín Castro}
+\institute{Trabajo Fin de Grado \\\\\\ \textit{E.T.S de Ingenierías Informática y de Telecomunicación \\ Facultad de Ciencias}}
+
+\titlegraphic{
+  \begin{textblock*}{3cm}(8.5cm,5.8cm)
+    \includegraphics[width=4cm]{img/ugr.png}
+  \end{textblock*}
+}
+% DOCUMENTO
+
+\begin{document}
+\maketitle
+
+\begin{frame}{Índice de contenidos}
+  \begin{columns}[t]
+    \begin{column}{.5\textwidth}
+      \tableofcontents[sections={1}]
+    \end{column}
+    \begin{column}{.5\textwidth}
+      \tableofcontents[sections={2}]
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\section{Sistemas difusos para computación en Big Data}
+
+\begin{frame}{Introducción}
+  El problema de aprendizaje de datos es un tema central en el aprendizaje automático. Una propuesta relevante en este sentido son los sistemas basados en reglas difusas, que permiten resolver problemas de forma aproximada pero efectiva.
+
+  Por otro lado, en la \textit{era de la información} las cantidades de datos que se manejan son cada vez mayores, y surge el concepto de Big Data. ¿Están preparados los algoritmos existentes para tratar grandes cantidades de datos?
+  \vspace{1em}
+
+  {\color{Maroon}\textbf{Solución}:} construir sistemas difusos \textbf{escalables}.
+\end{frame}
+
+\begin{frame}{Objetivos}
+\begin{itemize}[<+->]
+\item Estudiar la teoría de conjuntos difusos, la lógica difusa y los sistemas difusos desde un punto de vista teórico.
+\item Definir el concepto de Big Data, sus características y la infraestructura asociada. Estudiar el modelo MapReduce.
+\item Diseñar, implementar y probar una serie de sistemas difusos para computación escalable.
+\end{itemize}
+\end{frame}
+
+\subsection{Conjuntos y lógica difusa}
+
+\begin{frame}{Principio de incompatibilidad}
+\begin{quote}
+	``As the complexity of a system increases, our ability to make precise and yet significant statements about its behavior diminishes until a threshold is reached beyond which precision and significance become almost mutually exclusive characteristics.''\\
+	\vspace{1em}
+	\textsc {Lofti A. Zadeh}, \textit{Fuzzy Sets}.
+\end{quote}
+\end{frame}
+
+\begin{frame}{Función de pertenencia}
+	Si $X$ es un universo de objetos y $A \subseteq X$ un conjunto, existe implícitamente una \textbf{función de pertenencia}:
+\[ \mu_A(x) =
+\begin{cases}
+	1, & \text{si } x \in A\\
+	0, & \text{si } x \notin A.
+\end{cases}
+\]
+\pause
+Podemos permitir que la función de pertenencia tome un continuo de valores posibles:
+\[
+\mu_A : X \longrightarrow [0,1], \quad x \mapsto \mu_A(x).
+\]
+Esta función le asigna a cada elemento $x$ del universo un \textbf{grado de pertenencia} al conjunto $A$.
+\end{frame}
+
+\begin{frame}{Conjuntos difusos}
+\begin{definition}[Conjunto difuso]
+	Un conjunto difuso $A$ en $X$ es el conjunto de pares ordenados
+\[
+A = \{ (x, \mu_A(x)) \ | \ x \in X \}
+\]
+El conjunto $A$ queda determinado por la función $\mu_A$.
+\end{definition}
+\pause
+\vspace{1em}
+Permiten modelar la imprecisión y la ambigüedad. Se permite el solapamiento.
+\begin{example}
+	$A =$ ``\textit{una persona jóven''}, $B=$ ``\textit{sobre 30 años de edad}''.
+\end{example}
+\end{frame}
+
+\begin{frame}{Teoría de conjuntos difusos}
+
+  \begin{itemize}[<+->]
+    \item Definiciones y resultados básicos.
+    \item Operaciones difusas: unión, intersección, negación, producto Cartesiano...
+    \item Relaciones difusas.
+    \item Funciones de pertenencia usuales.
+    \item Operadores difusos: T-normas y T-conormas.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Lógica difusa}
+	Lógica multivaluada con tantos valores de verdad como números reales hay en $[0,1]$. Se apoya en el concepto de variables lingüísticas.
+
+  \pause
+  \begin{example}
+$T(\text{\textit{edad}})$ = $\{$ \textit{joven, no joven, muy joven, no muy joven,} \textit{de mediana edad,} \textit{viejo, no viejo, muy viejo, más o menos viejo, no muy viejo,} \textit{no muy joven y no muy viejo, }$\dots \}$.
+
+Cada término en $T(\text{\textit{edad}})$ viene caracterizado por un conjunto difuso en $X=[0,100]$.
+\end{example}
+\end{frame}
+
+\begin{frame}{Reglas difusas de tipo Si-Entonces}
+	Consideramos $A$ y $B$ valores lingüísticos en dos universos $X$ e $Y$, respectivamente. Estudiaremos reglas del tipo\\
+
+\begin{center}
+	Si $x$ es $A$ entonces $y$ es $B$.
+\end{center}
+
+``$x$ es $A$'' $\rightarrow$ \textbf{antecedente}.\\
+``$y$ es $B$'' $\rightarrow$ \textbf{consecuente}.
+
+Podemos ver esta implicación como una relación binaria $\mathcal R \equiv A \to B \equiv f(\mu_A(x), \mu_B(y))$.
+\end{frame}
+
+\begin{frame}{Razonamiento difuso}
+Se trata de un \textit{modus ponens} generalizado:
+\begin{center}
+	$x$ es $A'$\\
+    si $x$ es $A$ entonces $y$ es $B$\\
+    \rule{7cm}{0.4pt}\\
+    $y$ es $B'$
+\end{center}
+
+Entonces $B' = A' \circ (A \to B)$, donde $\circ$ es un operador de composición.
+\pause
+
+Podemos evaluar la presencia de varios antecedentes con el operador de producto cartesiano, y la de varias reglas con el operador de unión.
+
+\end{frame}
+
+\begin{frame}{Sistemas de inferencia difusos}
+	Un sistema de inferencia difuso recibe una entrada y produce una respuesta utilizando razonamiento difuso. Consta de cuatro componentes.
+
+	\begin{itemize}
+	\item Un \textbf{módulo de fuzzificación} con funciones de pertenencia para transformar la entrada en conjuntos difusos.
+	\item Una \textbf{base de reglas} que contiene un conjunto de reglas difusas de tipo si-entonces.
+	\item Un \textbf{mecanismo de razonamiento}, que realiza el procedimiento de inferencia.
+  \item Un \textbf{mecanismo de defuzzificación} para producir una respuesta nítida (opcional).
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Tipos de sistemas difusos}
+\textbf{Mamdani}. Emplea reglas del tipo
+  \begin{center}
+  si $X_1$ es $A_1$ y $\dots$ y $X_n$ es $A_n$\\
+  entonces $Y_1$ es $B_1$ y $\dots$ y $Y_m$ es $B_m$.
+\end{center}
+\vspace{1em}
+\pause
+\textbf{TSK}. Define reglas de la forma
+\begin{center}
+  si $X_1$ es $A_1$ y $\dots$ y $X_n$ es $A_n$\\
+  entonces $Y_1$ es $f_1(X_1, \dots, X_n)$ y $\dots$ y $Y_m$ es $f_m(X_1, \dots, X_n)$,
+\end{center}
+    donde cada $f_i$ es una función nítida de la entrada.
+
+\end{frame}
+
+\begin{frame}{Sistema difuso de tipo Mamdani}
+\begin{figure}
+	\centering
+	\includegraphics[width=27em]{img/mamdani}
+	\caption{\footnotesize Representación es un sistema de Mamdani de $(a)$ funciones de pertenencia de antecedentes y consecuentes; y $(b)$ curva de entrada-salida tras defuzzificar.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Sistema difuso de tipo TSK}
+\begin{figure}
+	\centering
+	\includegraphics[width=27em]{img/tsk}
+	\caption{\footnotesize Representación en un sistema TSK de $(a)$ funciones de pertenencia de antecedentes y consecuentes; y $(b)$ curva de entrada-salida.}
+\end{figure}
+\end{frame}
+
+
+\subsection{Fundamentos de Big Data}
+
+\begin{frame}{Las cinco V's}
+\begin{itemize}[<+->]
+  \item Volumen
+  \item Velocidad
+  \item Variedad
+  \item Veracidad
+  \item Valor
+\end{itemize}
+\end{frame}
+
+\begin{frame}{MapReduce y Apache Spark}
+  Modelo de programación distribuida propuesto por Google en 2004.
+
+  \begin{figure}
+	\centering
+	\includegraphics[width=.6\textwidth]{img/mapreduce}
+	\caption{\footnotesize Esquema de la arquitectura MapReduce.}
+\end{figure}
+\end{frame}
+
+\subsection{Diseño e implementación de algoritmos}
+
+\begin{frame}{Algoritmos difusos de aprendizaje}
+  Se clasifican principalmente en tres tipos:
+
+  \begin{itemize}
+    \item Basados en \textbf{particiones}. Crean una partición difusa del espacio para medir cómo encajan en ellas los datos y construir reglas en consecuencia.
+    \item \textbf{Neurodifusos}. A partir de una estructura inicial de reglas se emplean modelos neuronales para \textit{ajustar} los parámetros de las funciones de pertenencia.
+    \item \textbf{Genéticos}. Similares a los anteriores, pero se emplean algoritmos genéticos para la fase del ajuste.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Algoritmo de Wang y Mendel}
+  \begin{enumerate}[<+->]
+    \item Dividir el espacio de entrada en segmentos difusos.
+    \item Calcular la pertenencia de cada punto a todas las regiones, y quedarnos en cada caso con las de máxima pertenencia. Así formamos una regla difusa.
+    \item Calculamos un peso o \textit{importancia} para cada regla: el producto de la pertenencia del punto a todas las regiones.
+    \item Simplificamos la base de datos eliminando duplicados y conflictos eligiendo siempre las reglas de mayor importancia.
+    \item Para la predicción, utilizamos el método de defuzzificación COA.
+  \end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Implementación del algoritmo WM}
+  \textbf{Etapa map}. Para cada punto calculamos la regla asociada y su importancia.
+
+  \textbf{Etapa reduce}. Agregamos todas las reglas, eliminando conflictos y duplicados.
+
+  \pause
+  \begin{lstlisting}
+val ruleBase = data.mapPartitions { case (x, y) =>
+  val (ri, ro, degreeIn, degreeOut)
+    = maxRegion(x, y, regionsIn, regionsOut)
+
+  (ri, (ro, degreeIn * degreeOut))
+}.reduceByKey { case (r1, r2) =>
+  if (r1._2 > r2._2) r1 else r2
+}.map { case (ri, (ro, _)) => (ri, ro) }
+  \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}{Algoritmo subtractive clustering}
+  Propuesto por S. Chiu en 1994.
+
+  \textbf{Idea}: cada punto es un posible centroide, y buscamos centroides suficientemente separados. Se asigna inicialmente a cada punto un potencial inversamente proporcional a la distancia a todos los demás.
+
+  \begin{enumerate}[<+->]
+    \item Se inicializa el potencial de cada punto y se elige aquel con mayor potencial como centroide.
+    \item Se recalculan los potenciales. que disminuyen de forma proporcional a la distancia al centroide elegido.
+    \item Se repite el proceso hasta que el potencial cae por debajo de un umbral.
+  \end{enumerate}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Ecuaciones no resolubles con respecto a la derivada}
+
+%\begin{frame}{Notas finales}
+%	Estas diapositivas, junto con unas notas algo más detalladas sobre conjuntos y lógica difusa (en inglés), pueden descargarse en:
+%\begin{center}
+%\href{https://github.com/antcc/fuzzy-systems}{\url{github.com/antcc/fuzzy-systems}}
+%\end{center}
+
+%{%
+%\metroset{block=transparent}
+%\begin{alertblock}{Nota.}
+%\vspace{.005em}
+%Todas las imágenes y figuras, salvo que se especifique lo contrario, han sido extraídas de \cite{neuro-fuzzy}.
+%\end{alertblock}
+%}
+%\end{frame}
+
+
+
+\begin{frame}{Referencias}
+\begin{thebibliography}{9}
+
+\bibitem{neuro-fuzzy}
+  \textsc{Jang, J. S. R., Sun, C. T., \& Mizutani, E}. (1997). \textit{Neuro-fuzzy and soft computing; a computational approach to learning and machine intelligence}.
+
+\end{thebibliography}
+\end{frame}
+
+\begin{frame}[standout]
+Gracias por su atención
+\end{frame}
+
+\end{document}
