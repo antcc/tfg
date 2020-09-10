@@ -3,7 +3,8 @@
 
   \textbf{Etapa reduce}. Agregamos todas las reglas, eliminando conflictos y duplicados.
 
-  \pause
+  \vspace{1em}
+
   \begin{lstlisting}
 val ruleBase = data.mapPartitions { case (x, y) =>
   val (ri, ro, degreeIn, degreeOut)

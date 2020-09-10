@@ -2,6 +2,7 @@
 *.tex.swp
 *.fdb_latexmk
 *.aux
+*.vrb
 *.glo
 *.bcf
 *.code

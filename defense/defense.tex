@@ -8,7 +8,7 @@
 % work. If not, see <http://creativecommons.org/licenses/by-sa/4.0/>.
 %
 
-\documentclass[spanish]{beamer}
+\documentclass[10pt, spanish]{beamer}
 
 % OPCIONES DE BEAMER
 
@@ -156,7 +156,7 @@ Permiten modelar la imprecisión y la ambigüedad. Se permite el solapamiento.
 
 \begin{frame}{Teoría de conjuntos difusos}
 
-  \begin{itemize}[<+->]
+  \begin{itemize}
     \item Definiciones y resultados básicos.
     \item Operaciones difusas: unión, intersección, negación, producto Cartesiano...
     \item Relaciones difusas.
@@ -168,8 +168,8 @@ Permiten modelar la imprecisión y la ambigüedad. Se permite el solapamiento.
 
 \begin{frame}{Lógica difusa}
 	Lógica multivaluada con tantos valores de verdad como números reales hay en $[0,1]$. Se apoya en el concepto de variables lingüísticas.
+  \vspace{1em}
 
-  \pause
   \begin{example}
 $T(\text{\textit{edad}})$ = $\{$ \textit{joven, no joven, muy joven, no muy joven,} \textit{de mediana edad,} \textit{viejo, no viejo, muy viejo, más o menos viejo, no muy viejo,} \textit{no muy joven y no muy viejo, }$\dots \}$.
 
@@ -178,20 +178,24 @@ Cada término en $T(\text{\textit{edad}})$ viene caracterizado por un conjunto d
 \end{frame}
 
 \begin{frame}{Reglas difusas de tipo Si-Entonces}
+  \begin{exampleblock}{\vspace*{-3ex}}
+
 	Consideramos $A$ y $B$ valores lingüísticos en dos universos $X$ e $Y$, respectivamente. Estudiaremos reglas del tipo\\
 
 \begin{center}
 	Si $x$ es $A$ entonces $y$ es $B$.
 \end{center}
-
+\end{exampleblock}
+  \vspace{1em}
 ``$x$ es $A$'' $\rightarrow$ \textbf{antecedente}.\\
 ``$y$ es $B$'' $\rightarrow$ \textbf{consecuente}.
 
-Podemos ver esta implicación como una relación binaria $\mathcal R \equiv A \to B \equiv f(\mu_A(x), \mu_B(y))$.
+Podemos ver esta implicación como un conjunto difuso $\mathcal R \equiv A \to B \equiv f(\mu_A(x), \mu_B(y))$.
 \end{frame}
 
 \begin{frame}{Razonamiento difuso}
-Se trata de un \textit{modus ponens} generalizado:
+El razonamiento difuso se puede entender como un \textit{modus ponens} generalizado.
+  \begin{exampleblock}{\vspace*{-3ex}}
 \begin{center}
 	$x$ es $A'$\\
     si $x$ es $A$ entonces $y$ es $B$\\
@@ -200,7 +204,8 @@ Se trata de un \textit{modus ponens} generalizado:
 \end{center}
 
 Entonces $B' = A' \circ (A \to B)$, donde $\circ$ es un operador de composición.
-\pause
+\end{exampleblock}
+\vspace{1em}
 
 Podemos evaluar la presencia de varios antecedentes con el operador de producto cartesiano, y la de varias reglas con el operador de unión.
 
@@ -255,7 +260,9 @@ Podemos evaluar la presencia de varios antecedentes con el operador de producto 
 \subsection{Fundamentos de Big Data}
 
 \begin{frame}{Las cinco V's}
-\begin{itemize}[<+->]
+  Utilizamos los datos para \textbf{resolver un problema}.
+
+\begin{itemize}
   \item Volumen
   \item Velocidad
   \item Variedad
@@ -287,6 +294,8 @@ Podemos evaluar la presencia de varios antecedentes con el operador de producto 
 \end{frame}
 
 \begin{frame}{Algoritmo de Wang y Mendel}
+  Propuesto por Wang y Mendel en 1992 para construcción de reglas a partir de datos.
+
   \begin{enumerate}[<+->]
     \item Dividir el espacio de entrada en segmentos difusos.
     \item Calcular la pertenencia de cada punto a todas las regiones, y quedarnos en cada caso con las de máxima pertenencia. Así formamos una regla difusa.
@@ -303,7 +312,8 @@ Podemos evaluar la presencia de varios antecedentes con el operador de producto 
 
   \textbf{Etapa reduce}. Agregamos todas las reglas, eliminando conflictos y duplicados.
 
-  \pause
+  \vspace{1em}
+
   \begin{lstlisting}
 val ruleBase = data.mapPartitions { case (x, y) =>
   val (ri, ro, degreeIn, degreeOut)
@@ -318,29 +328,125 @@ val ruleBase = data.mapPartitions { case (x, y) =>
 
 
 \begin{frame}{Algoritmo subtractive clustering}
-  Propuesto por S. Chiu en 1994.
+  Propuesto por S. Chiu en 1994 para encontrar número y valor incial de centroides en clústering difuso.
 
   \textbf{Idea}: cada punto es un posible centroide, y buscamos centroides suficientemente separados. Se asigna inicialmente a cada punto un potencial inversamente proporcional a la distancia a todos los demás.
 
+  \pause
   \begin{enumerate}[<+->]
     \item Se inicializa el potencial de cada punto y se elige aquel con mayor potencial como centroide.
-    \item Se recalculan los potenciales. que disminuyen de forma proporcional a la distancia al centroide elegido.
+    \item Se recalculan los potenciales, que disminuyen de forma proporcional a la distancia al centroide elegido.
     \item Se repite el proceso hasta que el potencial cae por debajo de un umbral.
   \end{enumerate}
 \end{frame}
 
+\begin{frame}{Versiones del algoritmo subtractive clustering}
+  \begin{enumerate}
+    \item Verisón \textbf{global}. Para inicializar el potencial se consideran todos los puntos, creando todas las posibles parejas.
+    \item Versión \textbf{local}. Se distribuyen los puntos en particiones y el algoritmo se aplica localmente. Después se concatenan los resultados.
+    \item Versión \textbf{híbrida}. Se aplica la versión local, se crean grupos de particiones y en ellos se aplica la versión global, utilizando los centroides como datos de entrada.
+  \end{enumerate}
+
+  \pause
+
+  Extensión a regresión: cada centroide es una regla difusa. Utilizamos defuzzificación COA.
+
+  Extensión a clasificación: asignar a cada punto la etiqueta del clúster con mayor pertenencia.
+\end{frame}
+
+\begin{frame}{Algoritmo Fuzzy C-Means}
+  Propuesto por J. Dunn en 1973 y mejorado por J. Bezdek en 1981, para realizar clústering difuso.
+
+  El $i$-ésimo punto tendrá una pertenencia al $j$-ésimo clúster, digamos $u_{ij}$. Se pretende optimizar la función
+  \[
+    J_m = \sum_{X}\sum_{V} u_{ij}^m\Vert x_i - v_j \Vert^2,
+  \]
+  sujeta a las restricciones
+  \[
+    u_{ij}>0 \ \ \forall i, j, \quad y \quad \sum_{V}u_{ij} =1 \ \ \forall i.
+  \]
+  Se resuelve utilizando los multiplicadores de Lagrange para obtener unas reglas iterativas de actualización de la matriz de pertenencias y los centroides.
+\end{frame}
+
+\begin{frame}{Implementación del algoritmo FCM}
+  \[
+u_{ij}= \dfrac{1}{\displaystyle \sum_{k=1}^c \left( \frac{\Vert x_i - v_j \Vert}{\Vert x_i - v_k \Vert} \right)^{\frac{2}{m-1}}}, \quad \quad \quad v_j = \dfrac{\displaystyle\sum_{i=1}^n u_{ij}^m x_i}{\displaystyle\sum_{i=1}^n u_{ij}^m}.
+  \]
+  \textbf{Etapa map}. Se calculan para cada punto los valores necesarios para actualizar los centroides. No se mantiene en memoria la matriz de pertenencia.
+
+  \textbf{Etapa reduce}. Para cada centroide, se suman entre sí los valores obtenidos en la etapa anterior.
+
+  Extensión a clasificación: procedemos como en el algoritmo anterior. En este caso se asigna a cada clúster la etiqueta de la clase mayoritaria tras un conveniente $\alpha$-corte.
+\end{frame}
+
+\begin{frame}{Clústering duro vs clústering difuso}
+  \begin{figure}
+	\centering
+	\includegraphics[width=27em]{img/cmeans}
+	\caption{\footnotesize Comparación del algoritmo de clústering clásico K-means y el algoritmo de clústering difuso Fuzzy C-Means.}
+\end{figure}
+\end{frame}
+
+\subsection{Estudio comparativo}
+
+\begin{frame}{Comparación de precisión en clasificación}
+  \begin{figure}
+	\centering
+	\includegraphics[width=.75\textwidth]{img/acc-class}
+	\caption{\footnotesize Comparación de la precisión obtenida en los tres conjuntos de datos elegidos para los algoritmos de clasificación.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Comparación de tiempo en clasificación}
+  \begin{figure}
+	\centering
+	\includegraphics[width=.75\textwidth]{img/time-class}
+	\caption{\footnotesize Comparación del tiempo de ejecución en los tres conjuntos de datos elegidos para los algoritmos de clasificación.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Comparación de error en regresión}
+    \begin{figure}
+	\centering
+	\includegraphics[width=.75\textwidth]{img/mse-reg}
+	\caption{\footnotesize Comparación del Mean Squared Error en los dos conjuntos de datos elegidos para los algoritmos de regresión.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Comparación de tiempo en regresión}
+  \begin{figure}
+	\centering
+	\includegraphics[width=.65\textwidth]{img/time-reg}
+	\caption{\footnotesize Comparación del tiempo de ejecución en los dos conjuntos de datos elegidos para los algoritmos de regresión.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Conclusiones}
+    \begin{itemize}[<+->]
+      \item Hemos realizado una aportación original desarrollando algoritmos escalables para aprendizaje de sistemas difusos, justificando su interés teórico y práctico.
+      \item Hemos comprobado que es necesario un diseño cuidadoso para adaptar los algoritmos al escenario Big Data. No basta una mera paralelización.
+      \item Nos hemos familiarizado con el modelo de referencia MapReduce y las herramientas del estado del arte en el Big Data, como Apache Spark y HDFS.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Referencias}
+\begin{thebibliography}{9}
+
+\bibitem{neuro-fuzzy}
+  \textsc{Jang, J. S. R., Sun, C. T., \& Mizutani, E}. \textit{Neuro-fuzzy and soft computing; a computational approach to learning and machine intelligence}. (1997).
+
+\bibitem{wm}
+\textsc{L.X. Wang, J. M. Mendel}. \textit{Generating fuzzy rules by learning from examples.} (1992).
+
+\bibitem{chiu}
+\textsc{S. Chiu}. \textit{Fuzzy Model Identification Based on Cluster Estimation.} (1994).
+
+\bibitem{wm}
+\textsc{James C. Bezdek \textit{et al}}. \textit{Detection and Characterization of Cluster Substructure I. Linear Structure: Fuzzy c-Lines.} (1981).
 
 
-
-
-
-
-
-
-
-
-
-
+\end{thebibliography}
+\end{frame}
 
 \section{Ecuaciones no resolubles con respecto a la derivada}
 
@@ -359,16 +465,6 @@ val ruleBase = data.mapPartitions { case (x, y) =>
 %}
 %\end{frame}
 
-
-
-\begin{frame}{Referencias}
-\begin{thebibliography}{9}
-
-\bibitem{neuro-fuzzy}
-  \textsc{Jang, J. S. R., Sun, C. T., \& Mizutani, E}. (1997). \textit{Neuro-fuzzy and soft computing; a computational approach to learning and machine intelligence}.
-
-\end{thebibliography}
-\end{frame}
 
 \begin{frame}[standout]
 Gracias por su atención
