@@ -1,3 +1,6 @@
+# Compiled version
+thesis.pdf
+
 # Latexmk
 *.tex.swp
 *.fdb_latexmk
