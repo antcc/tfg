@@ -235,60 +235,27 @@ Tenemos $B' = A' \circ (A \to B)$, donde $\circ$ es un operador de composición.
 \begin{frame}{Algoritmo de Wang y Mendel}
   Propuesto por Wang y Mendel en 1992 para construcción de reglas a partir de datos.
 
-  \begin{enumerate}
-    \item Dividir el espacio de entrada en segmentos difusos.
-    \item Calcular la pertenencia de cada punto a todas las regiones, y quedarnos en cada caso con las de máxima pertenencia. Así formamos una regla difusa.
-    \item Calculamos un peso o \textit{importancia} para cada regla: el producto de la pertenencia del punto a todas las regiones.
-    \item Simplificamos la base de datos eliminando duplicados y conflictos eligiendo siempre las reglas de mayor importancia.
-    \item Para la predicción, utilizamos el método de defuzzificación COA. Estamos resolviendo un problema de regresión.
-  \end{enumerate}
-\end{frame}
+  \textbf{Idea}: Dividir el espacio de entrada y salida en regiones. Construir una regla para cada punto en función de las regiones de máxima pertenencia, eliminando duplicados con una medida de \textit{importancia} de cada regla.
 
-\begin{frame}[fragile]{Implementación del algoritmo WM}
+
   \textbf{Etapa map}. Para cada punto calculamos la regla asociada y su importancia.
 
   \textbf{Etapa reduce}. Agregamos todas las reglas, eliminando conflictos y duplicados.
 
-  \vspace{1em}
-
-  \begin{lstlisting}
-val ruleBase = data.mapPartitions { case (x, y) =>
-  val (ri, ro, degreeIn, degreeOut)
-    = maxRegion(x, y, regionsIn, regionsOut)
-
-  (ri, (ro, degreeIn * degreeOut))
-}.reduceByKey { case (r1, r2) =>
-  if (r1._2 > r2._2) r1 else r2
-}.map { case (ri, (ro, _)) => (ri, ro) }
-  \end{lstlisting}
 \end{frame}
 
 
 \begin{frame}{Algoritmo subtractive clustering}
   Propuesto por S. Chiu en 1994 para encontrar número y valor incial de centroides en clústering difuso.
 
-  \textbf{Idea}: cada punto es un posible centroide, y buscamos centroides suficientemente separados. Se asigna inicialmente a cada punto un potencial inversamente proporcional a la distancia a todos los demás.
+  \textbf{Idea}: cada punto es un posible centroide. Se asigna a cada punto un potencial inversamente proporcional a la distancia a todos los demás, que disminuye conforme se eligen centroides.
 
-  \pause
-  \begin{enumerate}
-    \item Se inicializa el potencial de cada punto y se elige aquel con mayor potencial como centroide.
-    \item Se recalculan los potenciales, que disminuyen de forma proporcional a la distancia al centroide elegido.
-    \item Se repite el proceso hasta que el potencial cae por debajo de un umbral.
-  \end{enumerate}
-\end{frame}
-
-\begin{frame}{Versiones del algoritmo subtractive clustering}
   \begin{enumerate}
     \item Verisón \textbf{global}. Para inicializar el potencial se consideran todos los puntos, creando todas las posibles parejas.
     \item Versión \textbf{local}. Se distribuyen los puntos en particiones y el algoritmo se aplica localmente. Después se concatenan los resultados.
     \item Versión \textbf{híbrida}. Se aplica la versión local, se crean grupos de particiones y en ellos se aplica la versión global, utilizando los centroides como datos de entrada.
   \end{enumerate}
 
-  \pause
-
-  Extensión a regresión: cada centroide es una regla difusa. Utilizamos defuzzificación COA.
-
-  Extensión a clasificación: asignar a cada punto la etiqueta del clúster con mayor pertenencia.
 \end{frame}
 
 \begin{frame}{Algoritmo Fuzzy C-Means}
@@ -302,20 +269,9 @@ val ruleBase = data.mapPartitions { case (x, y) =>
   \[
     u_{ij}>0 \ \ \forall i, j, \quad y \quad \sum_{V}u_{ij} =1 \ \ \forall i.
   \]
-  Se resuelve utilizando los multiplicadores de Lagrange para obtener unas reglas iterativas de actualización de la matriz de pertenencias y los centroides.
-\end{frame}
+  Se resuelve utilizando los multiplicadores de Lagrange para obtener unas reglas iterativas de actualización.
 
-\begin{frame}{Implementación del algoritmo FCM}
-  \[
-u_{ij}= \dfrac{1}{\displaystyle \sum_{k=1}^c \left( \frac{\Vert x_i - v_j \Vert}{\Vert x_i - v_k \Vert} \right)^{\frac{2}{m-1}}}, \quad \quad \quad v_j = \dfrac{\displaystyle\sum_{i=1}^n u_{ij}^m x_i}{\displaystyle\sum_{i=1}^n u_{ij}^m}.
-  \]
-  \vspace{.5em}
-
-  \textbf{Etapa map}. Se calculan para cada punto los valores necesarios para actualizar los centroides. No se mantiene en memoria la matriz de pertenencia.
-
-  \textbf{Etapa reduce}. Para cada centroide, se suman entre sí los valores obtenidos en la etapa anterior.
-
-  Extensión a clasificación: en este caso se asigna a cada clúster la etiqueta de la clase mayoritaria tras un conveniente $\alpha$-corte.
+  \textbf{Escalabilidad:} evitamos guardar en memoria la matriz de pertenencias.
 \end{frame}
 
 \subsection{Estudio comparativo}
@@ -370,25 +326,6 @@ u_{ij}= \dfrac{1}{\displaystyle \sum_{k=1}^c \left( \frac{\Vert x_i - v_j \Vert}
       \item Hemos comprobado que es necesario un diseño cuidadoso para adaptar los algoritmos al escenario Big Data. No basta una mera paralelización.
       \item Nos hemos familiarizado con el modelo de referencia MapReduce y las herramientas del estado del arte en el Big Data, como Apache Spark y HDFS.
     \end{itemize}
-\end{frame}
-
-\begin{frame}{Referencias}
-\begin{thebibliography}{9}
-
-\bibitem{neuro-fuzzy}
-  \textsc{Jang, J. S. R., Sun, C. T., \& Mizutani, E}. \textit{Neuro-fuzzy and soft computing; a computational approach to learning and machine intelligence}. (1997).
-
-\bibitem{wm}
-\textsc{L.X. Wang, J. M. Mendel}. \textit{Generating fuzzy rules by learning from examples.} (1992).
-
-\bibitem{chiu}
-\textsc{S. Chiu}. \textit{Fuzzy Model Identification Based on Cluster Estimation.} (1994).
-
-\bibitem{wm}
-\textsc{James C. Bezdek \textit{et al}}. \textit{Detection and Characterization of Cluster Substructure I. Linear Structure: Fuzzy c-Lines.} (1981).
-
-
-\end{thebibliography}
 \end{frame}
 
 \section{Ecuaciones no resolubles con respecto a la derivada}
@@ -447,8 +384,6 @@ Por ejemplo, en problemas de minimización de funcionales dentro del cálculo va
     \end{itemize}
     Entonces, existe una única solución $\varphi$ verificando $\varphi(x_0)=y_0$ y $\varphi'(x_0)=p_0$.
   \end{teorema}
-
-  \textit{Demostración.} Consecuencia directa del teorema de la función implícita y del teorema de Picard-Lindelöf.
 \end{frame}
 
 \begin{frame}{Acotación del número de soluciones en cada punto}
@@ -471,12 +406,11 @@ Por ejemplo, en problemas de minimización de funcionales dentro del cálculo va
 \begin{column}{.48\textwidth}
 
 \hspace{0pt}
-\vspace{20mm}
+\vspace{10mm}
 \begin{itemize}
-  \item<only@1> Vemos los entornos $\mathcal R_i$ como cilindros disjuntos en el espacio cuya base se proyecta sobre el mismo entorno de $(x_0, y_0)$.
-  \item<only@2> En cada uno de ellos aplicamos el teorema de la función implícita para resolver localmente la ecuación $F(x,y,p)=0$ como $p=f(x,y)$.
-  \item<only@3> Aplicamos a cada ecuación explícita encontrada el teorema de Picard-Lindelöf.
-  \item<only@4> Proyectamos hacia el plano y argumentamos que las $m$ soluciones encontradas son distintas, y que son las únicas posibles.
+  \item Vemos los entornos como cilindros disjuntos cuya base se proyecta sobre el mismo entorno del plano.
+  \item En cada uno de ellos aplicamos el teorema de la función implícita y el teorema de Picard-Lindelöf.
+  \item Proyectamos hacia el plano las $m$ soluciones distintas.
 \end{itemize}
 \vfill
 \hspace{0pt}
@@ -510,7 +444,7 @@ Por ejemplo, en problemas de minimización de funcionales dentro del cálculo va
   El plano de contacto en un punto $(x,y,p)$ está formado por los vectores que al proyectar verticalmente en el plano $(x, y)$ producen una recta de pendiente $p$.
   \begin{figure}
 	\centering
-	\includegraphics[width=.45\textwidth]{../figures/jets}
+	\includegraphics[width=.4\textwidth]{../figures/jets}
 	\caption{\footnotesize Esquema del plano de contacto en el espacio de $1$-jets.}
   \end{figure}
   Si el plano de contacto es distinto del plano tangente, ambos se cortan en una recta. Surge así un campo de direcciones en $M$.
@@ -518,48 +452,41 @@ Por ejemplo, en problemas de minimización de funcionales dentro del cálculo va
 \end{frame}
 
 \begin{frame}{Proyección del campo de direcciones}
-  En torno a los puntos regulares podemos aplicar el teorema de la función implícita para ver que $M$ es localmente un grafo, digamos $p=f(x,y)$. Además, en este caso la proyección vertical es un difeomorfismo.
+  En torno a los puntos regulares podemos aplicar el teorema de la función implícita para ver que $M$ es localmente un grafo, digamos $p=f(x,y)$.
+  \vspace{1em}
 
 \begin{teorema}
   En un entorno de un punto regular, el campo de direcciones en $M$ se proyecta en el campo de direcciones de la ecuación $y'=f(x,y)$.
 \end{teorema}
 
+  \vspace{1em}
   Esta construcción proporciona también un método de resolución.
 \end{frame}
 
 \subsection{Puntos y soluciones singulares}
 
 \begin{frame}{Clasificación de puntos singulares}
-  \begin{defi}
-    Un punto singular que verifique la condición $F_x+pF_y\neq 0$ se dice \textit{propio}, y en otro caso se dice \textit{impropio}.
-  \end{defi}
-  \begin{defi}
-    Un punto singular propio que verifique la condición de regularidad adicional
-    \[
-      \operatorname{rango}((x,y,p)\mapsto(F, F_p))=2
-    \]
-    se llama punto singular \textit{regular}.
-  \end{defi}
+  Establecemos una clasificación de puntos singulares en \textit{propios} e \textit{impropios}, según el buen comportamiento que presenten.
+  \vspace{1em}
 
+  Dentro de los puntos singulares propios, distinguimos también aquellos que verifican una condición extra de regularidad, llamados \textit{puntos singulares regulares}.
+  \vspace{1em}
   \begin{teorema}[Forma normal]
     En un entorno de un punto singular regular, la ecuación $F=0$ es equivalente a la ecuación $P^2=X$, con $P=dY/dX$.
   \end{teorema}
 \end{frame}
 
 \begin{frame}{Soluciones singulares}
-  Las soluciones singulares son aquellas que están formadas exclusivamente por proyecciones de puntos singulares.
-
   \begin{defi}
-    El conjunto $C$ de puntos singulares de $F$ se conoce como \textit{criminante}, y su proyección $\pi(C)$ como \textit{discriminante}.
+    Las soluciones singulares son aquellas que están formadas exclusivamente por proyecciones de puntos singulares.
   \end{defi}
 
   Las soluciones singulares aparecen en muchas ocasiones como la \textit{envolvente} de la familia de soluciones generales.
-
+  
+  \vspace{0.5em}
   \begin{defi}
     La envolvente de una familia de curvas es una curva que es tangente en todo punto a alguna curva de la familia.
   \end{defi}
-
-  Estudiamos condiciones necesarias y suficientes para la existencia de una envolvente.
 \end{frame}
 
 
@@ -612,21 +539,6 @@ Por ejemplo, en problemas de minimización de funcionales dentro del cálculo va
   \item Hemos aunado en un documento definiciones, conceptos y resultados de diferentes autores, aportando referencias al material original.
   \item Hemos comprobado cómo poner en práctica esta teoría resolviendo algunas ecuaciones clásicas.
 \end{itemize}
-\end{frame}
-
-\begin{frame}{Referencias}
-\begin{thebibliography}{9}
-
-\bibitem{arnold1}
-  \textsc{V.I. Arnold}. \textit{Ordinary Differential Equations}. (1978).
-
-\bibitem{arnold2}
-\textsc{V.I. Arnold}. \textit{Geometrical Methods in the Theory of Ordinary Differential Equations.} (1988).
-
-\bibitem{petrovsky}
-\textsc{I.G. Petrovsky}. \textit{Ordinary Differential Equations.} (1966).
-
-\end{thebibliography}
 \end{frame}
 
 \begin{frame}{Notas finales}
