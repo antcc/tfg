@@ -8,6 +8,7 @@
 % work. If not, see <http://creativecommons.org/licenses/by-sa/4.0/>.
 %
 
+\RequirePackage{fix-cm}
 \documentclass[10pt, spanish]{beamer}
 
 % OPCIONES DE BEAMER
@@ -34,6 +35,7 @@
 \usepackage[spanish, es-nodecimaldot]{babel}
 \usepackage{microtype}
 \usepackage{epigraph}
+\usepackage{hyperref}
 \usepackage{amssymb, amsmath, amsthm, amsfonts, amscd}
 \usepackage{listings}
 
@@ -60,7 +62,9 @@ extendedchars=true
 
 \let\lmin\wedge
 \let\lmax\vee
-\newtheorem{proposition}{Proposición}
+\newtheorem{prop}{Proposición}
+\newtheorem{teorema}{Teorema}
+\newtheorem{defi}{Definición}
 \newcommand\ddfrac[2]{\frac{\displaystyle #1}{\displaystyle #2}}  % Fracción grande
 
 % TÍTULO
@@ -104,13 +108,13 @@ extendedchars=true
   {\color{Maroon}\textbf{Solución}:} construir sistemas difusos \textbf{escalables}.
 \end{frame}
 
-\begin{frame}{Objetivos}
-\begin{itemize}[<+->]
-\item Estudiar la teoría de conjuntos difusos, la lógica difusa y los sistemas difusos desde un punto de vista teórico.
-\item Definir el concepto de Big Data, sus características y la infraestructura asociada.
-\item Diseñar, implementar y probar una serie de sistemas difusos para computación escalable.
-\end{itemize}
-\end{frame}
+%\begin{frame}{Objetivos}
+%\begin{itemize}
+%\item Estudiar la teoría de conjuntos difusos, la lógica difusa y los sistemas %difusos desde un punto de vista teórico.
+%\item Definir el concepto de Big Data, sus características y la infraestructura asociada.
+%\item Diseñar, implementar y probar una serie de sistemas difusos para computación escalable.
+%\end{itemize}
+%\end{frame}
 
 \subsection{Conjuntos y lógica difusa}
 
@@ -147,7 +151,7 @@ Permiten modelar la imprecisión y la ambigüedad.
 	Si $x$ es $A$ entonces $y$ es $B$.
 \end{center}
 \end{exampleblock}
-\pause
+
 \vspace{1em}
 El razonamiento difuso se puede entender como un \textit{modus ponens} generalizado.
 \vspace{-1em}
@@ -182,7 +186,7 @@ Tenemos $B' = A' \circ (A \to B)$, donde $\circ$ es un operador de composición.
   entonces $Y_1$ es $B_1$ y $\dots$ y $Y_m$ es $B_m$.
 \end{center}
 \vspace{1em}
-\pause
+
 \textbf{TSK}. Define reglas de la forma
 \begin{center}
   si $X_1$ es $A_1$ y $\dots$ y $X_n$ es $A_n$\\
@@ -239,8 +243,6 @@ Tenemos $B' = A' \circ (A \to B)$, donde $\circ$ es un operador de composición.
     \item Para la predicción, utilizamos el método de defuzzificación COA. Estamos resolviendo un problema de regresión.
   \end{enumerate}
 \end{frame}
-
-
 
 \begin{frame}[fragile]{Implementación del algoritmo WM}
   \textbf{Etapa map}. Para cada punto calculamos la regla asociada y su importancia.
@@ -313,45 +315,57 @@ u_{ij}= \dfrac{1}{\displaystyle \sum_{k=1}^c \left( \frac{\Vert x_i - v_j \Vert}
 
   \textbf{Etapa reduce}. Para cada centroide, se suman entre sí los valores obtenidos en la etapa anterior.
 
-  Extensión a clasificación: procedemos como en el algoritmo anterior. En este caso se asigna a cada clúster la etiqueta de la clase mayoritaria tras un conveniente $\alpha$-corte.
+  Extensión a clasificación: en este caso se asigna a cada clúster la etiqueta de la clase mayoritaria tras un conveniente $\alpha$-corte.
 \end{frame}
 
 \subsection{Estudio comparativo}
 
-\begin{frame}{Comparación de precisión en clasificación}
-  \begin{figure}
+\begin{frame}{Resultados en clasificación}
+\begin{columns}[T]
+\begin{column}{.48\textwidth}
+
+\begin{figure}
 	\centering
-	\includegraphics[width=.75\textwidth]{img/acc-class}
+	\includegraphics[width=1.1\textwidth]{img/acc-class}
 	\caption{\footnotesize Comparación de la precisión obtenida en los tres conjuntos de datos elegidos para los algoritmos de clasificación.}
 \end{figure}
-\end{frame}
+\end{column}%
+\hfill%
+\begin{column}{.48\textwidth}
 
-\begin{frame}{Comparación de tiempo en clasificación}
-  \begin{figure}
+\begin{figure}
 	\centering
-	\includegraphics[width=.75\textwidth]{img/time-class}
+	\includegraphics[width=1.1\textwidth]{img/time-class}
 	\caption{\footnotesize Comparación del tiempo de ejecución en los tres conjuntos de datos elegidos para los algoritmos de clasificación.}
 \end{figure}
+\end{column}%
+\end{columns}
 \end{frame}
 
-\begin{frame}{Comparación de error en regresión}
-    \begin{figure}
+\begin{frame}{Resultados en regresión}
+\begin{columns}[T]
+\begin{column}{.48\textwidth}
+
+\begin{figure}
 	\centering
-	\includegraphics[width=.75\textwidth]{img/mse-reg}
+	\includegraphics[width=1.1\textwidth]{img/mse-reg}
 	\caption{\footnotesize Comparación del Mean Squared Error en los dos conjuntos de datos elegidos para los algoritmos de regresión.}
 \end{figure}
-\end{frame}
+\end{column}%
+\hfill%
+\begin{column}{.48\textwidth}
 
-\begin{frame}{Comparación de tiempo en regresión}
   \begin{figure}
 	\centering
-	\includegraphics[width=.65\textwidth]{img/time-reg}
+	\includegraphics[width=0.97\textwidth]{img/time-reg}
 	\caption{\footnotesize Comparación del tiempo de ejecución en los dos conjuntos de datos elegidos para los algoritmos de regresión.}
 \end{figure}
+\end{column}%
+\end{columns}
 \end{frame}
 
 \begin{frame}{Conclusiones}
-    \begin{itemize}[<+->]
+    \begin{itemize}
       \item Hemos realizado una aportación original desarrollando algoritmos escalables para aprendizaje de sistemas difusos, justificando su interés teórico y práctico.
       \item Hemos comprobado que es necesario un diseño cuidadoso para adaptar los algoritmos al escenario Big Data. No basta una mera paralelización.
       \item Nos hemos familiarizado con el modelo de referencia MapReduce y las herramientas del estado del arte en el Big Data, como Apache Spark y HDFS.
@@ -379,21 +393,254 @@ u_{ij}= \dfrac{1}{\displaystyle \sum_{k=1}^c \left( \frac{\Vert x_i - v_j \Vert}
 
 \section{Ecuaciones no resolubles con respecto a la derivada}
 
-%\begin{frame}{Notas finales}
-%	Estas diapositivas, junto con unas notas algo más detalladas sobre conjuntos y lógica difusa (en inglés), pueden descargarse en:
-%\begin{center}
-%\href{https://github.com/antcc/fuzzy-systems}{\url{github.com/antcc/fuzzy-systems}}
-%\end{center}
 
-%{%
-%\metroset{block=transparent}
-%\begin{alertblock}{Nota.}
-%\vspace{.005em}
-%Todas las imágenes y figuras, salvo que se especifique lo contrario, han sido extraídas de \cite{neuro-fuzzy}.
-%\end{alertblock}
-%}
-%\end{frame}
+\begin{frame}{Introducción}
+En un curso básico de ecuaciones diferenciales ordinarias la exposición suele centrarse en ecuaciones explícitas, sin analizar con demasiado detalle el caso en el que la derivada no se puede despejar.
 
+Sin embargo, estas ecuaciones implícitas tienen interés teórico y práctico, pues surgen como resultado de modelar muchos problemas en varias disciplinas.
+
+Por ejemplo, en problemas de minimización de funcionales dentro del cálculo variacional la ecuación de Euler-Lagrange suele aparecer en forma implícita, como es el caso de la \textit{braquistócrona}.
+\end{frame}
+
+\subsection{Ecuaciones diferenciales ordinarias}
+
+\begin{frame}{Campo de direcciones}
+  Cada ecuación $y'=f(x,y)$ define en el plano un campo de direcciones que marca la trayectoria de las curvas solución.
+
+  \begin{figure}
+	\centering
+	\includegraphics[width=.45\textwidth]{../figures/integral-curves-1}
+	\caption{\footnotesize Representación del campo de direcciones de la ecuación $y'=x^2+y$ en un entorno del origen y una curva integral particular.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Teoremas de existencia y unicidad}
+\begin{teorema}[Peano]
+  Si $f$ es una función continua en un dominio del plano, entonces la ecuación $y'=f(x,y)$ tiene solución.
+\end{teorema}
+
+\begin{teorema}[Picard-Lindelöf]
+  Sea $f$ es una función continua en un dominio $D \subset \mathbb{R}^2$ y localmente lipschitziana respecto de la segunda variable. Entonces, para cada $(x_0,y_0)\in D$ el problema de valores iniciales
+  \[
+    \begin{cases}
+      y'=f(x,y),\\
+      y(x_0)=y_0
+    \end{cases}
+  \]
+  tiene una única solución.
+\end{teorema}
+\end{frame}
+
+\subsection{Ecuaciones implícitas}
+
+\begin{frame}{Expresión local en forma explícita}
+  Las ecuaciones implícitas de primer orden adoptan la forma general
+  \[
+  F(x,y,y')=0.
+  \]
+  Los teoremas de existencia y unicidad no se pueden aplicar.
+  \begin{teorema}
+    Sea $F:D \to \mathbb{R}$ una función de clase $\mathcal C^1$ en un dominio $D$ del espacio $(x,y,p)$. Supongamos que $(x_0,y_0,p_0)\in D$ satisface
+    \begin{itemize}
+      \item $F(x_0,y_0,p_0)=0$,
+      \item $F_p(x_0,y_0,p_0)\neq 0$.
+    \end{itemize}
+    Entonces, existe una única solución $\varphi$ verificando $\varphi(x_0)=y_0$ y $\varphi'(x_0)=p_0$.
+  \end{teorema}
+
+  \textit{Demostración.} Consecuencia directa del teorema de la función implícita y del teorema de Picard-Lindelöf.
+\end{frame}
+
+\begin{frame}{Acotación del número de soluciones en cada punto}
+  Existe una condición algebraica para asegurar que por cada punto pasan un número finito de soluciones.
+
+  \begin{teorema}
+    Sea $F:D\to \mathbb{R}$ una función continua en un dominio $D$ del espacio $(x,y,p)$. Supongamos que $(x_0,y_0)\in \mathbb{R}^2$ es tal que la ecuación $F(x_0, y_0,p)=0$ tiene $m$ raíces distintas $p_1,\dots,p_m$. Supongamos además que para $i=1,\dots, m$ se verifican las siguientes condiciones:
+    \vspace{-1.5em}
+    \begin{itemize}
+      \item $(x_0,y_0,p_i)\in D$ y $F_p(x_0,y_0,p_i)\neq 0$.
+      \item Existe un entorno $\mathcal R_i$ de $(x_0,y_0,p_i)$ en el que $F$ es de clase $\mathcal C^1$.
+    \end{itemize}
+    Entonces, existe un entorno $\mathcal N$ de $(x_0,y_0)$ tal que exactamente $m$ soluciones de la ecuación $F(x,y,y')=0$ pasan por cada punto del mismo.
+  \end{teorema}
+\end{frame}
+
+\begin{frame}{Idea de la demostración}
+
+\begin{columns}[T]
+\begin{column}{.48\textwidth}
+
+\hspace{0pt}
+\vspace{20mm}
+\begin{itemize}
+  \item<only@1> Vemos los entornos $\mathcal R_i$ como cilindros disjuntos en el espacio cuya base se proyecta sobre el mismo entorno de $(x_0, y_0)$.
+  \item<only@2> En cada uno de ellos aplicamos el teorema de la función implícita para resolver localmente la ecuación $F(x,y,p)=0$ como $p=f(x,y)$.
+  \item<only@3> Aplicamos a cada ecuación explícita encontrada el teorema de Picard-Lindelöf.
+  \item<only@4> Proyectamos hacia el plano y argumentamos que las $m$ soluciones encontradas son distintas, y que son las únicas posibles.
+\end{itemize}
+\vfill
+\hspace{0pt}
+\end{column}%
+\hfill%
+\begin{column}{.48\textwidth}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{../figures/cylinder.pdf}
+	\caption{\footnotesize Esquema de los entornos cilíndricos y su proyección.}
+\end{figure}
+\end{column}%
+\end{columns}
+\end{frame}
+
+\begin{frame}{Interpretación geométrica}
+  Vemos la ecuación $F=0$ como una superficie (diferenciable) $M=F^{-1}(0)$ en el espacio de $1$-jets de funciones $y(x)$.
+
+\vspace{1em}
+  \begin{defi}
+    Un \textit{punto regular} de $M$ es un punto donde el plano tangente no es vertical.
+  \end{defi}
+
+  Esto es equivalente a que $F_p\neq 0$. En otro caso se habla de un \textit{punto singular}.
+
+\end{frame}
+
+\begin{frame}{El plano de contacto}
+
+  El plano de contacto en un punto $(x,y,p)$ está formado por los vectores que al proyectar verticalmente en el plano $(x, y)$ producen una recta de pendiente $p$.
+  \begin{figure}
+	\centering
+	\includegraphics[width=.45\textwidth]{../figures/jets}
+	\caption{\footnotesize Esquema del plano de contacto en el espacio de $1$-jets.}
+  \end{figure}
+  Si el plano de contacto es distinto del plano tangente, ambos se cortan en una recta. Surge así un campo de direcciones en $M$.
+
+\end{frame}
+
+\begin{frame}{Proyección del campo de direcciones}
+  En torno a los puntos regulares podemos aplicar el teorema de la función implícita para ver que $M$ es localmente un grafo, digamos $p=f(x,y)$. Además, en este caso la proyección vertical es un difeomorfismo.
+
+\begin{teorema}
+  En un entorno de un punto regular, el campo de direcciones en $M$ se proyecta en el campo de direcciones de la ecuación $y'=f(x,y)$.
+\end{teorema}
+
+  Esta construcción proporciona también un método de resolución.
+\end{frame}
+
+\subsection{Puntos y soluciones singulares}
+
+\begin{frame}{Clasificación de puntos singulares}
+  \begin{defi}
+    Un punto singular que verifique la condición $F_x+pF_y\neq 0$ se dice \textit{propio}, y en otro caso se dice \textit{impropio}.
+  \end{defi}
+  \begin{defi}
+    Un punto singular propio que verifique la condición de regularidad adicional
+    \[
+      \operatorname{rango}((x,y,p)\mapsto(F, F_p))=2
+    \]
+    se llama punto singular \textit{regular}.
+  \end{defi}
+
+  \begin{teorema}[Forma normal]
+    En un entorno de un punto singular regular, la ecuación $F=0$ es equivalente a la ecuación $P^2=X$, con $P=dY/dX$.
+  \end{teorema}
+\end{frame}
+
+\begin{frame}{Soluciones singulares}
+  Las soluciones singulares son aquellas que están formadas exclusivamente por proyecciones de puntos singulares.
+
+  \begin{defi}
+    El conjunto $C$ de puntos singulares de $F$ se conoce como \textit{criminante}, y su proyección $\pi(C)$ como \textit{discriminante}.
+  \end{defi}
+
+  Las soluciones singulares aparecen en muchas ocasiones como la \textit{envolvente} de la familia de soluciones generales.
+
+  \begin{defi}
+    La envolvente de una familia de curvas es una curva que es tangente en todo punto a alguna curva de la familia.
+  \end{defi}
+
+  Estudiamos condiciones necesarias y suficientes para la existencia de una envolvente.
+\end{frame}
+
+
+\subsection{Ejemplos clásicos}
+
+
+\begin{frame}{Ecuación de Clairaut}
+  Estudiada por el matemático francés A. Clairaut en 1734, presenta la forma
+  \[
+  y=xy'+f(y')=0.
+  \]
+
+  Tiene una familia de soluciones que son rectas de pendiente arbitraria, y además tiene una solución singular que es la parábola envolvente de esta familia de rectas.
+
+  \begin{figure}
+	\centering
+	\includegraphics[width=.6\textwidth]{../figures/clairaut1}
+	\caption{\footnotesize Soluciones de la ecuación de Clairaut $xy'+(y')^2=0.$}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Ecuación de Lagrange}
+  Debe su nombre a Joseph Louis Lagrange, quien la estudió en 1759. Es una ecuación de la forma
+  \[
+    xf(y')+g(y')=0.
+  \]
+  La solución general se obtiene como solución de una EDO lineal tras introducir el parámetro $p=dy/dx$. Tiene también una familia de rectas solución, que puede ser o no ser singular.
+
+  \begin{figure}
+	\centering
+	\includegraphics[width=.335\textwidth]{../figures/lagrange}
+	\caption{\footnotesize Soluciones de la ecuación de Lagrange $2xy'-(y')^2=0.$}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Ecuación de Chrystal}
+  Introducida por G. Chrystal en 1897, presenta la forma general
+  \[
+(y')^2 + Axy' + By + Cx^2=0.
+  \]
+
+  Se revuelve mediante un adecuado cambio de variable, y se pueden obtener soluciones algebraicas o trascendentales.
+
+  Bajo ciertas condiciones se puede entender como una generalización de la ecuación de Clairaut, y presenta en ese caso una solución singular.
+\end{frame}
+
+\begin{frame}{Conclusiones}
+  \begin{itemize}
+  \item Hemos realizado un estudio en profundidad de las ecuaciones en forma implícita desde la teoría general de aplicaciones diferenciables.
+  \item Hemos aunado en un documento definiciones, conceptos y resultados de diferentes autores, aportando referencias al material original.
+  \item Hemos comprobado cómo poner en práctica esta teoría resolviendo algunas ecuaciones clásicas.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Referencias}
+\begin{thebibliography}{9}
+
+\bibitem{arnold1}
+  \textsc{V.I. Arnold}. \textit{Ordinary Differential Equations}. (1978).
+
+\bibitem{arnold2}
+\textsc{V.I. Arnold}. \textit{Geometrical Methods in the Theory of Ordinary Differential Equations.} (1988).
+
+\bibitem{petrovsky}
+\textsc{I.G. Petrovsky}. \textit{Ordinary Differential Equations.} (1966).
+
+\end{thebibliography}
+\end{frame}
+
+\begin{frame}{Notas finales}
+El código fuente de la memoria del trabajo junto con el de estas diapositivas se encuentra disponible bajo licencia CC-BY-SA-4.0 en
+\begin{center}
+\url{https://github.com/antcc/tfg},
+\end{center}
+
+y la implementación de código desarrollada está liberada bajo licencia GPLv3 en
+\begin{center}
+\url{https://github.com/antcc/fuzzyspark}.
+\end{center}
+
+\end{frame}
 
 \begin{frame}[standout]
 Gracias por su atención

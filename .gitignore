@@ -1,5 +1,6 @@
 # Compiled version
 thesis.pdf
+defense/defense.pdf
 
 # Latexmk
 *.tex.swp
